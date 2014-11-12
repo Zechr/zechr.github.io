@@ -7,3 +7,7 @@ h1 {
 p {
   width: 50%;
 }
+
+ul {
+  margin: 0 auto;
+}
