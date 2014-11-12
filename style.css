@@ -3,3 +3,7 @@ h1 {
   color: #0099cc;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
+
+p {
+  width: 50%;
+}
