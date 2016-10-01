@@ -117,8 +117,9 @@ a:active {
   float: left;
   /*font-size: 1em;*/
   box-sizing: border-box;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+  text-align: center;
 }
 
 .menubaritem:after {
@@ -137,10 +138,10 @@ a:active {
   }
   
   .menubaritem {
-    width: 25%;
+    /*width: 25%;*/
     font-size: 1.5em;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: 1em;
+    margin-right: 1em;
   }
 }
 
