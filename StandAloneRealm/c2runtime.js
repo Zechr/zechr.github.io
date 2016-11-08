@@ -3212,10 +3212,16 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 			canvas.width = cr.nextHighestPowerOfTwo(img.width);
 			canvas.height = cr.nextHighestPowerOfTwo(img.height);
 			var ctx = canvas.getContext("2d");
-			ctx["webkitImageSmoothingEnabled"] = linearsampling;
-			ctx["mozImageSmoothingEnabled"] = linearsampling;
-			ctx["msImageSmoothingEnabled"] = linearsampling;
-			ctx["imageSmoothingEnabled"] = linearsampling;
+			if (typeof ctx["imageSmoothingEnabled"] !== "undefined")
+			{
+				ctx["imageSmoothingEnabled"] = linearsampling;
+			}
+			else
+			{
+				ctx["webkitImageSmoothingEnabled"] = linearsampling;
+				ctx["mozImageSmoothingEnabled"] = linearsampling;
+				ctx["msImageSmoothingEnabled"] = linearsampling;
+			}
 			ctx.drawImage(img,
 						  0, 0, img.width, img.height,
 						  0, 0, canvas.width, canvas.height);
@@ -3451,7 +3457,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		{
 			this.isMobile = /(blackberry|bb10|playbook|palm|symbian|nokia|windows\s+ce|phone|mobile|tablet|kindle|silk)/i.test(navigator.userAgent);
 		}
-		this.isWKWebView = !!(this.isiOS && this.isCordova && window.indexedDB);
+		this.isWKWebView = !!(this.isiOS && this.isCordova && window["webkit"]);
 		this.httpServer = null;
 		this.httpServerUrl = "";
 		if (this.isWKWebView)
@@ -3864,10 +3870,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 					};
 					this.ctx = this.canvas.getContext("2d", attribs);
 				}
-				this.ctx["webkitImageSmoothingEnabled"] = this.linearSampling;
-				this.ctx["mozImageSmoothingEnabled"] = this.linearSampling;
-				this.ctx["msImageSmoothingEnabled"] = this.linearSampling;
-				this.ctx["imageSmoothingEnabled"] = this.linearSampling;
+				this.setCtxImageSmoothingEnabled(this.ctx, this.linearSampling);
 			}
 			this.overlay_canvas = null;
 			this.overlay_ctx = null;
@@ -3900,7 +3903,9 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 				});
 				jQuery(window).blur(function ()
 				{
-					self["setSuspended"](true);
+					var parent = window.parent;
+					if (!parent || !parent.document.hasFocus())
+						self["setSuspended"](true);
 				});
 			}
 		}
@@ -4121,10 +4126,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		}
 		if (this.ctx)
 		{
-			this.ctx["webkitImageSmoothingEnabled"] = this.linearSampling;
-			this.ctx["mozImageSmoothingEnabled"] = this.linearSampling;
-			this.ctx["msImageSmoothingEnabled"] = this.linearSampling;
-			this.ctx["imageSmoothingEnabled"] = this.linearSampling;
+			this.setCtxImageSmoothingEnabled(this.ctx, this.linearSampling);
 		}
 		this.tryLockOrientation();
 		if (this.isiPhone && !this.isCordova)
@@ -4141,7 +4143,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 			orientation = "landscape";
 		try {
 			if (screen["orientation"] && screen["orientation"]["lock"])
-				screen["orientation"]["lock"](orientation);
+				screen["orientation"]["lock"](orientation).catch(function(){});
 			else if (screen["lockOrientation"])
 				screen["lockOrientation"](orientation);
 			else if (screen["webkitLockOrientation"])
@@ -4943,6 +4945,8 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		{
 			this.loadingprogress = 1;
 			this.trigger(cr.system_object.prototype.cnds.OnLoadFinished, null);
+			if (window["C2_RegisterSW"])		// note not all platforms use SW
+				window["C2_RegisterSW"]();
 		}
 		if (navigator["splashscreen"] && navigator["splashscreen"]["hide"])
 			navigator["splashscreen"]["hide"]();
@@ -5042,6 +5046,8 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 				this.isloading = false;
 				this.progress = 1;
 				this.trigger(cr.system_object.prototype.cnds.OnLoadFinished, null);
+				if (window["C2_RegisterSW"])
+					window["C2_RegisterSW"]();
 			}
 		}
 		this.logic(raf_time);
@@ -7602,7 +7608,40 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 			reader.readAsText(file);
 		}, errorCallback);
 	};
-	Runtime.prototype.fetchLocalFileViaCordovaAsArrayBuffer = function (filename, successCallback, errorCallback)
+	var queuedArrayBufferReads = [];
+	var activeArrayBufferReads = 0;
+	var MAX_ARRAYBUFFER_READS = 8;
+	Runtime.prototype.maybeStartNextArrayBufferRead = function()
+	{
+		if (!queuedArrayBufferReads.length)
+			return;		// none left
+		if (activeArrayBufferReads >= MAX_ARRAYBUFFER_READS)
+			return;		// already got maximum number in-flight
+		activeArrayBufferReads++;
+		var job = queuedArrayBufferReads.shift();
+		this.doFetchLocalFileViaCordovaAsArrayBuffer(job.filename, job.successCallback, job.errorCallback);
+	};
+	Runtime.prototype.fetchLocalFileViaCordovaAsArrayBuffer = function (filename, successCallback_, errorCallback_)
+	{
+		var self = this;
+		queuedArrayBufferReads.push({
+			filename: filename,
+			successCallback: function (result)
+			{
+				activeArrayBufferReads--;
+				self.maybeStartNextArrayBufferRead();
+				successCallback_(result);
+			},
+			errorCallback: function (err)
+			{
+				activeArrayBufferReads--;
+				self.maybeStartNextArrayBufferRead();
+				errorCallback_(err);
+			}
+		});
+		this.maybeStartNextArrayBufferRead();
+	};
+	Runtime.prototype.doFetchLocalFileViaCordovaAsArrayBuffer = function (filename, successCallback, errorCallback)
 	{
 		this.fetchLocalFileViaCordova(filename, function (file)
 		{
@@ -7623,9 +7662,13 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 			successCallback(url);
 		}, errorCallback);
 	};
+	Runtime.prototype.isAbsoluteUrl = function (url)
+	{
+		return /^(?:[a-z]+:)?\/\//.test(url) || url.substr(0, 5) === "data:"  || url.substr(0, 5) === "blob:";
+	};
 	Runtime.prototype.setImageSrc = function (img, src)
 	{
-		if (this.isWKWebView)
+		if (this.isWKWebView && !this.isAbsoluteUrl(src))
 		{
 			this.fetchLocalFileViaCordovaAsURL(src, function (url)
 			{
@@ -7638,6 +7681,19 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		else
 		{
 			img.src = src;
+		}
+	};
+	Runtime.prototype.setCtxImageSmoothingEnabled = function (ctx, e)
+	{
+		if (typeof ctx["imageSmoothingEnabled"] !== "undefined")
+		{
+			ctx["imageSmoothingEnabled"] = e;
+		}
+		else
+		{
+			ctx["webkitImageSmoothingEnabled"] = e;
+			ctx["mozImageSmoothingEnabled"] = e;
+			ctx["msImageSmoothingEnabled"] = e;
 		}
 	};
 	cr.runtime = Runtime;
@@ -7717,6 +7773,8 @@ window["cr_setSuspended"] = function(s)
 		this.angle = 0;
 		this.first_visit = true;
 		this.name = m[0];
+		this.originalWidth = m[1];
+		this.originalHeight = m[2];
 		this.width = m[1];
 		this.height = m[2];
 		this.unbounded_scrolling = m[3];
@@ -7822,6 +7880,8 @@ window["cr_setSuspended"] = function(s)
 			this.event_sheet.updateDeepIncludes();
 		}
 		this.runtime.running_layout = this;
+		this.width = this.originalWidth;
+		this.height = this.originalHeight;
 		this.scrollX = (this.runtime.original_width / 2);
 		this.scrollY = (this.runtime.original_height / 2);
 		var i, k, len, lenk, type, type_instances, inst, iid, t, s, p, q, type_data, layer;
@@ -8096,10 +8156,7 @@ window["cr_setSuspended"] = function(s)
 			}
 			if (ctx_changed)
 			{
-				layout_ctx["webkitImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layout_ctx["mozImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layout_ctx["msImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layout_ctx["imageSmoothingEnabled"] = this.runtime.linearSampling;
+				this.runtime.setCtxImageSmoothingEnabled(layout_ctx, this.runtime.linearSampling);
 			}
 		}
 		layout_ctx.globalAlpha = 1;
@@ -9111,10 +9168,7 @@ window["cr_setSuspended"] = function(s)
 			}
 			if (ctx_changed)
 			{
-				layer_ctx["webkitImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layer_ctx["mozImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layer_ctx["msImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layer_ctx["imageSmoothingEnabled"] = this.runtime.linearSampling;
+				this.runtime.setCtxImageSmoothingEnabled(layer_ctx, this.runtime.linearSampling);
 			}
 			if (this.transparent)
 				layer_ctx.clearRect(0, 0, this.runtime.draw_width, this.runtime.draw_height);
@@ -16554,25 +16608,14 @@ cr.plugins_.Audio = function(runtime)
 	AnalyserEffect.prototype.setParam = function(param, value, ramp, time)
 	{
 	};
-	var OT_POS_SAMPLES = 4;
 	function ObjectTracker()
 	{
 		this.obj = null;
 		this.loadUid = 0;
-		this.speeds = [];
-		this.lastX = 0;
-		this.lastY = 0;
-		this.moveAngle = 0;
 	};
 	ObjectTracker.prototype.setObject = function (obj_)
 	{
 		this.obj = obj_;
-		if (this.obj)
-		{
-			this.lastX = this.obj.x;
-			this.lastY = this.obj.y;
-		}
-		cr.clearArray(this.speeds);
 	};
 	ObjectTracker.prototype.hasObject = function ()
 	{
@@ -16580,38 +16623,6 @@ cr.plugins_.Audio = function(runtime)
 	};
 	ObjectTracker.prototype.tick = function (dt)
 	{
-		if (!this.obj || dt === 0)
-			return;
-		this.moveAngle = cr.angleTo(this.lastX, this.lastY, this.obj.x, this.obj.y);
-		var s = cr.distanceTo(this.lastX, this.lastY, this.obj.x, this.obj.y) / dt;
-		if (this.speeds.length < OT_POS_SAMPLES)
-			this.speeds.push(s);
-		else
-		{
-			this.speeds.shift();
-			this.speeds.push(s);
-		}
-		this.lastX = this.obj.x;
-		this.lastY = this.obj.y;
-	};
-	ObjectTracker.prototype.getSpeed = function ()
-	{
-		if (!this.speeds.length)
-			return 0;
-		var i, len, sum = 0;
-		for (i = 0, len = this.speeds.length; i < len; i++)
-		{
-			sum += this.speeds[i];
-		}
-		return sum / this.speeds.length;
-	};
-	ObjectTracker.prototype.getVelocityX = function ()
-	{
-		return Math.cos(this.moveAngle) * this.getSpeed();
-	};
-	ObjectTracker.prototype.getVelocityY = function ()
-	{
-		return Math.sin(this.moveAngle) * this.getSpeed();
 	};
 	var iOShadtouchstart = false;	// has had touch start input on iOS <=8 to work around web audio API muting
 	var iOShadtouchend = false;		// has had touch end input on iOS 9+ to work around web audio API muting
@@ -17064,9 +17075,6 @@ cr.plugins_.Audio = function(runtime)
 			a = inst.angle - inst.layer.getAngle();
 			this.pannerNode["setOrientation"](Math.cos(a), Math.sin(a), 0);
 		}
-		px = cr.rotatePtAround(this.objectTracker.getVelocityX(), this.objectTracker.getVelocityY(), -inst.layer.getAngle(), 0, 0, true);
-		py = cr.rotatePtAround(this.objectTracker.getVelocityX(), this.objectTracker.getVelocityY(), -inst.layer.getAngle(), 0, 0, false);
-		this.pannerNode["setVelocity"](px, py, 0);
 	};
 	C2AudioInstance.prototype.play = function (looping, vol, fromPosition, scheduledTime)
 	{
@@ -17759,8 +17767,6 @@ cr.plugins_.Audio = function(runtime)
 		var draw_height = (this.runtime.draw_height || this.runtime.height);
 		if (api === API_WEBAUDIO)
 		{
-			if (typeof context["listener"]["dopplerFactor"] !== "undefined")
-				context["listener"]["dopplerFactor"] = 0;
 			context["listener"]["setPosition"](draw_width / 2, draw_height / 2, this.listenerZ);
 			context["listener"]["setOrientation"](0, 0, 1, 0, -1, 0);
 			window["c2OnAudioMicStream"] = function (localMediaStream, tag)
@@ -18111,7 +18117,6 @@ cr.plugins_.Audio = function(runtime)
 			listenerX = this.listenerTracker.obj.x;
 			listenerY = this.listenerTracker.obj.y;
 			context["listener"]["setPosition"](this.listenerTracker.obj.x, this.listenerTracker.obj.y, this.listenerZ);
-			context["listener"]["setVelocity"](this.listenerTracker.getVelocityX(), this.listenerTracker.getVelocityY(), 0);
 		}
 	};
 	var preload_list = [];
@@ -21056,7 +21061,7 @@ cr.plugins_.Sprite = function(runtime)
 		};
 		if (url_.substr(0, 5) !== "data:")
 			img["crossOrigin"] = "anonymous";
-		img.src = url_;
+		this.runtime.setImageSrc(img, url_);
 	};
 	Acts.prototype.SetCollisions = function (set_)
 	{
@@ -23704,14 +23709,14 @@ cr.behaviors.Pin = function(runtime)
 }());
 cr.getObjectRefTable = function () { return [
 	cr.plugins_.Arr,
+	cr.plugins_.Dictionary,
 	cr.plugins_.Audio,
 	cr.plugins_.Function,
-	cr.plugins_.Dictionary,
 	cr.plugins_.Keyboard,
 	cr.plugins_.LocalStorage,
 	cr.plugins_.Text,
-	cr.plugins_.Touch,
 	cr.plugins_.Sprite,
+	cr.plugins_.Touch,
 	cr.behaviors.EightDir,
 	cr.behaviors.Pin,
 	cr.behaviors.Fade,
@@ -23778,6 +23783,7 @@ cr.getObjectRefTable = function () { return [
 	cr.system_object.prototype.acts.GoToLayout,
 	cr.plugins_.Audio.prototype.acts.StopAll,
 	cr.plugins_.LocalStorage.prototype.acts.SetItem,
+	cr.plugins_.Keyboard.prototype.cnds.OnKey,
 	cr.plugins_.Sprite.prototype.cnds.IsVisible,
 	cr.plugins_.Text.prototype.acts.Destroy,
 	cr.system_object.prototype.acts.SubVar,

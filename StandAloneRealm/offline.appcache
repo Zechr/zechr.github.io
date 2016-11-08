@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1475278857
+#1478646873
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -8,6 +8,7 @@ images/room-sheet1.png
 images/room-sheet2.png
 images/room-sheet3.png
 images/room-sheet4.png
+images/room-sheet5.png
 images/alice-sheet0.png
 images/alice-sheet1.png
 images/alice-sheet2.png
@@ -23,6 +24,7 @@ images/prompt-sheet0.png
 images/covershadow-sheet0.png
 images/covershadow-sheet1.png
 images/levelgo-sheet0.png
+images/levelgo-sheet1.png
 images/chapterbg-sheet0.png
 images/creditsbutton-sheet0.png
 images/creditsscreen-sheet0.png
