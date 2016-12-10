@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1477354583
+#1481329776
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -71,6 +71,8 @@ images/charpolyover-sheet1.png
 images/charpolyover-sheet2.png
 images/textbox-sheet0.png
 images/npc-sheet0.png
+images/npc-sheet1.png
+images/npc-sheet2.png
 images/visualn-sheet0.png
 images/lighting-sheet0.png
 images/gridenemy-sheet0.png
@@ -109,5 +111,6 @@ icon-114.png
 icon-128.png
 icon-256.png
 loading-logo.png
+layout1.csv
 NETWORK:
 *

@@ -3212,10 +3212,16 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 			canvas.width = cr.nextHighestPowerOfTwo(img.width);
 			canvas.height = cr.nextHighestPowerOfTwo(img.height);
 			var ctx = canvas.getContext("2d");
-			ctx["webkitImageSmoothingEnabled"] = linearsampling;
-			ctx["mozImageSmoothingEnabled"] = linearsampling;
-			ctx["msImageSmoothingEnabled"] = linearsampling;
-			ctx["imageSmoothingEnabled"] = linearsampling;
+			if (typeof ctx["imageSmoothingEnabled"] !== "undefined")
+			{
+				ctx["imageSmoothingEnabled"] = linearsampling;
+			}
+			else
+			{
+				ctx["webkitImageSmoothingEnabled"] = linearsampling;
+				ctx["mozImageSmoothingEnabled"] = linearsampling;
+				ctx["msImageSmoothingEnabled"] = linearsampling;
+			}
 			ctx.drawImage(img,
 						  0, 0, img.width, img.height,
 						  0, 0, canvas.width, canvas.height);
@@ -3451,7 +3457,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		{
 			this.isMobile = /(blackberry|bb10|playbook|palm|symbian|nokia|windows\s+ce|phone|mobile|tablet|kindle|silk)/i.test(navigator.userAgent);
 		}
-		this.isWKWebView = !!(this.isiOS && this.isCordova && window.indexedDB);
+		this.isWKWebView = !!(this.isiOS && this.isCordova && window["webkit"]);
 		this.httpServer = null;
 		this.httpServerUrl = "";
 		if (this.isWKWebView)
@@ -3864,10 +3870,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 					};
 					this.ctx = this.canvas.getContext("2d", attribs);
 				}
-				this.ctx["webkitImageSmoothingEnabled"] = this.linearSampling;
-				this.ctx["mozImageSmoothingEnabled"] = this.linearSampling;
-				this.ctx["msImageSmoothingEnabled"] = this.linearSampling;
-				this.ctx["imageSmoothingEnabled"] = this.linearSampling;
+				this.setCtxImageSmoothingEnabled(this.ctx, this.linearSampling);
 			}
 			this.overlay_canvas = null;
 			this.overlay_ctx = null;
@@ -3900,7 +3903,9 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 				});
 				jQuery(window).blur(function ()
 				{
-					self["setSuspended"](true);
+					var parent = window.parent;
+					if (!parent || !parent.document.hasFocus())
+						self["setSuspended"](true);
 				});
 			}
 		}
@@ -4121,10 +4126,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		}
 		if (this.ctx)
 		{
-			this.ctx["webkitImageSmoothingEnabled"] = this.linearSampling;
-			this.ctx["mozImageSmoothingEnabled"] = this.linearSampling;
-			this.ctx["msImageSmoothingEnabled"] = this.linearSampling;
-			this.ctx["imageSmoothingEnabled"] = this.linearSampling;
+			this.setCtxImageSmoothingEnabled(this.ctx, this.linearSampling);
 		}
 		this.tryLockOrientation();
 		if (this.isiPhone && !this.isCordova)
@@ -4141,7 +4143,7 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 			orientation = "landscape";
 		try {
 			if (screen["orientation"] && screen["orientation"]["lock"])
-				screen["orientation"]["lock"](orientation);
+				screen["orientation"]["lock"](orientation).catch(function(){});
 			else if (screen["lockOrientation"])
 				screen["lockOrientation"](orientation);
 			else if (screen["webkitLockOrientation"])
@@ -4943,6 +4945,8 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		{
 			this.loadingprogress = 1;
 			this.trigger(cr.system_object.prototype.cnds.OnLoadFinished, null);
+			if (window["C2_RegisterSW"])		// note not all platforms use SW
+				window["C2_RegisterSW"]();
 		}
 		if (navigator["splashscreen"] && navigator["splashscreen"]["hide"])
 			navigator["splashscreen"]["hide"]();
@@ -5042,6 +5046,8 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 				this.isloading = false;
 				this.progress = 1;
 				this.trigger(cr.system_object.prototype.cnds.OnLoadFinished, null);
+				if (window["C2_RegisterSW"])
+					window["C2_RegisterSW"]();
 			}
 		}
 		this.logic(raf_time);
@@ -7602,7 +7608,40 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 			reader.readAsText(file);
 		}, errorCallback);
 	};
-	Runtime.prototype.fetchLocalFileViaCordovaAsArrayBuffer = function (filename, successCallback, errorCallback)
+	var queuedArrayBufferReads = [];
+	var activeArrayBufferReads = 0;
+	var MAX_ARRAYBUFFER_READS = 8;
+	Runtime.prototype.maybeStartNextArrayBufferRead = function()
+	{
+		if (!queuedArrayBufferReads.length)
+			return;		// none left
+		if (activeArrayBufferReads >= MAX_ARRAYBUFFER_READS)
+			return;		// already got maximum number in-flight
+		activeArrayBufferReads++;
+		var job = queuedArrayBufferReads.shift();
+		this.doFetchLocalFileViaCordovaAsArrayBuffer(job.filename, job.successCallback, job.errorCallback);
+	};
+	Runtime.prototype.fetchLocalFileViaCordovaAsArrayBuffer = function (filename, successCallback_, errorCallback_)
+	{
+		var self = this;
+		queuedArrayBufferReads.push({
+			filename: filename,
+			successCallback: function (result)
+			{
+				activeArrayBufferReads--;
+				self.maybeStartNextArrayBufferRead();
+				successCallback_(result);
+			},
+			errorCallback: function (err)
+			{
+				activeArrayBufferReads--;
+				self.maybeStartNextArrayBufferRead();
+				errorCallback_(err);
+			}
+		});
+		this.maybeStartNextArrayBufferRead();
+	};
+	Runtime.prototype.doFetchLocalFileViaCordovaAsArrayBuffer = function (filename, successCallback, errorCallback)
 	{
 		this.fetchLocalFileViaCordova(filename, function (file)
 		{
@@ -7623,9 +7662,13 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 			successCallback(url);
 		}, errorCallback);
 	};
+	Runtime.prototype.isAbsoluteUrl = function (url)
+	{
+		return /^(?:[a-z]+:)?\/\//.test(url) || url.substr(0, 5) === "data:"  || url.substr(0, 5) === "blob:";
+	};
 	Runtime.prototype.setImageSrc = function (img, src)
 	{
-		if (this.isWKWebView)
+		if (this.isWKWebView && !this.isAbsoluteUrl(src))
 		{
 			this.fetchLocalFileViaCordovaAsURL(src, function (url)
 			{
@@ -7638,6 +7681,19 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		else
 		{
 			img.src = src;
+		}
+	};
+	Runtime.prototype.setCtxImageSmoothingEnabled = function (ctx, e)
+	{
+		if (typeof ctx["imageSmoothingEnabled"] !== "undefined")
+		{
+			ctx["imageSmoothingEnabled"] = e;
+		}
+		else
+		{
+			ctx["webkitImageSmoothingEnabled"] = e;
+			ctx["mozImageSmoothingEnabled"] = e;
+			ctx["msImageSmoothingEnabled"] = e;
 		}
 	};
 	cr.runtime = Runtime;
@@ -7717,6 +7773,8 @@ window["cr_setSuspended"] = function(s)
 		this.angle = 0;
 		this.first_visit = true;
 		this.name = m[0];
+		this.originalWidth = m[1];
+		this.originalHeight = m[2];
 		this.width = m[1];
 		this.height = m[2];
 		this.unbounded_scrolling = m[3];
@@ -7822,6 +7880,8 @@ window["cr_setSuspended"] = function(s)
 			this.event_sheet.updateDeepIncludes();
 		}
 		this.runtime.running_layout = this;
+		this.width = this.originalWidth;
+		this.height = this.originalHeight;
 		this.scrollX = (this.runtime.original_width / 2);
 		this.scrollY = (this.runtime.original_height / 2);
 		var i, k, len, lenk, type, type_instances, inst, iid, t, s, p, q, type_data, layer;
@@ -8096,10 +8156,7 @@ window["cr_setSuspended"] = function(s)
 			}
 			if (ctx_changed)
 			{
-				layout_ctx["webkitImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layout_ctx["mozImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layout_ctx["msImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layout_ctx["imageSmoothingEnabled"] = this.runtime.linearSampling;
+				this.runtime.setCtxImageSmoothingEnabled(layout_ctx, this.runtime.linearSampling);
 			}
 		}
 		layout_ctx.globalAlpha = 1;
@@ -9111,10 +9168,7 @@ window["cr_setSuspended"] = function(s)
 			}
 			if (ctx_changed)
 			{
-				layer_ctx["webkitImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layer_ctx["mozImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layer_ctx["msImageSmoothingEnabled"] = this.runtime.linearSampling;
-				layer_ctx["imageSmoothingEnabled"] = this.runtime.linearSampling;
+				this.runtime.setCtxImageSmoothingEnabled(layer_ctx, this.runtime.linearSampling);
 			}
 			if (this.transparent)
 				layer_ctx.clearRect(0, 0, this.runtime.draw_width, this.runtime.draw_height);
@@ -16570,25 +16624,14 @@ cr.plugins_.Audio = function(runtime)
 	AnalyserEffect.prototype.setParam = function(param, value, ramp, time)
 	{
 	};
-	var OT_POS_SAMPLES = 4;
 	function ObjectTracker()
 	{
 		this.obj = null;
 		this.loadUid = 0;
-		this.speeds = [];
-		this.lastX = 0;
-		this.lastY = 0;
-		this.moveAngle = 0;
 	};
 	ObjectTracker.prototype.setObject = function (obj_)
 	{
 		this.obj = obj_;
-		if (this.obj)
-		{
-			this.lastX = this.obj.x;
-			this.lastY = this.obj.y;
-		}
-		cr.clearArray(this.speeds);
 	};
 	ObjectTracker.prototype.hasObject = function ()
 	{
@@ -16596,38 +16639,6 @@ cr.plugins_.Audio = function(runtime)
 	};
 	ObjectTracker.prototype.tick = function (dt)
 	{
-		if (!this.obj || dt === 0)
-			return;
-		this.moveAngle = cr.angleTo(this.lastX, this.lastY, this.obj.x, this.obj.y);
-		var s = cr.distanceTo(this.lastX, this.lastY, this.obj.x, this.obj.y) / dt;
-		if (this.speeds.length < OT_POS_SAMPLES)
-			this.speeds.push(s);
-		else
-		{
-			this.speeds.shift();
-			this.speeds.push(s);
-		}
-		this.lastX = this.obj.x;
-		this.lastY = this.obj.y;
-	};
-	ObjectTracker.prototype.getSpeed = function ()
-	{
-		if (!this.speeds.length)
-			return 0;
-		var i, len, sum = 0;
-		for (i = 0, len = this.speeds.length; i < len; i++)
-		{
-			sum += this.speeds[i];
-		}
-		return sum / this.speeds.length;
-	};
-	ObjectTracker.prototype.getVelocityX = function ()
-	{
-		return Math.cos(this.moveAngle) * this.getSpeed();
-	};
-	ObjectTracker.prototype.getVelocityY = function ()
-	{
-		return Math.sin(this.moveAngle) * this.getSpeed();
 	};
 	var iOShadtouchstart = false;	// has had touch start input on iOS <=8 to work around web audio API muting
 	var iOShadtouchend = false;		// has had touch end input on iOS 9+ to work around web audio API muting
@@ -17080,9 +17091,6 @@ cr.plugins_.Audio = function(runtime)
 			a = inst.angle - inst.layer.getAngle();
 			this.pannerNode["setOrientation"](Math.cos(a), Math.sin(a), 0);
 		}
-		px = cr.rotatePtAround(this.objectTracker.getVelocityX(), this.objectTracker.getVelocityY(), -inst.layer.getAngle(), 0, 0, true);
-		py = cr.rotatePtAround(this.objectTracker.getVelocityX(), this.objectTracker.getVelocityY(), -inst.layer.getAngle(), 0, 0, false);
-		this.pannerNode["setVelocity"](px, py, 0);
 	};
 	C2AudioInstance.prototype.play = function (looping, vol, fromPosition, scheduledTime)
 	{
@@ -17775,8 +17783,6 @@ cr.plugins_.Audio = function(runtime)
 		var draw_height = (this.runtime.draw_height || this.runtime.height);
 		if (api === API_WEBAUDIO)
 		{
-			if (typeof context["listener"]["dopplerFactor"] !== "undefined")
-				context["listener"]["dopplerFactor"] = 0;
 			context["listener"]["setPosition"](draw_width / 2, draw_height / 2, this.listenerZ);
 			context["listener"]["setOrientation"](0, 0, 1, 0, -1, 0);
 			window["c2OnAudioMicStream"] = function (localMediaStream, tag)
@@ -18127,7 +18133,6 @@ cr.plugins_.Audio = function(runtime)
 			listenerX = this.listenerTracker.obj.x;
 			listenerY = this.listenerTracker.obj.y;
 			context["listener"]["setPosition"](this.listenerTracker.obj.x, this.listenerTracker.obj.y, this.listenerZ);
-			context["listener"]["setVelocity"](this.listenerTracker.getVelocityX(), this.listenerTracker.getVelocityY(), 0);
 		}
 	};
 	var preload_list = [];
@@ -19825,6 +19830,18 @@ cr.plugins_.Mouse = function(runtime)
 		if (this.handled && cr.isCanvasInputEvent(info))
 			info.preventDefault();
 	};
+	instanceProto.onWindowBlur = function ()
+	{
+		var i, len;
+		for (i = 0, len = this.buttonMap.length; i < len; ++i)
+		{
+			if (!this.buttonMap[i])
+				continue;
+			this.buttonMap[i] = false;
+			this.triggerButton = i - 1;
+			this.runtime.trigger(cr.plugins_.Mouse.prototype.cnds.OnRelease, this);
+		}
+	};
 	function Cnds() {};
 	Cnds.prototype.OnClick = function (button, type)
 	{
@@ -19964,6 +19981,220 @@ cr.plugins_.Mouse = function(runtime)
 		ret.set_float(this.mouseYcanvas);
 	};
 	pluginProto.exps = new Exps();
+}());
+;
+;
+cr.plugins_.Rex_CSV2Array = function(runtime)
+{
+	this.runtime = runtime;
+};
+(function ()
+{
+	var pluginProto = cr.plugins_.Rex_CSV2Array.prototype;
+	pluginProto.Type = function(plugin)
+	{
+		this.plugin = plugin;
+		this.runtime = plugin.runtime;
+	};
+	var typeProto = pluginProto.Type.prototype;
+	typeProto.onCreate = function()
+	{
+	};
+	pluginProto.Instance = function(type)
+	{
+		this.type = type;
+		this.runtime = type.runtime;
+	};
+	var instanceProto = pluginProto.Instance.prototype;
+	instanceProto.onCreate = function()
+	{
+        this.strDelimiter = this.properties[0];
+        this.is_eval_mode = (this.properties[1] == 1);
+	    this.exp_CurX = 0;
+	    this.exp_CurY = 0;
+	    this.exp_CurValue = "";
+	    this.exp_Width = 0;
+	    this.exp_Height = 0;
+	};
+	instanceProto.value_get = function(v)
+	{
+	    if (v == null)
+	        v = 0;
+	    else if (this.is_eval_mode)
+	        v = eval("("+v+")");
+        return v;
+	};
+	instanceProto.saveToJSON = function ()
+	{
+		return { "delimiter": this.strDelimiter
+                     };
+	};
+	instanceProto.loadFromJSON = function (o)
+	{
+        this.strDelimiter = o["delimiter"];
+	};
+    var CSVToArray = function ( strData, strDelimiter ){
+        strDelimiter = (strDelimiter || ",");
+        var objPattern = new RegExp(
+                (
+                        "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+                        "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
+                        "([^\"\\" + strDelimiter + "\\r\\n]*))"
+                ),
+                "gi"
+                );
+        var arrData = [[]];
+        var arrMatches = null;
+        while (arrMatches = objPattern.exec( strData )){
+                var strMatchedDelimiter = arrMatches[ 1 ];
+                if (
+                        strMatchedDelimiter.length &&
+                        (strMatchedDelimiter != strDelimiter)
+                        ){
+                        arrData.push( [] );
+                }
+                if (arrMatches[ 2 ]){
+                        var strMatchedValue = arrMatches[ 2 ].replace(
+                                new RegExp( "\"\"", "g" ),
+                                "\""
+                                );
+                } else {
+                        var strMatchedValue = arrMatches[ 3 ];
+                }
+                arrData[ arrData.length - 1 ].push( strMatchedValue );
+        }
+        return( arrData );
+    };
+	function Cnds() {};
+	pluginProto.cnds = new Cnds();
+	Cnds.prototype.ForEachCell = function (csv_string)
+	{
+	    var table = CSVToArray(csv_string, this.strDelimiter);
+		var y_cnt = table.length;
+		var x_cnt = table[0].length;
+		var i,j;
+        var current_frame = this.runtime.getCurrentEventStack();
+        var current_event = current_frame.current_event;
+		var solModifierAfterCnds = current_frame.isModifierAfterCnds();
+	    this.exp_Width = x_cnt;
+	    this.exp_Height = y_cnt;
+        if (solModifierAfterCnds)
+        {
+		    for (j=0; j<y_cnt; j++ )
+	        {
+	            this.exp_CurY = j;
+	            for (i=0; i<x_cnt; i++ )
+	            {
+                    this.runtime.pushCopySol(current_event.solModifiers);
+	                this.exp_CurX = i;
+                    this.exp_CurValue = this.value_get(table[j][i]);
+		    	    current_event.retrigger();
+		    	    this.runtime.popSol(current_event.solModifiers);
+		        }
+		    }
+	    }
+	    else
+	    {
+		    for (j=0; j<y_cnt; j++ )
+	        {
+	            this.exp_CurY = j;
+	            for (i=0; i<x_cnt; i++ )
+	            {
+	                this.exp_CurX = i;
+                    this.exp_CurValue = this.value_get(table[j][i]);
+		    	    current_event.retrigger();
+		        }
+		    }
+	    }
+		return false;
+	};
+	function Acts() {};
+	pluginProto.acts = new Acts();
+	var fake_ret = {value:0,
+	                set_any: function(value){this.value=value;},
+	                set_int: function(value){this.value=value;},
+                    set_float: function(value){this.value=value;},
+                    set_string: function(value){this.value=value;},
+	               };
+    Acts.prototype.CSV2Array = function (csv_string, array_objs, map_mode, z_index)
+	{
+;
+        var array_obj = array_objs.getFirstPicked();
+        var is_array_inst = (array_obj instanceof cr.plugins_.Arr.prototype.Instance);
+;
+        var table = CSVToArray(csv_string, this.strDelimiter);
+		var x_cnt = table.length;
+		var y_cnt = table[0].length;
+		if (z_index == null)
+		{
+		    z_index = 0;
+		    if (map_mode == 0)
+		        cr.plugins_.Arr.prototype.acts.SetSize.apply(array_obj, [x_cnt, y_cnt, z_index+1]);
+	        else
+		        cr.plugins_.Arr.prototype.acts.SetSize.apply(array_obj, [y_cnt, x_cnt, z_index+1]);
+		}
+		else
+		{
+		    if (z_index < 0)
+		        z_index = 0;
+		    cr.plugins_.Arr.prototype.exps.Depth.call(array_obj, fake_ret);
+		    var z_cnt = Math.max(fake_ret.value, z_index+1);
+		    if (map_mode == 0)
+		        cr.plugins_.Arr.prototype.acts.SetSize.apply(array_obj, [x_cnt, y_cnt, z_cnt]);
+	        else
+		        cr.plugins_.Arr.prototype.acts.SetSize.apply(array_obj, [y_cnt, x_cnt, z_cnt]);
+		}
+        var i,j,v;
+		var array_set = cr.plugins_.Arr.prototype.acts.SetXYZ;
+		if (map_mode == 0)
+		{
+		    for(j=0;j<y_cnt;j++)
+		    {
+		        for(i=0;i<x_cnt;i++)
+			    {
+			        v = this.value_get(table[i][j]);
+			        array_set.apply(array_obj, [i,j,z_index, v]);
+			    }
+		    }
+        }
+        else
+        {
+		    for(j=0;j<y_cnt;j++)
+		    {
+		        for(i=0;i<x_cnt;i++)
+			    {
+			        v = this.value_get(table[i][j]);
+			        array_set.apply(array_obj, [j,i,z_index, v]);
+			    }
+		    }
+        }
+	};
+	Acts.prototype.SetDelimiter = function (s)
+	{
+        this.strDelimiter = s;
+	};
+	function Exps() {};
+	pluginProto.exps = new Exps();
+	Exps.prototype.CurX = function (ret)
+	{
+		ret.set_int(this.exp_CurX);
+	};
+	Exps.prototype.CurY = function (ret)
+	{
+		ret.set_int(this.exp_CurY);
+	};
+	Exps.prototype.CurValue = function (ret)
+	{
+		ret.set_any(this.exp_CurValue);
+	};
+	Exps.prototype.Width = function (ret)
+	{
+		ret.set_int(this.exp_Width);
+	};
+	Exps.prototype.Height = function (ret)
+	{
+		ret.set_int(this.exp_Height);
+	};
 }());
 ;
 ;
@@ -21156,7 +21387,7 @@ cr.plugins_.Sprite = function(runtime)
 		};
 		if (url_.substr(0, 5) !== "data:")
 			img["crossOrigin"] = "anonymous";
-		img.src = url_;
+		this.runtime.setImageSrc(img, url_);
 	};
 	Acts.prototype.SetCollisions = function (set_)
 	{
@@ -22030,7 +22261,7 @@ cr.plugins_.TiledBg = function(runtime)
 		};
 		if (url_.substr(0, 5) !== "data:")
 			img.crossOrigin = "anonymous";
-		img.src = url_;
+		this.runtime.setImageSrc(img, url_);
 	};
 	pluginProto.acts = new Acts();
 	function Exps() {};
@@ -23368,7 +23599,7 @@ cr.plugins_.Tilemap = function(runtime)
 		};
 		if (url_.substr(0, 5) !== "data:")
 			img.crossOrigin = "anonymous";
-		img.src = url_;
+		this.runtime.setImageSrc(img, url_);
 	};
 	pluginProto.acts = new Acts();
 	function Exps() {};
@@ -25234,6 +25465,10 @@ cr.behaviors.Bullet = function(runtime)
 	Exps.prototype.DistanceTravelled = function (ret)
 	{
 		ret.set_float(this.travelled);
+	};
+	Exps.prototype.Gravity = function (ret)
+	{
+		ret.set_float(this.g);
 	};
 	behaviorProto.exps = new Exps();
 }());
@@ -27399,14 +27634,15 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Audio,
 	cr.plugins_.Function,
 	cr.plugins_.Mouse,
-	cr.plugins_.Keyboard,
 	cr.plugins_.LocalStorage,
+	cr.plugins_.Keyboard,
+	cr.plugins_.Rex_CSV2Array,
+	cr.plugins_.Touch,
 	cr.plugins_.TiledBg,
-	cr.plugins_.Tilemap,
+	cr.plugins_.Text,
 	cr.plugins_.WebStorage,
 	cr.plugins_.Sprite,
-	cr.plugins_.Text,
-	cr.plugins_.Touch,
+	cr.plugins_.Tilemap,
 	cr.behaviors.Fade,
 	cr.behaviors.Pin,
 	cr.behaviors.solid,
@@ -27532,6 +27768,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.cnds.OnDestroyed,
 	cr.plugins_.Audio.prototype.cnds.OnEnded,
 	cr.plugins_.Arr.prototype.acts.SetXYZ,
+	cr.plugins_.Rex_CSV2Array.prototype.acts.CSV2Array,
 	cr.plugins_.LocalStorage.prototype.acts.CheckItemExists,
 	cr.plugins_.LocalStorage.prototype.cnds.OnItemExists,
 	cr.plugins_.LocalStorage.prototype.acts.GetItem,
