@@ -23708,15 +23708,15 @@ cr.behaviors.Pin = function(runtime)
 	behaviorProto.exps = new Exps();
 }());
 cr.getObjectRefTable = function () { return [
+	cr.plugins_.Audio,
 	cr.plugins_.Arr,
 	cr.plugins_.Dictionary,
-	cr.plugins_.Audio,
 	cr.plugins_.Function,
-	cr.plugins_.Keyboard,
 	cr.plugins_.LocalStorage,
-	cr.plugins_.Text,
+	cr.plugins_.Keyboard,
 	cr.plugins_.Sprite,
 	cr.plugins_.Touch,
+	cr.plugins_.Text,
 	cr.behaviors.EightDir,
 	cr.behaviors.Pin,
 	cr.behaviors.Fade,
@@ -23792,6 +23792,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Dictionary.prototype.exps.Get,
 	cr.system_object.prototype.exps["int"],
 	cr.system_object.prototype.exps.right,
+	cr.system_object.prototype.cnds.PickOverlappingPoint,
 	cr.plugins_.Arr.prototype.acts.SetX,
 	cr.plugins_.LocalStorage.prototype.acts.CheckItemExists,
 	cr.plugins_.Dictionary.prototype.acts.AddKey,

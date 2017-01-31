@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1478646873
+#1485669845
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -9,6 +9,7 @@ images/room-sheet2.png
 images/room-sheet3.png
 images/room-sheet4.png
 images/room-sheet5.png
+images/room-sheet6.png
 images/alice-sheet0.png
 images/alice-sheet1.png
 images/alice-sheet2.png
@@ -18,13 +19,12 @@ images/cutsceneimage-sheet0.png
 images/cutsceneimage-sheet1.png
 images/cutsceneimage-sheet2.png
 images/npc-sheet0.png
-images/npc-sheet1.png
-images/npc-sheet2.png
 images/prompt-sheet0.png
 images/covershadow-sheet0.png
 images/covershadow-sheet1.png
 images/levelgo-sheet0.png
 images/levelgo-sheet1.png
+images/levelgo-sheet2.png
 images/chapterbg-sheet0.png
 images/creditsbutton-sheet0.png
 images/creditsscreen-sheet0.png
@@ -34,6 +34,12 @@ media/room3.m4a
 media/room3.ogg
 media/room2.m4a
 media/room2.ogg
+media/room4.m4a
+media/room4.ogg
+media/room5.m4a
+media/room5.ogg
+media/room6.m4a
+media/room6.ogg
 icon-16.png
 icon-32.png
 icon-114.png
