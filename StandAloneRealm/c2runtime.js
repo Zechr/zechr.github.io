@@ -24582,15 +24582,15 @@ cr.behaviors.Pin = function(runtime)
 	behaviorProto.exps = new Exps();
 }());
 cr.getObjectRefTable = function () { return [
-	cr.plugins_.Arr,
 	cr.plugins_.Audio,
+	cr.plugins_.Arr,
 	cr.plugins_.Dictionary,
 	cr.plugins_.Function,
 	cr.plugins_.Keyboard,
 	cr.plugins_.LocalStorage,
 	cr.plugins_.Particles,
-	cr.plugins_.Text,
 	cr.plugins_.Touch,
+	cr.plugins_.Text,
 	cr.plugins_.Sprite,
 	cr.behaviors.Bullet,
 	cr.behaviors.EightDir,
