@@ -1,0 +1,125 @@
+body {
+  /*background: rgb(235, 235, 235);*/
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+#anibox {
+	float: left;
+	min-width: 30%;
+	max-width: 30%;
+	/*position: absolute;
+	bottom: 0;
+	top: 0;*/
+	height: 100vh;
+}
+
+#interactbox {
+	float: left;
+	min-width: 40%;
+	max-width: 40%;
+	height:100vh;
+	background: rgb(235, 235, 235);
+	
+}
+
+#chatbox {
+	float: left;
+	width: 90%;
+	height: 87vh;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 3%;
+	overflow: auto;
+}
+
+#inputbox {
+	float: left;
+	margin-top: 1em;
+	width: 100%;
+}
+
+.main-box {
+	margin-left: 2.25%;
+	position: relative;
+	width: 95%;
+	height: 2.3em;
+}
+
+.message {
+	background: white;
+	color: rgb(60, 60, 60);
+	border-radius: 1em;
+	padding: 1em;
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+	float: left;
+	max-width: 75%;
+	clear: both;
+}
+
+.messageself {
+	padding: 1em;
+	max-width: 75%;
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+	background: white;
+	color: rgb(60, 60, 60);
+	border-radius: 1em;
+	float: right;
+	clear: both;
+}
+
+#viewbox {
+	float: left;
+	min-width: 30%;
+	max-width: 30%;
+	height:100vh;
+}
+
+#miniweb {
+	width: 99%;
+	height: 99vh;
+}
+
+.avatar {
+	width: 100%;
+	background-size: cover;
+	height:100vh;
+}
+
+#AliceAvatar {
+	display: block;
+	background-image: url("images/AliceAvatar.png");
+}
+
+#AliceAvatarDisgust {
+	display: none;
+	background-image: url('images/AliceAvatarDisgust.png');
+}
+
+#AliceAvatarPout {
+	display: none;
+	background-image: url('images/AliceAvatarPout.png');
+}
+
+#AliceAvatarHaughty {
+	display: none;
+	background-image: url('images/AliceAvatarHaughty.png');
+}
+
+#AliceAvatarSexy {
+	display: none;
+	background-image: url('images/AliceAvatarSexy.png');
+}
+
+#AliceAvatarHappy {
+	display: none;
+	background-image: url('images/AliceAvatarHappy.png');
+}

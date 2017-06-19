@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Alice </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+		<script src="jquery-2.2.4.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<div id="anibox">
+			<div class="avatar" id="AliceAvatar">
+				<!--<img src="AliceAvatar.png" width="100%">-->
+			</div>
+			<div class="avatar" id="AliceAvatarDisgust">
+				<!--<img src="AliceAvatarDisgust.png">-->
+			</div>
+			<div class="avatar" id="AliceAvatarPout">
+			</div>
+			<div class="avatar" id="AliceAvatarHaughty">
+			</div>
+			<div class="avatar" id="AliceAvatarSexy">
+			</div>
+			<div class="avatar" id="AliceAvatarHappy">
+			</div>
+		</div>
+		<div id="interactbox">
+			<div id="chatbox">
+			</div>
+			<div id="inputbox">
+				<form id="userbox" onsubmit="startquery()">
+					<input class="main-box" type="text" name="query"><br>
+					<input type="submit" style="display: none" />
+				</form>
+			</div>
+		</div>
+		<div id="viewbox">
+			<iframe id="miniweb"></iframe>
+		</div>
+	</body>
+</html>
