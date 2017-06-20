@@ -1,9 +1,10 @@
 ﻿{
-	"version": 1492034509,
+	"version": 1497928437,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
 		"jquery-2.1.1.min.js",
+		"offlineClient.js",
 		"images/tilemap1.png",
 		"images/tiledbackground.png",
 		"images/charoption-sheet0.png",
@@ -62,6 +63,9 @@
 		"images/hpenfront-sheet0.png",
 		"images/startmenubg-sheet0.png",
 		"images/banner-sheet0.png",
+		"images/charuihighlight-sheet0.png",
+		"images/eneventtile-sheet0.png",
+		"images/eneventtile-sheet1.png",
 		"images/background-sheet0.png",
 		"images/floorblock-sheet0.png",
 		"images/airomiimage-sheet0.png",
@@ -71,8 +75,6 @@
 		"images/enemy-sheet0.png",
 		"images/enemyatk-sheet0.png",
 		"images/charpolyover-sheet0.png",
-		"images/charpolyover-sheet1.png",
-		"images/charpolyover-sheet2.png",
 		"images/textbox-sheet0.png",
 		"images/npc-sheet0.png",
 		"images/npc-sheet1.png",
@@ -99,12 +101,13 @@
 		"images/tutorial-sheet1.png",
 		"images/tutorial-sheet2.png",
 		"images/battleboardchar-sheet0.png",
+		"images/battleboardchar-sheet1.png",
 		"images/actionpiece-sheet0.png",
+		"images/actionpiece-sheet1.png",
 		"images/movesquare-sheet0.png",
-		"images/eneventtile-sheet0.png",
-		"images/eneventtile-sheet1.png",
-		"images/charuihighlight-sheet0.png",
+		"images/movesquare-sheet1.png",
 		"images/battleboardimg-sheet0.png",
+		"images/room-sheet0.png",
 		"media/those of us who fight.m4a",
 		"media/those of us who fight.ogg",
 		"media/destiny dimension v5.m4a",
@@ -119,6 +122,9 @@
 		"icon-128.png",
 		"icon-256.png",
 		"loading-logo.png",
-		"layout1.csv"
+		"layout1.csv",
+		"walkmap.json",
+		"npcformatted.json",
+		"walkmapformatted.json"
 	]
 }
