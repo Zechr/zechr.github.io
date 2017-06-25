@@ -25481,6 +25481,803 @@ cr.plugins_.WebStorage = function(runtime)
 }());
 ;
 ;
+cr.plugins_.shadowlight = function(runtime)
+{
+	this.runtime = runtime;
+};
+(function ()
+{
+	var pluginProto = cr.plugins_.shadowlight.prototype;
+	pluginProto.Type = function(plugin)
+	{
+		this.plugin = plugin;
+		this.runtime = plugin.runtime;
+	};
+	var typeProto = pluginProto.Type.prototype;
+	var loaded_penumbra_img = false;
+	var penumbra_img = null;
+	var penumbra_data = null;
+	typeProto.onCreate = function()
+	{
+		if (this.is_family)
+			return;
+		if (!loaded_penumbra_img)
+		{
+			loaded_penumbra_img = true;
+			penumbra_img = new Image();
+			penumbra_img.cr_filesize = 15000;
+			this.runtime.waitForImageLoad(penumbra_img, "penumbra.png");
+		}
+	};
+	typeProto.onLostWebGLContext = function ()
+	{
+		if (this.is_family)
+			return;
+		this.webGL_texture = null;
+		this.penumbra_texture = null;
+		var i, len, inst;
+		for (i = 0, len = this.instances.length; i < len; ++i)
+		{
+			inst = this.instances[i];
+			inst.webGL_texture = null;
+			inst.penumbra_texture = null;
+		}
+	};
+	typeProto.onRestoreWebGLContext = function ()
+	{
+		if (this.is_family)
+			return;
+		var i, len;
+		for (i = 0, len = this.instances.length; i < len; ++i)
+		{
+			this.instances[i].createTextures();
+		}
+	};
+	pluginProto.Instance = function(type)
+	{
+		this.type = type;
+		this.runtime = type.runtime;
+	};
+	var instanceProto = pluginProto.Instance.prototype;
+	instanceProto.onCreate = function()
+	{
+		maybeGetPenumbraData();		// get the pixel data for the penumbra image
+		this.lightX = this.x;
+		this.lightY = this.y;
+		this.lightZ = this.properties[0];
+		this.max_extrude = 1000;
+		this.lightRadius = this.properties[1];
+		this.castFrom = this.properties[2];		// 0 = all, 1 = same tag, 2 = different tag
+		this.tag = this.properties[3];
+		this.lightR = 0;
+		this.lightG = 0;
+		this.lightB = 0;
+		this.lastKnownX = this.x;
+		this.lastKnownY = this.y;
+		this.webGL_texture = null;
+		this.penumbra_texture = null;
+		if (this.runtime.glwrap)
+		{
+			this.createTextures();
+		}
+		else
+			this.lightRadius = 0;		// cannot use light radius in canvas2d mode
+		this.runtime.tick2Me(this);
+	};
+	instanceProto.castsFrom = function (othertag)
+	{
+		if (this.castFrom === 1)		// same tag
+			return cr.equals_nocase(this.tag, othertag);
+		else if (this.castFrom === 2)	// different tag
+			return !cr.equals_nocase(this.tag, othertag);
+		else							// all
+			return true;
+	};
+	instanceProto.tick2 = function ()
+	{
+		if (this.lastKnownX !== this.x || this.lastKnownY !== this.y)
+		{
+			this.lightX = this.x;
+			this.lightY = this.y;
+		}
+		var layer = this.layer;
+		var newx = (layer.viewLeft + layer.viewRight) / 2;
+		var newy = (layer.viewTop + layer.viewBottom) / 2;
+		var neww = (layer.viewRight - layer.viewLeft) + this.max_extrude;
+		var newh = (layer.viewBottom - layer.viewTop) + this.max_extrude;
+		if (newx !== this.x || newy !== this.y || neww !== this.width || newh !== this.height)
+		{
+			this.x = newx;
+			this.y = newy;
+			this.width = neww;
+			this.height = newh;
+			this.set_bbox_changed();
+		}
+		this.lastKnownX = this.x;
+		this.lastKnownY = this.y;
+		this.max_extrude = cr.distanceTo(layer.viewLeft, layer.viewTop, layer.viewRight, layer.viewBottom) * 1.5;
+	};
+	instanceProto.onDestroy = function ()
+	{
+		if (!this.runtime.glwrap)
+			return;		// not WebGL mode
+		if (this.webGL_texture)
+		{
+			this.runtime.glwrap.deleteTexture(this.webGL_texture);
+			this.webGL_texture = null;
+		}
+		if (this.penumbra_texture)
+		{
+			this.runtime.glwrap.deleteTexture(this.penumbra_texture);
+			this.penumbra_texture = null;
+		}
+	};
+	instanceProto.saveToJSON = function ()
+	{
+		return {
+		};
+	};
+	instanceProto.loadFromJSON = function (o)
+	{
+	};
+	var casters = [];
+	var collrect_candidates = [];
+	instanceProto.getShadowCasterCandidates = function ()
+	{
+		if (!this.runtime.shadowcasterBehavior)
+			return;
+		this.runtime.getTypesCollisionCandidates(this.layer, this.runtime.shadowcasterBehavior.myTypes, this.bbox, casters);
+		cr.removeArrayDuplicates(casters);
+	};
+	var poly_pts = [];
+	var poly_len = 0;
+	var back_faces1 = [];
+	var back_faces2 = [];
+	var cw_edge1 = -1;		// index of clockwise edge face
+	var cw_edge2 = -1;
+	var acw_edge1 = -1;		// index of anticlockwise edge face
+	var acw_edge2 = -1;
+	var midx = 0;
+	var midy = 0;
+	var umbra_pts = [];
+	var cw_umbra_rootx = 0;
+	var cw_umbra_rooty = 0;
+	var cw_umbra_projx = 0;
+	var cw_umbra_projy = 0;
+	var acw_umbra_rootx = 0;
+	var acw_umbra_rooty = 0;
+	var acw_umbra_projx = 0;
+	var acw_umbra_projy = 0;
+	var temp_poly = new cr.CollisionPoly([]);
+	instanceProto.draw = function (ctx)
+	{
+		this.getShadowCasterCandidates();
+		ctx.save();
+		ctx.fillStyle = "rgba(" + this.lightR + "," + this.lightG + "," + this.lightB + "," + this.opacity + ")";
+		var i, len, inst, j, lenj, k, lenk, h, poly, tmx, tmy, offx, offy, c, tilerc;
+		for (i = 0, len = casters.length; i < len; ++i)
+		{
+			inst = casters[i];
+			if (!inst.extra["shadowcasterEnabled"] || !this.castsFrom(inst.extra["shadowcasterTag"]))
+				continue;
+			inst.update_bbox();
+			h = inst.extra["shadowcasterHeight"];
+			if (inst.tilemap_exists)
+			{
+				inst.getCollisionRectCandidates(this.bbox, collrect_candidates);
+				tmx = inst.x;
+				tmy = inst.y;
+				for (j = 0, lenj = collrect_candidates.length; j < lenj; ++j)
+				{
+					c = collrect_candidates[j];
+					tilerc = c.rc;
+					poly = null;
+					if (c.poly)
+					{
+						poly = c.poly;
+						offx = tilerc.left;
+						offy = tilerc.top;
+					}
+					else
+					{
+						temp_poly.set_from_rect(tilerc, 0, 0);
+						poly = temp_poly;
+						offx = 0;
+						offy = 0;
+					}
+					this.calcShadow(poly, tmx + offx, tmy + offy, h, false);
+					ctx.beginPath();
+					ctx.moveTo(umbra_pts[0], umbra_pts[1]);
+					for (k = 2, lenk = umbra_pts.length; k < lenk; k += 2)
+					{
+						ctx.lineTo(umbra_pts[k], umbra_pts[k + 1]);
+					}
+					ctx.closePath();
+					ctx.fill();
+					cr.clearArray(back_faces1);
+					cr.clearArray(umbra_pts);
+				}
+				cr.clearArray(collrect_candidates);
+			}
+			else
+			{
+				poly = null;
+				if (inst.collision_poly && !inst.collision_poly.is_empty())
+				{
+					inst.collision_poly.cache_poly(inst.width, inst.height, inst.angle);
+					poly = inst.collision_poly;
+				}
+				else
+				{
+					temp_poly.set_from_quad(inst.bquad, inst.x, inst.y, inst.width, inst.height);
+					poly = temp_poly;
+				}
+				this.calcShadow(poly, inst.x, inst.y, h, cr.xor(inst.width < 0, inst.height < 0));
+				ctx.beginPath();
+				ctx.moveTo(umbra_pts[0], umbra_pts[1]);
+				for (j = 2, lenj = umbra_pts.length; j < lenj; j += 2)
+				{
+					ctx.lineTo(umbra_pts[j], umbra_pts[j + 1]);
+				}
+				ctx.closePath();
+				ctx.fill();
+				cr.clearArray(back_faces1);
+				cr.clearArray(umbra_pts);
+			}
+		}
+		ctx.restore();
+		cr.clearArray(casters);
+	};
+	instanceProto.getPolyPoints = function (poly, instx, insty, flipped)
+	{
+		poly_len = poly.pts_count;
+		cr.clearArray(poly_pts);
+		var x, y;
+		var pts = poly.pts_cache;
+		midx = 0;
+		midy = 0;
+		var i, i2;
+		for (i = 0; i < poly_len; ++i)
+		{
+			i2 = i * 2;
+			x = pts[i2] + instx;
+			y = pts[i2+1] + insty;
+			if (flipped)
+			{
+				poly_pts.unshift(y);
+				poly_pts.unshift(x);
+			}
+			else
+			{
+				poly_pts.push(x);
+				poly_pts.push(y);
+			}
+			midx += x;
+			midy += y;
+		}
+		midx /= poly_len;
+		midy /= poly_len;
+	};
+	instanceProto.calcShadow = function (poly, instx, insty, h, flipped)
+	{
+		this.getPolyPoints(poly, instx, insty, flipped);
+		var i, i2;
+		var polyx, polyy;
+		cr.clearArray(back_faces1);
+		cr.clearArray(back_faces2);
+		cr.clearArray(umbra_pts);
+		cw_edge1 = -1;
+		acw_edge1 = -1;
+		cw_edge2 = -1;
+		acw_edge2 = -1;
+		var Lx = this.lightX;
+		var Ly = this.lightY;
+		if (this.lightRadius > 0)
+		{
+			this.calcBackFaces(-this.lightRadius);
+			findEdges();
+			cr.shallowAssignArray(back_faces2, back_faces1);
+			cw_edge2 = cw_edge1;
+			acw_edge2 = acw_edge1;
+			cr.clearArray(back_faces1);
+			cw_edge1 = -1;
+			acw_edge1 = -1;
+			this.calcBackFaces(this.lightRadius);
+			findEdges();
+			if (cw_edge1 === -1 || acw_edge1 === -1 || cw_edge2 === -1 || acw_edge2 === -1)
+				return;
+			this.calcUmbraWithRadius(h);
+		}
+		else
+		{
+			this.calcBackFaces(0);
+			findEdges();
+			for (i = 0; i < poly_len; ++i)
+			{
+				i2 = i*2;
+				polyx = poly_pts[i2];
+				polyy = poly_pts[i2+1];
+				this.calcShadowSegment(i, Lx, Ly, polyx, polyy, h);
+			}
+		}
+	};
+	instanceProto.calcShadowSegment = function (i, Lx, Ly, px, py, h)
+	{
+		var ap, dp, e, x, y, Lx, Ly;
+		var isBackFace = back_faces1[i];
+		var lastBackFace = back_faces1[wrapBackFace(i - 1)];
+		var isClockwiseEdge = (i === cw_edge1);
+		var isAnticlockwiseEdge = (i === acw_edge1);
+		if (isBackFace || lastBackFace)
+		{
+			ap = cr.angleTo(Lx, Ly, px, py);
+			dp = cr.distanceTo(Lx, Ly, px, py);
+			e = this.calculateExtrusion(Lx, Ly, px, py, h);
+			x = Lx + Math.cos(ap) * (dp + e);
+			y = Ly + Math.sin(ap) * (dp + e);
+		}
+		else
+		{
+			x = px;
+			y = py;
+		}
+		if (isAnticlockwiseEdge)
+		{
+			umbra_pts.push(px);
+			umbra_pts.push(py);
+		}
+		umbra_pts.push(x);
+		umbra_pts.push(y);
+		if (isClockwiseEdge)
+		{
+			umbra_pts.push(px);
+			umbra_pts.push(py);
+		}
+	};
+	function isBackFace(Lx, Ly, px, py, qx, qy)
+	{
+		var n = cr.angleTo(px, py, qx, qy) - Math.PI / 2;
+		var a = cr.angleTo(px, py, Lx, Ly);
+		return (cr.angleDiff(a, n) >= Math.PI / 2);
+	};
+	function wrapBackFace(index)
+	{
+		index %= back_faces1.length;
+		if (index < 0)
+			index += back_faces1.length;
+		return index;
+	};
+	instanceProto.calcBackFaces = function (r)
+	{
+		var OLx = this.lightX;
+		var OLy = this.lightY;
+		var Lx = OLx;
+		var Ly = OLy;
+		var i, i2, imod, polyx, polyy, nextx, nexty, a;
+		for (i = 0; i < poly_len; ++i)
+		{
+			i2 = i*2;
+			imod = i+1;
+			imod = (imod === poly_len ? 0 : imod * 2);
+			polyx = poly_pts[i2];
+			polyy = poly_pts[i2+1];
+			nextx = poly_pts[imod];
+			nexty = poly_pts[imod+1];
+			if (r !== 0)
+			{
+				a = cr.angleTo(OLx, OLy, midx, midy) - Math.PI / 2;
+				Lx = OLx + Math.cos(a) * r;
+				Ly = OLy + Math.sin(a) * r;
+			}
+			back_faces1.push(isBackFace(Lx, Ly, polyx, polyy, nextx, nexty));
+		}
+	};
+	function findEdges()
+	{
+		var i, len, isBackFace, lastBackFace;
+		for (i = 0, len = back_faces1.length; i < len; ++i)
+		{
+			isBackFace = back_faces1[i];
+			lastBackFace = back_faces1[wrapBackFace(i - 1)];
+			if (lastBackFace && !isBackFace)
+				cw_edge1 = i;
+			if (!lastBackFace && isBackFace)
+				acw_edge1 = i;
+		}
+	};
+	var intersect_x = 0;
+	var intersect_y = 0;
+	function segment_intersection_at(p0_x, p0_y, p1_x, p1_y, p2_x, p2_y, p3_x, p3_y)
+	{
+		var s1_x, s1_y, s2_x, s2_y, s, t, div;
+		s1_x = p1_x - p0_x;
+		s1_y = p1_y - p0_y;
+		s2_x = p3_x - p2_x;
+		s2_y = p3_y - p2_y;
+		div = (-s2_x * s1_y + s1_x * s2_y);
+		if (div === 0)
+			return false;
+		s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / div;
+		div = (-s2_x * s1_y + s1_x * s2_y);
+		if (div === 0)
+			return false;
+		t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / div;
+		if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+		{
+			intersect_x = p0_x + (t * s1_x);
+			intersect_y = p0_y + (t * s1_y);
+			return true;
+		}
+		return false;
+	}
+	instanceProto.calcUmbraWithRadius = function (h)
+	{
+		var i = cw_edge2;
+		var i2, polyx, polyy;
+		for ( ; ; ++i)
+		{
+			i = i % poly_len;
+			i2 = i * 2;
+			polyx = poly_pts[i2];
+			polyy = poly_pts[i2+1];
+			umbra_pts.push(polyx);
+			umbra_pts.push(polyy);
+			if (i === acw_edge1)
+				break;
+		}
+		var r = this.lightRadius;
+		var acw_x = polyx;
+		var acw_y = polyy;
+		var a = cr.angleTo(this.lightX, this.lightY, midx, midy);
+		var L1x = this.lightX + Math.cos(a - Math.PI / 2) * r;
+		var L1y = this.lightY + Math.sin(a - Math.PI / 2) * r;
+		var ap = cr.angleTo(L1x, L1y, acw_x, acw_y);
+		var ad = cr.distanceTo(L1x, L1y, acw_x, acw_y);
+		var u1x = L1x + Math.cos(ap) * (ad + this.max_extrude);
+		var u1y = L1y + Math.sin(ap) * (ad + this.max_extrude);
+		i2 = cw_edge2 * 2;
+		var cw_x = poly_pts[i2];
+		var cw_y = poly_pts[i2+1];
+		a = cr.angleTo(this.lightX, this.lightY, midx, midy);
+		var L2x = this.lightX + Math.cos(a + Math.PI / 2) * r;
+		var L2y = this.lightY + Math.sin(a + Math.PI / 2) * r;
+		ap = cr.angleTo(L2x, L2y, cw_x, cw_y);
+		ad = cr.distanceTo(L2x, L2y, cw_x, cw_y);
+		var u2x = L2x + Math.cos(ap) * (ad + this.max_extrude);
+		var u2y = L2y + Math.sin(ap) * (ad + this.max_extrude);
+		acw_umbra_rootx = acw_x;
+		acw_umbra_rooty = acw_y;
+		cw_umbra_rootx = cw_x;
+		cw_umbra_rooty = cw_y;
+		if (segment_intersection_at(acw_x, acw_y, u1x, u1y, cw_x, cw_y, u2x, u2y))
+		{
+			umbra_pts.push(intersect_x);
+			umbra_pts.push(intersect_y);
+			acw_umbra_projx = intersect_x;
+			acw_umbra_projy = intersect_y;
+			cw_umbra_projx = intersect_x;
+			cw_umbra_projy = intersect_y;
+		}
+		else
+		{
+			umbra_pts.push(u1x);
+			umbra_pts.push(u1y);
+			umbra_pts.push(u2x);
+			umbra_pts.push(u2y);
+			acw_umbra_projx = u1x;
+			acw_umbra_projy = u1y;
+			cw_umbra_projx = u2x;
+			cw_umbra_projy = u2y;
+		}
+	};
+	instanceProto.calculateExtrusion = function (Lx, Ly, x, y, h)
+	{
+		if (h >= this.lightZ)
+			return this.max_extrude;
+		if (h <= 0)
+			return 0;
+		var dist = cr.distanceTo(Lx, Ly, x, y);
+		var a = Math.atan(dist / (this.lightZ - h));
+		var e = h * Math.tan(a);
+		if (e >= this.max_extrude)
+			e = this.max_extrude;
+		if (e < 0)
+			e = 0;
+		return e;
+	};
+	instanceProto.drawGL = function (glw)
+	{
+		glw.setOpacity(this.opacity);
+		this.getShadowCasterCandidates();
+		var i, len, j, lenj, inst, h, poly, tmx, tmy, c, tilerc, offx, offy;
+		for (i = 0, len = casters.length; i < len; ++i)
+		{
+			inst = casters[i];
+			if (!inst.extra["shadowcasterEnabled"] || !this.castsFrom(inst.extra["shadowcasterTag"]))
+				continue;
+			inst.update_bbox();
+			h = inst.extra["shadowcasterHeight"];
+			if (inst.tilemap_exists)
+			{
+				inst.getCollisionRectCandidates(this.bbox, collrect_candidates);
+				tmx = inst.x;
+				tmy = inst.y;
+				for (j = 0, lenj = collrect_candidates.length; j < lenj; ++j)
+				{
+					c = collrect_candidates[j];
+					tilerc = c.rc;
+					poly = null;
+					if (c.poly)
+					{
+						poly = c.poly;
+						offx = tilerc.left;
+						offy = tilerc.top;
+					}
+					else
+					{
+						temp_poly.set_from_rect(tilerc, 0, 0);
+						poly = temp_poly;
+						offx = 0;
+						offy = 0;
+					}
+					this.calcShadow(poly, tmx + offx, tmy + offy, h, false);
+					if (umbra_pts.length < 6)
+						continue;		// could not get at least an umbra triangle
+					glw.setTexture(this.webGL_texture);
+					glw.convexPoly(umbra_pts);
+					if (cw_edge1 > -1 && cw_edge2 > -1)
+					{
+						glw.setTexture(this.penumbra_texture);
+						this.drawPenumbraGL(glw, true);
+					}
+					if (acw_edge1 > -1 && acw_edge2 > -1)
+					{
+						glw.setTexture(this.penumbra_texture);
+						this.drawPenumbraGL(glw, false);
+					}
+					cr.clearArray(back_faces1);
+					cr.clearArray(umbra_pts);
+				}
+				cr.clearArray(collrect_candidates);
+			}
+			else
+			{
+				poly = null;
+				if (inst.collision_poly && !inst.collision_poly.is_empty())
+				{
+					inst.collision_poly.cache_poly(inst.width, inst.height, inst.angle);
+					poly = inst.collision_poly;
+				}
+				else
+				{
+					temp_poly.set_from_quad(inst.bquad, inst.x, inst.y, inst.width, inst.height);
+					poly = temp_poly;
+				}
+				this.calcShadow(poly, inst.x, inst.y, h, cr.xor(inst.width < 0, inst.height < 0));
+				if (umbra_pts.length < 6)
+					continue;		// could not get at least an umbra triangle
+				glw.setTexture(this.webGL_texture);
+				glw.convexPoly(umbra_pts);
+				if (cw_edge1 > -1 && cw_edge2 > -1)
+				{
+					glw.setTexture(this.penumbra_texture);
+					this.drawPenumbraGL(glw, true);
+				}
+				if (acw_edge1 > -1 && acw_edge2 > -1)
+				{
+					glw.setTexture(this.penumbra_texture);
+					this.drawPenumbraGL(glw, false);
+				}
+				cr.clearArray(back_faces1);
+				cr.clearArray(umbra_pts);
+			}
+		}
+		cr.clearArray(casters);
+	};
+	instanceProto.drawPenumbraGL = function (glw, clockwise)
+	{
+		var Lx = this.lightX;
+		var Ly = this.lightY;
+		var secx, secy;
+		var rootx, rooty, innerx, innery;
+		if (clockwise)
+		{
+			rootx = cw_umbra_rootx;
+			rooty = cw_umbra_rooty;
+			innerx = cw_umbra_projx;
+			innery = cw_umbra_projy;
+		}
+		else
+		{
+			rootx = acw_umbra_rootx;
+			rooty = acw_umbra_rooty;
+			innerx = acw_umbra_projx;
+			innery = acw_umbra_projy;
+		}
+		var r = this.lightRadius;
+		var a = cr.angleTo(Lx, Ly, midx, midy);
+		var oa = Math.PI / 2;
+		if (clockwise)
+			oa = -oa;
+		Lx += Math.cos(a + oa) * r;
+		Ly += Math.sin(a + oa) * r;
+		var twopart = false;
+		if (clockwise)
+		{
+			twopart = (cw_edge1 !== cw_edge2);
+			if (twopart)
+			{
+				secx = poly_pts[cw_edge1*2];
+				secy = poly_pts[cw_edge1*2+1];
+			}
+		}
+		else
+		{
+			twopart = (acw_edge1 !== acw_edge2);
+			if (twopart)
+			{
+				secx = poly_pts[acw_edge2*2];
+				secy = poly_pts[acw_edge2*2+1];
+			}
+		}
+		if (twopart)
+		{
+			a = cr.angleTo(secx, secy, rootx, rooty);
+		}
+		else
+		{
+			a = cr.angleTo(Lx, Ly, rootx, rooty);
+		}
+		var Ux = rootx + Math.cos(a) * this.max_extrude;
+		var Uy = rooty + Math.sin(a) * this.max_extrude;
+		var U2x, U2y, a3, a2, a1;
+		var umbra_factor = 0;
+		var rootu = 0;
+		var rootv = 1;
+		if (twopart)
+		{
+			a3 = cr.angleTo(Lx, Ly, secx, secy);
+			var U2x = secx + Math.cos(a3) * this.max_extrude;
+			var U2y = secy + Math.sin(a3) * this.max_extrude;
+			a2 = a;		// angle of middle edge
+			a1 = cr.angleTo(rootx, rooty, innerx, innery);
+			umbra_factor = (cr.angleDiff(a2, a3) / cr.angleDiff(a1, a3));
+			var side_dist = cr.distanceTo(secx, secy, rootx, rooty);
+			var inner_root_factor = (side_dist / (side_dist + this.max_extrude));
+			var sega = cr.angleTo(0, 1, umbra_factor, 0);
+			var segd = cr.distanceTo(0, 1, umbra_factor, 0);
+			rootu += Math.cos(sega) * inner_root_factor * segd;
+			rootv += Math.sin(sega) * inner_root_factor * segd;
+		}
+		glw.quadTexUV(rootx, rooty, innerx, innery, Ux, Uy, Ux, Uy, rootu, rootv, 1, 0, umbra_factor, 0, umbra_factor, 0);
+		if (twopart)
+		{
+			glw.quadTexUV(secx, secy, Ux, Uy, U2x, U2y, U2x, U2y, 0, 1, umbra_factor, 0, 0, 0, 0, 0);
+		}
+	};
+	function maybeGetPenumbraData()
+	{
+		if (penumbra_data)
+			return;		// already got data
+		var w = penumbra_img.width;
+		var h = penumbra_img.height;
+		var canvas = document.createElement("canvas");
+		canvas.width = w;
+		canvas.height = h;
+		var ctx = canvas.getContext("2d");
+		ctx.clearRect(0, 0, w, h);
+		ctx.drawImage(penumbra_img, 0, 0, w, h);
+		penumbra_data = ctx.getImageData(0, 0, w, h).data;
+	};
+	instanceProto.createTextures = function ()
+	{
+		if (!this.runtime.glwrap)
+			return;		// not WebGL mode
+		if (this.webGL_texture)
+		{
+			this.runtime.glwrap.deleteTexture(this.webGL_texture);
+			this.webGL_texture = null;
+		}
+		if (this.penumbra_texture)
+		{
+			this.runtime.glwrap.deleteTexture(this.penumbra_texture);
+			this.penumbra_texture = null;
+		}
+		this.createFillTexture();
+		this.createPenumbraTexture();
+	};
+	instanceProto.createFillTexture = function ()
+	{
+		var canvas = document.createElement("canvas");
+		canvas.width = 16;
+		canvas.height = 16;
+		var ctx = canvas.getContext("2d");
+		ctx.fillStyle = "rgb(" + this.lightR + "," + this.lightG + "," + this.lightB + ")";
+		ctx.fillRect(0, 0, 16, 16);
+		this.webGL_texture = this.runtime.glwrap.createEmptyTexture(16, 16, false, false, true);
+		this.runtime.glwrap.videoToTexture(canvas, this.webGL_texture);
+	};
+	instanceProto.createPenumbraTexture = function ()
+	{
+		var w = penumbra_img.width;
+		var h = penumbra_img.height;
+		var r = this.lightR, g = this.lightG, b = this.lightB;
+		var src_data = penumbra_data;
+		var canvas = document.createElement("canvas");
+		canvas.width = w;
+		canvas.height = h;
+		var ctx = canvas.getContext("2d");
+		var imgdata = ctx.createImageData(w, h);
+		var arr = imgdata.data;
+		var i, len;
+		for (i = 0, len = arr.length; i < len; i += 4)
+		{
+			arr[i] = r;
+			arr[i+1] = g;
+			arr[i+2] = b;
+			arr[i+3] = src_data[i+3];		// copy alpha from original
+		}
+		ctx.putImageData(imgdata, 0, 0);
+		this.penumbra_texture = this.runtime.glwrap.createEmptyTexture(w, h, this.runtime.linearSampling, false, false);
+		this.runtime.glwrap.videoToTexture(canvas, this.penumbra_texture);
+	};
+	function Cnds() {};
+	/*
+	Cnds.prototype.MyCondition = function (myparam)
+	{
+		return myparam >= 0;
+	};
+	*/
+	pluginProto.cnds = new Cnds();
+	function Acts() {};
+	Acts.prototype.SetLightHeight = function (z)
+	{
+		if (this.lightZ !== z)
+		{
+			this.lightZ = z;
+			this.runtime.redraw = true;
+		}
+	};
+	Acts.prototype.SetLightColor = function (rgb)
+	{
+		var r = cr.GetRValue(rgb);
+		var g = cr.GetGValue(rgb);
+		var b = cr.GetBValue(rgb);
+		if (this.lightR !== r || this.lightG !== g || this.lightB !== b)
+		{
+			this.lightR = r;
+			this.lightG = g;
+			this.lightB = b;
+			this.createTextures();
+			this.runtime.redraw = true;
+		}
+	};
+	Acts.prototype.SetTag = function (tag_)
+	{
+		if (this.tag !== tag_)
+		{
+			this.tag = tag_;
+			this.runtime.redraw = true;
+		}
+	};
+	pluginProto.acts = new Acts();
+	function Exps() {};
+	Exps.prototype.LightX = function (ret)
+	{
+		ret.set_float(this.lightX);
+	};
+	Exps.prototype.LightY = function (ret)
+	{
+		ret.set_float(this.lightY);
+	};
+	Exps.prototype.Tag = function (ret)
+	{
+		ret.set_string(this.tag);
+	};
+	pluginProto.exps = new Exps();
+}());
+;
+;
 cr.behaviors.Anchor = function(runtime)
 {
 	this.runtime = runtime;
@@ -28039,15 +28836,16 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Audio,
 	cr.plugins_.Function,
 	cr.plugins_.Mouse,
-	cr.plugins_.LocalStorage,
 	cr.plugins_.Keyboard,
-	cr.plugins_.Text,
+	cr.plugins_.LocalStorage,
 	cr.plugins_.Tilemap,
-	cr.plugins_.Rex_CSV2Array,
 	cr.plugins_.TiledBg,
-	cr.plugins_.WebStorage,
-	cr.plugins_.Sprite,
 	cr.plugins_.Touch,
+	cr.plugins_.shadowlight,
+	cr.plugins_.Rex_CSV2Array,
+	cr.plugins_.Sprite,
+	cr.plugins_.Text,
+	cr.plugins_.WebStorage,
 	cr.behaviors.Fade,
 	cr.behaviors.Pin,
 	cr.behaviors.solid,
@@ -28221,13 +29019,11 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.exps.ZIndex,
 	cr.plugins_.Function.prototype.exps.Call,
 	cr.system_object.prototype.cnds.PickByEvaluate,
-	cr.plugins_.Arr.prototype.cnds.CompareXY,
+	cr.plugins_.Sprite.prototype.acts.SetEffectParam,
 	cr.plugins_.Sprite.prototype.acts.SetEffectEnabled,
 	cr.plugins_.Sprite.prototype.acts.AddInstanceVar,
+	cr.plugins_.Sprite.prototype.acts.SetHeight,
 	cr.system_object.prototype.exps.sqrt,
-	cr.plugins_.Arr.prototype.cnds.ArrForEach,
-	cr.plugins_.Arr.prototype.exps.CurX,
-	cr.plugins_.Arr.prototype.exps.CurY,
 	cr.system_object.prototype.exps.min,
 	cr.plugins_.Arr.prototype.cnds.CompareXYZ
 ];};
