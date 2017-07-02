@@ -20,6 +20,12 @@ body {
 	height: 100vh;
 }
 
+@media only screen and (max-width: 768px) {
+	#anibox {
+		display: none;
+	}
+}
+
 #interactbox {
 	float: left;
 	min-width: 40%;
@@ -27,6 +33,13 @@ body {
 	height:100vh;
 	background: rgb(235, 235, 235);
 	
+}
+
+@media only screen and (max-width: 768px) {
+	#interactbox {
+		min-width: 100%;
+		max-width:100%;
+	}
 }
 
 #chatbox {
@@ -61,7 +74,7 @@ body {
 	margin-bottom: 0.75em;
 	float: left;
 	max-width: 75%;
-	clear: both;
+	clear: right;
 }
 
 .messageself {
@@ -81,6 +94,12 @@ body {
 	min-width: 30%;
 	max-width: 30%;
 	height:100vh;
+}
+
+@media only screen and (max-width: 768px) {
+	#viewbox {
+		display: none;
+	}
 }
 
 #miniweb {
@@ -122,4 +141,11 @@ body {
 #AliceAvatarHappy {
 	display: none;
 	background-image: url('images/AliceAvatarHappy.png');
+}
+
+.chat-bubble {
+	width: 10%;
+	float: left;
+	clear: right;
+	margin-right: 1em;
 }

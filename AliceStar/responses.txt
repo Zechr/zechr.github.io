@@ -58,3 +58,9 @@ AliceAvatarPout.png
 yelp
 Have a safe trip. You really need to go outside
 AliceAvatar.png
+math
+I'm an AI. You can count on me for this
+AliceAvatar.png
+math
+This is my specialty!
+AliceAvatarHappy.png

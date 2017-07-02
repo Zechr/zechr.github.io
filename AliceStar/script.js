@@ -8,6 +8,8 @@ var commands = {};
 var responses = {};
 var respimg = {};
 var respprev = {};
+var conversations = {};
+var convmap = {};
 //-weather
 //-yugioh
 //-yelp locations
@@ -23,6 +25,8 @@ $(document).ready(function() {
   $.get("commands.txt", function(data) {loadCommands(data);});
   $.get("topics.txt", function(data) {loadTopics(data);});
   $.get("responses.txt", function(data) {loadResponses(data);});
+  $.get("conversation.txt", function(data) {loadConversation(data);});
+  $.get("convmode.txt", function(data) {loadConvMap(data);});
   $('#chatbox').append("<div class='message'> Welcome home, Master. </div>");
   $('#userbox').keydown(function(event) {
     if (event.keyCode == 13) {
@@ -107,8 +111,45 @@ function loadResponses(r) {
   }
 }
 
+function loadConversation(data) {
+  var allTextLines = data.split(/\r\n|\n/);
+  for (var i = 0; i < allTextLines.length; i+=2) {
+    convline = allTextLines[i+1].split(' ');
+    respimg[convline[0]] = convline[1]
+    conversations[convline[0]] = convline.slice(2, convline.length).join(' ');
+  }
+}
+
+function loadConvMap(data) {
+  var allTextLines = data.split(/\r\n|\n/);
+  for (var i = 0; i < allTextLines.length; i++) {
+    dist = allTextLines[i].split(' ');
+    convmap[dist[0]] = {};
+    if (dist[0] == "commons") {
+      topics["conv"] = {};
+    }
+    for (var j = 1; j < dist.length; j+=2) {
+      convmap[dist[0]][dist[j]] = Number(dist[j+1]);
+      if (dist[0] == "commons") {
+        topics["conv"][dist[j]] = Number(dist[j+1]);
+      }
+    }
+  }
+}
+
 function process(sentence) {
-  var words = sentence.toLowerCase().split(/\W+/);  
+  //var words = sentence.toLowerCase().split(/\W+/);
+  var wordstemp = sentence.toLowerCase().split(" ");
+  var words = [];
+  for (var i = 0; i < wordstemp.length; i++) {
+    var ws = wordstemp[i].split(/(\W)/);
+    for (var j = 0; j < ws.length; j++) {
+      var w = ws[j];
+      if (w != '') {
+        words.push(w);
+      }
+    }
+  }
   classify(words);
 }
 
@@ -200,16 +241,16 @@ function posLabel(words) {
   return [words, labels]; 
 }
 
-function topic(words) {
+function topic(words, topicDictionary) {
   sentDict = {};
   psum = 0
   for (var i = 0; i < words.length; i++) {
     if (words[i] in sentDict) {
-      pval = ((sentDict[words[i]] + 1)/words.length)/dictDefault(topics["commons"], words[i], 0.00001);
+      pval = ((sentDict[words[i]] + 1)/words.length)/dictDefault(topicDictionary["commons"], words[i], 0.00001);
       sentDict[words[i]] = pval;
       psum += pval;
     } else {
-      pval = (1/words.length)/dictDefault(topics["commons"], words[i], 0.00001);
+      pval = (1/words.length)/dictDefault(topicDictionary["commons"], words[i], 0.00001);
       sentDict[words[i]] = pval;
       psum += pval;
     }
@@ -219,11 +260,14 @@ function topic(words) {
   }
   topicP = {};
   total = 0
-  for (topicKey in topics) {
+  for (topicKey in topicDictionary) {
+    if (topicKey == "commons") {
+      continue;
+    }
     var dist = 0;
     for (word in sentDict) {
-      dist += Math.pow(sentDict[word] - dictDefault(topics[topicKey], word, 
-                  dictDefault(topics["commons"], words[i], 0.00001)), 2);
+      dist += Math.pow(sentDict[word] - dictDefault(topicDictionary[topicKey], word, 
+                  dictDefault(topicDictionary["commons"], words[i], 0.00001)), 2);
     }
     dist = 1/Math.sqrt(dist);
     topicP[topicKey] = dist;
@@ -303,7 +347,7 @@ function grammarMatch(syntax) {
 
 function classify(words) {
   var topicG = grammarMatch(posLabel(words)[1]);
-  var topicP = topic(words);
+  var topicP = topic(words, topics);
   var maxP = 0;
   var maxTopic = "";
   grammarTotal = 0;
@@ -318,7 +362,7 @@ function classify(words) {
     console.log(topicKey);
     console.log(topicP[topicKey]);
     console.log(topicG[topicKey]);
-    var temp = 0.65*topicP[topicKey] + 0.35*topicG[topicKey];
+    var temp = 0.35*topicG[topicKey] + 0.65*topicP[topicKey];
     if (temp > maxP || maxP == 0) {
       maxP = temp;
       maxTopic = topicKey;
@@ -345,6 +389,10 @@ function classify(words) {
     musicCom(words, maxTopic);
   } else if (maxTopic == "yelp") {
     yelpCom(words, maxTopic);
+  } else if (maxTopic == "math") {
+    mathCom(words, maxTopic);
+  } else if (maxTopic == "conv"){
+    chatCom(words, maxTopic);
   }
 }
 
@@ -364,7 +412,7 @@ function paramSearch(baselink, words, separator, ender, source) {
   link += temp;
   link += ender;
   $('#chatbox').append("<a href='" + link + 
-    "' target='_blank'><div class='message' style='color: rgb(140, 160, 200); text-decoration: underline'>" 
+    "' target='_blank'><div class='message' style='color: rgb(140, 160, 200); text-decoration: underline; clear:both'>" 
     + source + " " + query +"</div></a>")
   $("#chatbox").animate({
         scrollTop: $("#chatbox")[0].scrollHeight
@@ -381,6 +429,7 @@ function topicResp(topic) {
   respprev[topic] = resp;
   $('.avatar').hide();
   $("#" + respimg[resp].slice(0, -4)).show();
+  $('#chatbox').append("<div class='chat-bubble'><img src='images/"+ respimg[resp].slice(0, -4) + "Icon.png' " + "width=100%></div>");
   $('#chatbox').append("<div class='message'>"+resp+"</div>");
 }
 
@@ -402,7 +451,15 @@ function animeCom(words, topic) {
 
 function weatherCom(topic) {
   topicResp(topic);
-  $('#miniweb').attr('src', "http://www.wunderground.com/");
+  $("#chatbox").animate({
+        scrollTop: $("#chatbox")[0].scrollHeight
+    }, 300);
+  if (window.matchMedia('screen and (max-width: 768px)').matches) {
+    window.open("http://www.wunderground.com/");
+  } else {
+    $('#miniweb').attr('src', "http://www.wunderground.com/");
+  }
+ 
 }
 
 function musicCom(words, topic) {
@@ -432,5 +489,34 @@ function yelpCom(words, topic) {
   paramSearch("https://www.yelp.com/search?find_desc=", words, "+", "", "Yelp");
 }
 
-function chatCom(words, topic) {
+function mathCom(words, topic) {
+  topicResp(topic);
+  for (var i = 0; i < words.length; i++) {
+    words[i] = words[i].replace("^", "%5E").replace("+", "%2B").replace("=", "%3D").replace("|", "%7C");
+  }
+  if (window.matchMedia('screen and (max-width: 768px)').matches) {
+    window.open(paramSearch("http://www.wolframalpha.com/input/?i=", words, "+", "", "Wolfram Alpha").replace("www", "m"));
+  } else {
+    $('#miniweb').attr('src', 
+        paramSearch("http://www.wolframalpha.com/input/?i=", words, "+", "", "Wolfram Alpha").replace("www", "m"));
+  }
+} 
+
+function chatCom(words, ltopic) {
+  maxTopic = "";
+  maxP = -1;
+  topicP = topic(words, convmap);
+  for (subject in convmap) {
+    if (subject != "commons" && (maxP == -1 || topicP[subject] > maxP)) {
+      maxTopic = subject;
+      maxP = topicP[subject];
+    }
+  }
+  $('.avatar').hide();
+  $("#" + respimg[maxTopic].slice(0, -4)).show();
+  $('#chatbox').append("<div class='chat-bubble'><img src='images/"+ respimg[maxTopic].slice(0, -4) + "Icon.png' " + "width=100%></div>");
+  $('#chatbox').append("<div class='message'>"+conversations[maxTopic]+"</div>");
+  $("#chatbox").animate({
+        scrollTop: $("#chatbox")[0].scrollHeight
+    }, 300);
 }
