@@ -77,6 +77,12 @@ body {
 	clear: right;
 }
 
+@media only screen and (max-width: 768px) {
+	.message {
+		max-width: 70%;
+	}
+}
+
 .messageself {
 	padding: 1em;
 	max-width: 75%;
