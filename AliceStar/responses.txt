@@ -58,6 +58,9 @@ AliceAvatarPout.png
 yelp
 Have a safe trip. You really need to go outside
 AliceAvatar.png
+yelp
+Wouldn't you rather eat me?
+AliceAvatarSexy.png
 math
 I'm an AI. You can count on me for this
 AliceAvatar.png

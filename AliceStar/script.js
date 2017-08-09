@@ -269,7 +269,7 @@ function topic(words, topicDictionary) {
       dist += Math.pow(sentDict[word] - dictDefault(topicDictionary[topicKey], word, 
                   dictDefault(topicDictionary["commons"], words[i], 0.00001)), 2);
     }
-    dist = 1/Math.sqrt(dist);
+    dist = 1/Math.sqrt(dist + 0.00001);
     topicP[topicKey] = dist;
   }
   digitdiff = 0;
@@ -362,7 +362,7 @@ function classify(words) {
     console.log(topicKey);
     console.log(topicP[topicKey]);
     console.log(topicG[topicKey]);
-    var temp = 0.35*topicG[topicKey] + 0.65*topicP[topicKey];
+    var temp = 0.25*topicG[topicKey] + 0.75*topicP[topicKey];
     if (temp > maxP || maxP == 0) {
       maxP = temp;
       maxTopic = topicKey;
@@ -524,6 +524,8 @@ function chatCom(words, ltopic) {
   maxP = -1;
   topicP = topic(words, convmap);
   for (subject in convmap) {
+    console.log(subject);
+    console.log(topicP[subject]);
     if (subject != "commons" && (maxP == -1 || topicP[subject] > maxP)) {
       maxTopic = subject;
       maxP = topicP[subject];
