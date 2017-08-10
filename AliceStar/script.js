@@ -522,7 +522,13 @@ function mathCom(words, topic) {
 function chatCom(words, ltopic) {
   maxTopic = "";
   maxP = -1;
-  topicP = topic(words, convmap);
+  adjwords = []
+  for (var i = 0; i < words.length; i++) {
+    if (words[i].match(/^[a-z0-9]+$/)) {
+      adjwords.push(words[i]);
+    }
+  }
+  topicP = topic(adjwords, convmap);
   for (subject in convmap) {
     console.log(subject);
     console.log(topicP[subject]);
