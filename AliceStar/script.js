@@ -27,6 +27,7 @@ $(document).ready(function() {
   $.get("responses.txt", function(data) {loadResponses(data);});
   $.get("conversation.txt", function(data) {loadConversation(data);});
   $.get("convmode.txt", function(data) {loadConvMap(data);});
+  $('#chatbox').append("<div class='chat-bubble'><img src='images/AliceAvatarIcon.png' " + "width=100%></div>");
   $('#chatbox').append("<div class='message'> Welcome home, Master. </div>");
   $('#userbox').keydown(function(event) {
     if (event.keyCode == 13) {
@@ -269,7 +270,7 @@ function topic(words, topicDictionary) {
       dist += Math.pow(sentDict[word] - dictDefault(topicDictionary[topicKey], word, 
                   dictDefault(topicDictionary["commons"], words[i], 0.00001)), 2);
     }
-    dist = 1/Math.sqrt(dist);
+    dist = 1/Math.sqrt(dist + 0.00001);
     topicP[topicKey] = dist;
   }
   digitdiff = 0;
@@ -362,7 +363,7 @@ function classify(words) {
     console.log(topicKey);
     console.log(topicP[topicKey]);
     console.log(topicG[topicKey]);
-    var temp = 0.35*topicG[topicKey] + 0.65*topicP[topicKey];
+    var temp = 0.25*topicG[topicKey] + 0.75*topicP[topicKey];
     if (temp > maxP || maxP == 0) {
       maxP = temp;
       maxTopic = topicKey;
@@ -522,8 +523,16 @@ function mathCom(words, topic) {
 function chatCom(words, ltopic) {
   maxTopic = "";
   maxP = -1;
-  topicP = topic(words, convmap);
+  adjwords = []
+  for (var i = 0; i < words.length; i++) {
+    if (words[i].match(/^[a-z0-9]+$/)) {
+      adjwords.push(words[i]);
+    }
+  }
+  topicP = topic(adjwords, convmap);
   for (subject in convmap) {
+    console.log(subject);
+    console.log(topicP[subject]);
     if (subject != "commons" && (maxP == -1 || topicP[subject] > maxP)) {
       maxTopic = subject;
       maxP = topicP[subject];
