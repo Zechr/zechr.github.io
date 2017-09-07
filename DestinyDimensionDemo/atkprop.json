@@ -1,0 +1,30 @@
+{"c2array": true, 
+ "size": [24, 11, 1], 
+ "data":
+[
+[[0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
+[["Heal"], [15], ["Drink"], ["Attach"], ["Heal"], [0], [0], [0.3], ["Null"], ["True"], ["Uses a special potion to heal 30% of HP."]],
+[["AcidBurst"], [10], ["Throw"], ["Arc"], ["DetachArea"], [3], [1], [4], ["Null"], ["True"], ["Throws a chemical cocktail 3 squares ahead and explodes on 3x3."]],
+[["Samsara"], [20], ["Raise"], ["ChoiceMove"], ["AllyChoice"], [1], [0], [0.5], ["Null"], [0], ["Revives an ally with smelling salts."]],
+[["Chrysanthemeum Cocktail"], [12], ["Throw"], ["Arc"], ["DetachArea"], [3], [1], [6], ["Fire"], [0], ["Throws an extra flaming chemical cocktail 3 squares ahead and explodes on 3x3."]],
+[["Neuroshock"], [5], ["Cyber"], ["Auto"], ["Targeting"], [1], [0], [6], ["Elec"], [0], ["Chrysanthia hacks an enemy's brain circuits and gives them a shock!"]],
+[["Revovler Shot"], [7], ["Shot"], ["Detach"], ["Linear"], [8], [0], [6], ["Earth"], [0], ["Fires his revolver down the row, and he's not playing roulette."]],
+[["Punch"], [8], ["Punch"], ["Attach"], ["Forward"], [1], [1], [12], ["Null"], [0], ["Robin delivers a swift punch to the square ahead."]],
+[["Machine Gun"], [5], ["MGun"], ["Attach"], ["Forward"], [8], [1], [6], ["Null"], [0], ["Machine gun fire. Mow them down in a row!"]],
+[["Sniper"], [8], ["Snipe"], ["Auto"], ["Targeting"], [8], [0], [8], ["Null"], [0], ["Snipes the enemy furthest away from Robin. They'll never see it coming!"]],
+[["RPG"], [12], ["ShldrShot"], ["DetachExplode"], ["Linear"], [8], [1], [8], ["Fire"], [0], ["Shoots an RPG down the row which explodes in a plus shape."]],
+[["Aura Slash"], [10], ["Slash"], ["Attach"], ["Forward"], [2], [2], [10], ["Null"], ["True"], ["Airomi slashes 2 squares horizontally and vertically with a massive aura."]],
+[["Aura Sphere"], [6], ["Shot"], ["Detach"], ["Linear"], [8], [0], [7], ["Null"], ["True"], ["Airomi throws a concentrated sphere of aura down the row."]],
+[["Agni"], [12], ["Slash"], ["Attach"], ["T"], [3], [1], [8], ["Fire"], [0], ["Burns everything in a T shape"]],
+[["Lithos"], [8], ["Slash"], ["Attach"], ["Forward"], [1], [4], [8], ["Earth"], [0], ["A wall of earth rises in the column ahead. The enemies will pay for it."]],
+[["Garus"], [6], ["Slash"], ["Detach"], ["PersistProjectile"], [2], [0], [6], ["Wind"], [0], ["Sends a 2 square wide air slash down the row."]],
+[["Bahrastos"], [8], ["Slash"], ["Detach"], ["PersistProjectile"], [3], [0], [6], ["Water"], [0], ["A 3 square wide wave wipes through the row."]],
+[[0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
+[[0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
+[[0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
+[[0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
+[[0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
+[[0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0]],
+[[0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0]]
+]
+}
