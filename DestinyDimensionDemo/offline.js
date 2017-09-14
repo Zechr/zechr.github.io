@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1504823861,
+	"version": 1505397299,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -32,6 +32,7 @@
 		"images/battleboardimg-sheet0.png",
 		"images/battleboardimg-sheet1.png",
 		"images/attacksquare-sheet0.png",
+		"images/timelineeventblock.png",
 		"images/attributecirc-sheet0.png",
 		"images/chargebut-sheet0.png",
 		"images/faceiconen-sheet0.png",
@@ -52,6 +53,7 @@
 		"images/menudexicon-sheet0.png",
 		"images/newsicon-sheet0.png",
 		"images/formationicon-sheet0.png",
+		"images/controlinfoicon-sheet0.png",
 		"images/hintbg-sheet0.png",
 		"images/reloadbarwhite-sheet0.png",
 		"images/essentidexleft-sheet0.png",
@@ -86,6 +88,7 @@
 		"images/startmenubg-sheet0.png",
 		"images/banner-sheet0.png",
 		"images/charuihighlight-sheet0.png",
+		"images/controlpanel-sheet0.png",
 		"images/background-sheet0.png",
 		"images/floorblock-sheet0.png",
 		"images/airomiimage-sheet0.png",
@@ -100,6 +103,8 @@
 		"images/textbox-sheet0.png",
 		"images/npc-sheet0.png",
 		"images/visualn-sheet0.png",
+		"images/visualn-sheet1.png",
+		"images/visualn-sheet2.png",
 		"images/soulink-sheet0.png",
 		"images/lighting-sheet0.png",
 		"images/gridenemy-sheet0.png",
@@ -125,7 +130,6 @@
 		"images/battleboardchar-sheet1.png",
 		"images/battleboardchar-sheet2.png",
 		"images/room-sheet0.png",
-		"images/timelineeventblock.png",
 		"media/those of us who fight.m4a",
 		"media/those of us who fight.ogg",
 		"media/destiny dimension v5.m4a",
@@ -149,6 +153,7 @@
 		"gridenemies.json",
 		"enemyprop.json",
 		"miniscenes.json",
+		"chapternews.json",
 		"penumbra.png"
 	]
 }

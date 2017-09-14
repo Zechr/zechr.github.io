@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1504823861
+#1505397299
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -31,6 +31,7 @@ images/levelupcard-sheet0.png
 images/battleboardimg-sheet0.png
 images/battleboardimg-sheet1.png
 images/attacksquare-sheet0.png
+images/timelineeventblock.png
 images/attributecirc-sheet0.png
 images/chargebut-sheet0.png
 images/faceiconen-sheet0.png
@@ -51,6 +52,7 @@ images/menuequipicon-sheet0.png
 images/menudexicon-sheet0.png
 images/newsicon-sheet0.png
 images/formationicon-sheet0.png
+images/controlinfoicon-sheet0.png
 images/hintbg-sheet0.png
 images/reloadbarwhite-sheet0.png
 images/essentidexleft-sheet0.png
@@ -85,6 +87,7 @@ images/hpenfront-sheet0.png
 images/startmenubg-sheet0.png
 images/banner-sheet0.png
 images/charuihighlight-sheet0.png
+images/controlpanel-sheet0.png
 images/background-sheet0.png
 images/floorblock-sheet0.png
 images/airomiimage-sheet0.png
@@ -99,6 +102,8 @@ images/charpolyover-sheet1.png
 images/textbox-sheet0.png
 images/npc-sheet0.png
 images/visualn-sheet0.png
+images/visualn-sheet1.png
+images/visualn-sheet2.png
 images/soulink-sheet0.png
 images/lighting-sheet0.png
 images/gridenemy-sheet0.png
@@ -124,7 +129,6 @@ images/battleboardchar-sheet0.png
 images/battleboardchar-sheet1.png
 images/battleboardchar-sheet2.png
 images/room-sheet0.png
-images/timelineeventblock.png
 media/those%20of%20us%20who%20fight.m4a
 media/those%20of%20us%20who%20fight.ogg
 media/destiny%20dimension%20v5.m4a
@@ -148,6 +152,7 @@ battleindex.json
 gridenemies.json
 enemyprop.json
 miniscenes.json
+chapternews.json
 penumbra.png
 NETWORK:
 *

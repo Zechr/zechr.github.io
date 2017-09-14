@@ -31,7 +31,7 @@
 [["ItemBox", 0], ["It's a strange tesseract.", 0], ["CUTSTART", 2], ["MINIEND", 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
 [["NewsVan", 0], ["It's the Xaiven People's News van. State propaganda has a nice budget.", 0], ["MINIEND", 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
 [["YoungWoman2BackStill", 0], ["A flashy ceremony, huh? I wish I could afford something like this.", 0], ["MINIEND", 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
-[[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+[[0, 0], ["NEWSVIZ", "ShadyBlogger"], ["NEWS", "Rumor has it that some creature has been seen inside the palace."], ["MINIEND", 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
 [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
 [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
 [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
