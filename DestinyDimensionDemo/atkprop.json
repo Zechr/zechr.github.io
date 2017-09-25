@@ -8,7 +8,7 @@
 [["Samsara"], [20], ["Raise"], ["ChoiceMove"], ["AllyChoice"], [1], [0], [0.5], ["Null"], ["True"], ["Revives an ally with smelling salts."]],
 [["ChrysanthemeumCocktail"], [12], ["Throw"], ["Arc"], ["DetachArea"], [3], [1], [6], ["Fire"], [0], ["Throws an extra flaming chemical cocktail 3 squares ahead and explodes on 3x3."]],
 [["Neuroshock"], [5], ["Cyber"], ["Auto"], ["Targeting"], [1], [0], [6], ["Elec"], [0], ["Chrysanthia hacks an enemy's brain circuits and gives them a shock!"]],
-[["RevovlerShot"], [7], ["Shot"], ["Detach"], ["Linear"], [8], [0], [6], ["Earth"], ["True"], ["Fires his revolver down the row, and he's not playing roulette."]],
+[["RevolverShot"], [7], ["Shot"], ["Detach"], ["Linear"], [8], [0], [6], ["Earth"], ["True"], ["Fires his revolver down the row, and he's not playing roulette."]],
 [["Punch"], [8], ["Punch"], ["Attach"], ["Forward"], [1], [1], [12], ["Null"], ["True"], ["Robin delivers a swift punch to the square ahead."]],
 [["MachineGun"], [5], ["MGun"], ["Attach"], ["Forward"], [8], [1], [6], ["Null"], [0], ["Machine gun fire. Mow them down in a row!"]],
 [["Sniper"], [8], ["Snipe"], ["Auto"], ["Targeting"], [8], [0], [8], ["Null"], [0], ["Snipes the enemy furthest away from Robin. They'll never see it coming!"]],

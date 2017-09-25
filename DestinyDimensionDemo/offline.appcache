@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1505835124
+#1506379058
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -65,6 +65,7 @@ images/chareqselector-sheet0.png
 images/essentidexback-sheet0.png
 images/essentidexfront-sheet0.png
 images/essentidexfront2-sheet0.png
+images/essentidexfront2-sheet1.png
 images/equipuicharbar-sheet0.png
 images/equipuileft-sheet0.png
 images/equipuiright-sheet0.png
@@ -91,6 +92,8 @@ images/controlpanel-sheet0.png
 images/darkcircle-sheet0.png
 images/darkcircle-sheet1.png
 images/darkcircle-sheet2.png
+images/confirmpopup-sheet0.png
+images/formationbg-sheet0.png
 images/background-sheet0.png
 images/floorblock-sheet0.png
 images/airomiimage-sheet0.png
@@ -108,6 +111,7 @@ images/visualn-sheet0.png
 images/visualn-sheet1.png
 images/visualn-sheet2.png
 images/visualn-sheet3.png
+images/visualn-sheet4.png
 images/soulink-sheet0.png
 images/lighting-sheet0.png
 images/gridenemy-sheet0.png
@@ -133,15 +137,14 @@ images/battleboardchar-sheet0.png
 images/battleboardchar-sheet1.png
 images/battleboardchar-sheet2.png
 images/room-sheet0.png
-images/confirmpopup-sheet0.png
-media/those%20of%20us%20who%20fight.m4a
-media/those%20of%20us%20who%20fight.ogg
 media/destiny%20dimension%20v5.m4a
 media/destiny%20dimension%20v5.ogg
 media/destiny%20dimension%20v3%20-%20menu%20loop.m4a
 media/destiny%20dimension%20v3%20-%20menu%20loop.ogg
-media/the%20battle%20for%20freedom.m4a
-media/the%20battle%20for%20freedom.ogg
+media/02%20-%20battle%20-%20blades%20up.m4a
+media/02%20-%20battle%20-%20blades%20up.ogg
+media/frontier%20heroes.m4a
+media/frontier%20heroes.ogg
 icon-16.png
 icon-32.png
 icon-114.png
@@ -158,6 +161,7 @@ gridenemies.json
 enemyprop.json
 miniscenes.json
 chapternews.json
+roommusic.json
 penumbra.png
 NETWORK:
 *
