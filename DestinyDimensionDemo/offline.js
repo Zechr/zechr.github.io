@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1506379058,
+	"version": 1507484044,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -113,6 +113,8 @@
 		"images/visualn-sheet2.png",
 		"images/visualn-sheet3.png",
 		"images/visualn-sheet4.png",
+		"images/visualn-sheet5.png",
+		"images/visualn-sheet6.png",
 		"images/soulink-sheet0.png",
 		"images/lighting-sheet0.png",
 		"images/gridenemy-sheet0.png",
