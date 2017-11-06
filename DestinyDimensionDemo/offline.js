@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1509205170,
+	"version": 1509977991,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -65,6 +65,7 @@
 		"images/chareqselector-sheet0.png",
 		"images/essentidexback-sheet0.png",
 		"images/essentidexfront-sheet0.png",
+		"images/rangeattackselect-sheet0.png",
 		"images/essentidexfront2-sheet0.png",
 		"images/essentidexfront2-sheet1.png",
 		"images/equipuicharbar-sheet0.png",
