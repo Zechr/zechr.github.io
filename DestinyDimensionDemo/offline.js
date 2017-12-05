@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1509977991,
+	"version": 1512455854,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -59,6 +59,8 @@
 		"images/essentidexleft-sheet0.png",
 		"images/essentidexright-sheet0.png",
 		"images/dexselect-sheet0.png",
+		"images/dexselect-sheet1.png",
+		"images/dexselect-sheet2.png",
 		"images/dexattackbg-sheet0.png",
 		"images/elementindic-sheet0.png",
 		"images/dexexit-sheet0.png",
@@ -78,6 +80,7 @@
 		"images/savebg-sheet0.png",
 		"images/save-sheet0.png",
 		"images/savedelete-sheet0.png",
+		"images/statexit-sheet0.png",
 		"images/saveconfirm-sheet0.png",
 		"images/saveyes-sheet0.png",
 		"images/saveno-sheet0.png",
