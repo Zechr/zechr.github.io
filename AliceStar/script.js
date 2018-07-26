@@ -10,6 +10,7 @@ var respimg = {};
 var respprev = {};
 var conversations = {};
 var convmap = {};
+var costumes = [];
 //-weather
 //-yugioh
 //-yelp locations
@@ -27,8 +28,9 @@ $(document).ready(function() {
   $.get("responses.txt", function(data) {loadResponses(data);});
   $.get("conversation.txt", function(data) {loadConversation(data);});
   $.get("convmode.txt", function(data) {loadConvMap(data);});
+  //$.get("costumes.txt", function(data) {loadCostumes(data);});
   $('#chatbox').append("<div class='chat-bubble'><img src='images/AliceAvatarIcon.png' " + "width=100%></div>");
-  $('#chatbox').append("<div class='message'> Welcome home, Master. </div>");
+  sayMessage('Welcome home, Master.');
   $('#userbox').keydown(function(event) {
     if (event.keyCode == 13) {
       event.preventDefault();
@@ -138,6 +140,10 @@ function loadConvMap(data) {
   }
 }
 
+function loadCostumes(data) {
+
+}
+
 function process(sentence) {
   //var words = sentence.toLowerCase().split(/\W+/);
   var wordstemp = sentence.toLowerCase().split(" ");
@@ -214,7 +220,6 @@ function posLabel(words) {
           lmaxIndex = k;
         }
       }
-      //viterbi[i][j] = [pmax, lmax, lmaxIndex];
       viterbi[i][j][0] = pmax;
       viterbi[i][j][1] = lmax;
       viterbi[i][j][2] = lmaxIndex;
@@ -222,16 +227,6 @@ function posLabel(words) {
   }
   var maxend = 2;
   var maxIndex = -1;
-  //console.log(viterbi[words.length][0][0]);
-  /*for (var x = 0; x < numLabels; x++) {
-    if (maxend == 2 || viterbi[words.length - 1][x][0] > maxend) {
-      maxend = viterbi[words.length - 1][x][0];
-      maxIndex = x;
-    }
-    //console.log(labelSet[x]);
-    //console.log(labelSet[viterbi[words.length - 1][x][2]]);
-    //console.log(viterbi[words.length - 1][x][0]);
-  }*/
   maxIndex = viterbi[words.length][0][2];
   var curw = words.length - 1;
   while (curw >= 0) {
@@ -394,6 +389,8 @@ function classify(words) {
     mathCom(words, maxTopic);
   } else if (maxTopic == "conv"){
     chatCom(words, maxTopic);
+  } else if (maxTopic == "costume") {
+    dressCom(words, maxTopic);
   }
 }
 
@@ -421,37 +418,61 @@ function paramSearch(baselink, words, separator, ender, source) {
   return link;
 }
 
-function topicResp(topic) {
-  var resps = responses[topic]
+function topicResp(topicClass) {
+  var resps = responses[topicClass]
   var resp = resps[Math.floor(Math.random()*resps.length)];
-  while (topic in respprev && resp === respprev[topic]) {
+  while (topicClass in respprev && resp === respprev[topicClass]) {
     resp = resps[Math.floor(Math.random()*resps.length)];
   }
-  respprev[topic] = resp;
-  $('.avatar').hide();
-  $("#" + respimg[resp].slice(0, -4)).show();
-  $('#chatbox').append("<div class='chat-bubble'><img src='images/"+ respimg[resp].slice(0, -4) + "Icon.png' " + "width=100%></div>");
-  $('#chatbox').append("<div class='message'>"+resp+"</div>");
+  respprev[topicClass] = resp;
+  faceExpression(respimg[resp].slice(0, -4));
+  sayMessage(resp);
 }
 
-function yugiohCom(words, topic) {
-  topicResp(topic);
+function sayMessage(message) {
+  $('#chatbox').append("<div class='message'>"+message+"</div>");
+  $("#chatbox").animate({
+        scrollTop: $("#chatbox")[0].scrollHeight
+    }, 300);
+  var msg = new SpeechSynthesisUtterance(message);
+  var myTimer = setInterval(function() {
+    var voices = speechSynthesis.getVoices();
+    if (voices.length !== 0) {
+      //12 is Japanese
+      //4 is British
+      //3 is American
+      msg.voice = voices[3];
+      speechSynthesis.speak(msg);
+      clearInterval(myTimer)
+    }
+  }, 500);
+}
+
+function faceExpression(img_name) {
+  $('.avatar').hide();
+  $("#" + img_name).show();
+  $('#chatbox').append("<div class='chat-bubble'><img src='images/"+ img_name + "Icon.png' " + "width=100%></div>");
+}
+
+
+function yugiohCom(words, topicClass) {
+  topicResp(topicClass);
   var link = "http://shop.tcgplayer.com/productcatalog/product/show?newSearch=false&ProductName=";
   paramSearch(link, words, "%20", "", "TCG Player");
   var link2 = "https://www.reddit.com/r/yugioh/search?q=";
   paramSearch(link2, words, "+", "&restrict_sr=on&sort=relevance&t=all", "Reddit")
 }
 
-function animeCom(words, topic) {
-  topicResp(topic);
+function animeCom(words, topicClass) {
+  topicResp(topicClass);
   var link = "https://myanimelist.net/search/all?q=";
   paramSearch(link, words, "%20", "", "MAL");
   var link2 = "https://www.reddit.com/r/anime/search?q=";
   paramSearch(link2, words, "+", "&restrict_sr=on&sort=relevance&t=all", "Reddit")
 }
 
-function weatherCom(topic) {
-  topicResp(topic);
+function weatherCom(topicClass) {
+  topicResp(topicClass);
   $("#chatbox").animate({
         scrollTop: $("#chatbox")[0].scrollHeight
     }, 300);
@@ -460,11 +481,10 @@ function weatherCom(topic) {
   } else {
     $('#miniweb').attr('src', "http://www.wunderground.com/");
   }
- 
 }
 
-function musicCom(words, topic) {
-  topicResp(topic);
+function musicCom(words, topicClass) {
+  topicResp(topicClass);
   toRemove = ["play", "music", "mix", "playlist"];
   for (var i = 0; i < toRemove.length; i++) {
     var index = words.indexOf(toRemove[i]);
@@ -477,8 +497,8 @@ function musicCom(words, topic) {
   paramSearch("https://www.youtube.com/results?search_query=", words, "+", "", "Youtube");
 }
 
-function yelpCom(words, topic) {
-  topicResp(topic);
+function yelpCom(words, topicClass) {
+  topicResp(topicClass);
   toRemove = ["yelp", "to" ,"place", "places"];
   for (var i = 0; i < toRemove.length; i++) {
     var index = words.indexOf(toRemove[i]);
@@ -490,8 +510,8 @@ function yelpCom(words, topic) {
   paramSearch("https://www.yelp.com/search?find_desc=", words, "+", "", "Yelp");
 }
 
-function mathCom(words, topic) {
-  topicResp(topic);
+function mathCom(words, topicClass) {
+  topicResp(topicClass);
   for (var i = 0; i < words.length; i++) {
     words[i] = words[i].replace("^", "%5E").replace("+", "%2B").replace("=", "%3D").replace("|", "%7C");
   }
@@ -520,7 +540,7 @@ function mathCom(words, topic) {
   }
 } 
 
-function chatCom(words, ltopic) {
+function chatCom(words, topicClass) {
   maxTopic = "";
   maxP = -1;
   adjwords = []
@@ -538,11 +558,15 @@ function chatCom(words, ltopic) {
       maxP = topicP[subject];
     }
   }
-  $('.avatar').hide();
-  $("#" + respimg[maxTopic].slice(0, -4)).show();
-  $('#chatbox').append("<div class='chat-bubble'><img src='images/"+ respimg[maxTopic].slice(0, -4) + "Icon.png' " + "width=100%></div>");
-  $('#chatbox').append("<div class='message'>"+conversations[maxTopic]+"</div>");
-  $("#chatbox").animate({
-        scrollTop: $("#chatbox")[0].scrollHeight
-    }, 300);
+  faceExpression(respimg[maxTopic].slice(0, -4));
+  sayMessage(conversations[maxTopic]);
+  
+}
+
+function dressCom(words, topicClass) {
+  fullcode = words.join("");
+}
+
+function mapCom(words, topicClass) {
+  
 }
