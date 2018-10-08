@@ -260,9 +260,9 @@ function sayMessage(message) {
       //12 is Japanese
       //4 is British
       //3 is American
-      msg.voice = voices[3];
+      msg.voice = voices[2];
       speechSynthesis.speak(msg);
-      clearInterval(myTimer)
+      clearInterval(myTimer);
     }
   }, 500);
 }
