@@ -1,0 +1,17 @@
+{
+    "c2array": true,
+    "size": [9, 7, 5],
+    "data": 
+        [
+            [["Revolver", "Bronze", 0, 0, 0], ["Shoot", 0, 0, 0, 0], ["Auto", "Row", 1, 0.2, 0], ["AOERect", 1, 1, 0, 0], [4, 1, 0, 0, 0], ["Null", 0, 0, 0, 0], ["Shoots an enemy in the same row.", 0, 0, 0, 0]],
+            [["Slash", "Bronze", 0, 0, 0], ["Slash", 0, 0, 0, 0], ["Attach", 0, 0, 0, 0], ["AOERect", 1, 1, 0, 0], [10, 1, 0, 0, 0], ["Null", 0, 0, 0, 0], ["Slashes the enemy in front.", 0, 0, 0, 0]],
+            [["StaticShock", "Bronze", 0, 0, 0], ["Shoot", 0, 0, 0, 0], ["Auto", "Row", 1, 0.1, 0], ["AOERect", 1, 1, 0, 0], [3, 1, 0, 0, 0], ["Elec", 0, "Paralyze", 0, 0], ["Shocks an enemy in the same row and inflicts paralysis.", 0, 0, 0, 0]],
+            [["Buckshot", "Bronze", 0, 0, 0], ["Shoot", 0, 0, 0, 0], ["Detach", "Row", 1, 0, 1400], ["Surround", 1, 0, 0, 0], [1, 3, 0, 0, 0], ["Null", 0, 0, 0, 0], ["Shoots a scattering shot at the enemy down the row.", 0, 0, 0, 0]],
+            [["WideSlash", "Bronze", 0, 0, 0], ["Slash", 0, 0, 0, 0], ["Attach", 0, 0, 0 ,0], ["AOERect", 5, 1, 0, 0], [8, 1, 0, 0, 0], ["Null", 0, 0, 0, 0], ["Slashes the column in front.", 0, 0, 0, 0]],
+            [["RangeSlash", "Bronze", 0, 0, 0], ["Slash", 0, 0, 0, 0], ["Attach", 0, 0, 0 ,0], ["AOERect", 1, 2, 0, 0], [8, 1, 0, 0, 0], ["Null", 0, 0, 0, 0], ["Slashes the 2 squares in front.", 0, 0, 0, 0]],
+            [["Blizzard", "Bronze", 0, 0, 0], ["Shoot", 0, 0, 0, 0], ["Detach", "Row", 1, 0 , 525], ["AOERect", 1, 1, 0, 0], [3, 1, 0, 0, 0], ["Water", 0, "Freeze", 0, 0], ["Launches an energy shot of ice down the row.", 0, 0, 0, 0]],
+            [["Cure", "Bronze", 0, 0, 0], ["Raise", 0, 0, 0, 0], ["Attach", 0, -1, 0, 0], ["AOERect", 1, 1, 0, 0], [3, 1, 0, 0, 0], ["Null", 0, "Heal"], ["Heals own HP.", 0, 0, 0, 0]],
+            [["Trump Beyond Hope and Despair", "Gold", 0, 0, 0], ["Trump", 0, 0, 0, 0], ["Attach", 0, 0, 0, 0], ["AOERect", 3, 5, 0, 0], [4, 8, 0, 0, 0], ["Null", 0, 0, 0, 0], 
+                ["The temptation of the gods and my folly, the sin of humanity. Witness what I have wrought and may the light guide us... Beyond Hope and Despair!"]]
+        ]
+}

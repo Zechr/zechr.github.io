@@ -1,0 +1,20 @@
+{
+    "c2array": true,
+    "size": [13, 1, 6],
+    "data": 
+        [
+            [["MoveFixed", "Move", "Location", 0, 1, "Move to a fixed square."]],
+            [["MoveRow", "Move", "Row", 0, 1, "Move to a specific row."]],
+            [["MoveCol", "Move", "Col", 0, 1, "Move to a specific col."]],
+            [["MoveTarget", "Move", "TargetRow", "Enemy", 2, "Move to the same row as the enemy."]],
+            [["AttackStance", "Stance", 0.5, -0.5, 1, "Deal 50% more damage in this stance but take double damage."]],
+            [["GuardStance", "Stance", -0.5, 0.5, 1, "Take half damage in this stance but you deal half damage."]],
+            [["NeutralStance", "Stance", 0, 0, 1, "Take and deal normal damage in this stance."]],
+            [["IfStance", "Encapsulator", "EnemyStance", 0, 3, "Triggered if an enemy takes a specific stance"]],
+            [["IfRowFixed", "Encapsulator", "If", "EnemyFixedRow", 2, "Triggered if an enemy is on a specific row."]],
+            [["IfRowSame", "Encapsulator", "If", "EnemyRelativeRow", 3, "Trigger if the enemy is on your row."]],
+            [["IfColFixed", "Encapsulator", "If", "EnemyFixedCol", 2, "Triggered if an enemy is on a specific col."]],
+            [["IfColSame", "Encapsulator", "If", "EnemyRelativeCol", 3, "Triggered if an enemy is on your col."]],
+            [["Repeat", "Encapsulator", "Loop", "Fixed", 2, "Repeats the commands in this block a fixed number of times."]]
+        ]
+}
