@@ -10,7 +10,7 @@
             [["AttackStance", "Stance", 0.5, -0.5]],
             [["GuardStance", "Stance", -0.5, 0.5]],
             [["NeutralStance", "Stance", 0, 0]],
-            [["IfStance", "Encapsulator", "PlayerStance", 0]],
+            [["IfStance", "Encapsulator", "If", "PlayerStance"]],
             [["IfRowFixed", "Encapsulator", "If", "PlayerFixedRow"]],
             [["IfRowSame", "Encapsulator", "If", "PlayerRelativeRow"]],
             [["IfColFixed", "Encapsulator", "If", "PlayerFixedCol"]],

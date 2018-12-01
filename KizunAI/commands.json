@@ -1,20 +1,21 @@
 {
     "c2array": true,
-    "size": [13, 1, 6],
+    "size": [14, 1, 6],
     "data": 
         [
-            [["MoveFixed", "Move", "Location", 0, 1, "Move to a fixed square."]],
-            [["MoveRow", "Move", "Row", 0, 1, "Move to a specific row."]],
-            [["MoveCol", "Move", "Col", 0, 1, "Move to a specific col."]],
-            [["MoveTarget", "Move", "TargetRow", "Enemy", 2, "Move to the same row as the enemy."]],
-            [["AttackStance", "Stance", 0.5, -0.5, 1, "Deal 50% more damage in this stance but take double damage."]],
-            [["GuardStance", "Stance", -0.5, 0.5, 1, "Take half damage in this stance but you deal half damage."]],
-            [["NeutralStance", "Stance", 0, 0, 1, "Take and deal normal damage in this stance."]],
-            [["IfStance", "Encapsulator", "EnemyStance", 0, 3, "Triggered if an enemy takes a specific stance"]],
-            [["IfRowFixed", "Encapsulator", "If", "EnemyFixedRow", 2, "Triggered if an enemy is on a specific row."]],
-            [["IfRowSame", "Encapsulator", "If", "EnemyRelativeRow", 3, "Trigger if the enemy is on your row."]],
-            [["IfColFixed", "Encapsulator", "If", "EnemyFixedCol", 2, "Triggered if an enemy is on a specific col."]],
-            [["IfColSame", "Encapsulator", "If", "EnemyRelativeCol", 3, "Triggered if an enemy is on your col."]],
-            [["Repeat", "Encapsulator", "Loop", "Fixed", 2, "Repeats the commands in this block a fixed number of times."]]
+            [["move", "Move", "Location", 0, 1, "Move to a fixed square."]],
+            [["moveToRow", "Move", "Row", 0, 1, "Move to a specific row."]],
+            [["moveToCol", "Move", "Col", 0, 1, "Move to a specific col."]],
+            [["moveToEnemyRow", "Move", "TargetRow", "Enemy", 2, "Move to the same row as the enemy."]],
+            [["toAttackStance", "Stance", 0.5, -0.5, 1, "Deal 50% more damage in this stance but take double damage."]],
+            [["toGuardStance", "Stance", -0.5, 0.5, 1, "Take half damage in this stance but you deal half damage."]],
+            [["toNeutralStance", "Stance", 0, 0, 1, "Take and deal normal damage in this stance."]],
+            [["ifEnemyStance", "Encapsulator", "If", "EnemyStance", 3, "Triggered if an enemy takes a specific stance"]],
+            [["ifEnemyIsOnRow", "Encapsulator", "If", "EnemyFixedRow", 2, "Triggered if an enemy is on a specific row."]],
+            [["ifEnemyIsOnSameRow", "Encapsulator", "If", "EnemyRelativeRow", 3, "Trigger if the enemy is on your row."]],
+            [["ifEnemyIsOnCol", "Encapsulator", "If", "EnemyFixedCol", 2, "Triggered if an enemy is on a specific col."]],
+            [["ifEnemyIsOnSameCol", "Encapsulator", "If", "EnemyRelativeCol", 3, "Triggered if an enemy is on your col."]],
+            [["ifNextCardNotInColRange", "Encapsulator", "If", "ColRange", 4, "If you are not in the right col for your next card to hit."]],
+            [["ifNextCardNotInRowRange", "Encapsulator", "If", "RowRange", 4, "If you are not in the right row for your next card to hit."]]
         ]
 }
