@@ -23,6 +23,6 @@ function mathCom(words, topicClass) {
     window.open(paramSearch("http://www.wolframalpha.com/input/?i=", newwords, "+", "", "Wolfram Alpha").replace("www", "m"));
   } else {
     $('#miniweb').attr('src', 
-        paramSearch("http://www.wolframalpha.com/input/?i=", newwords, "+", "", "Wolfram Alpha").replace("www", "m"));
+        paramSearch("http://www.wolframalpha.com/input/?i=", newwords, "+", "", "Wolfram Alpha"));
   }
 } 

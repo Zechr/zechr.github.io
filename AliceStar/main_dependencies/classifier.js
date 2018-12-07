@@ -76,59 +76,31 @@ function posLabel(words) {
 }
 
 function topic(words, topicDictionary) {
-  sentDict = {};
-  psum = 0
-  for (var i = 0; i < words.length; i++) {
-    if (words[i] in sentDict) {
-      pval = ((sentDict[words[i]] + 1)/words.length)/dictDefault(topicDictionary["commons"], words[i], 0.00001);
-      sentDict[words[i]] = pval;
-      psum += pval;
-    } else {
-      pval = (1/words.length)/dictDefault(topicDictionary["commons"], words[i], 0.00001);
-      sentDict[words[i]] = pval;
-      psum += pval;
-    }
-  }
-  for (word in sentDict) {
-    sentDict[word] = sentDict[word]/psum;
-  }
-  topicP = {};
-  total = 0
-  for (topicKey in topicDictionary) {
-    if (topicKey == "commons") {
+  const topicP = {};
+  let maxLog = 1;
+  for (const topicKey in topicDictionary) {
+    if (topicKey === "commons") {
       continue;
     }
-    var dist = 0;
-    for (word in sentDict) {
-      dist += Math.pow(sentDict[word] - dictDefault(topicDictionary[topicKey], word, 
-                  dictDefault(topicDictionary["commons"], words[i], 0.00001)), 2);
+    let psum = 0;
+    for (var i = 0; i < words.length; i++) {
+      const multiplier = words.length - i;
+      const pval = (Math.log(dictDefault(topicDictionary[topicKey], words[i], 0.0001)) -
+        Math.log(dictDefault(topicDictionary["commons"], words[i], 0.0001))) * multiplier;
+      psum += pval;
     }
-    dist = 1/Math.sqrt(dist + 0.00001);
-    topicP[topicKey] = dist;
-  }
-  digitdiff = 0;
-  unsat = true;
-  while(unsat && digitdiff < 5){
-    vals = [];
-    for (topicKey in topicP){
-      vals.push(Math.floor(topicP[topicKey]*Math.pow(10, digitdiff)));
+    topicP[topicKey] = psum;
+    if (maxLog === 1 || psum > maxLog) {
+      maxLog = psum;
     }
-    for (var j = 0; j < vals.length - 1; j++){
-      if (vals[j] != vals[j+1]){
-        unsat = false;
-        break;
-      }
-      if (j == vals.length - 2) {
-        digitdiff++;
-      }
-    }  
   }
-  for (topicKey in topicP) {
-    topicP[topicKey] = Math.pow(10, digitdiff)*topicP[topicKey] - 10*(Math.floor(Math.pow(10, digitdiff - 1)*topicP[topicKey]));
+  let total = 0;
+  for (const topicKey in topicP) {
+    topicP[topicKey] = Math.exp(topicP[topicKey] - maxLog);
     total += topicP[topicKey];
   }
-  for (topicKey in topicP) {
-    topicP[topicKey] = topicP[topicKey]/total;
+  for (const topicKey in topicP) {
+    topicP[topicKey] /= total;
   }
   return topicP;
 }
