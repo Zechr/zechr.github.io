@@ -20,9 +20,9 @@ function mathCom(words, topicClass) {
     }
   }
   if (window.matchMedia('screen and (max-width: 768px)').matches) {
-    window.open(paramSearch("http://www.wolframalpha.com/input/?i=", newwords, "+", "", "Wolfram Alpha").replace("www", "m"));
+    window.open(paramSearch("https://www.wolframalpha.com/input/?i=", newwords, "+", "", "Wolfram Alpha").replace("www", "m"));
   } else {
     $('#miniweb').attr('src', 
-        paramSearch("http://www.wolframalpha.com/input/?i=", newwords, "+", "", "Wolfram Alpha"));
+        paramSearch("https://www.wolframalpha.com/input/?i=", newwords, "+", "", "Wolfram Alpha"));
   }
 } 
