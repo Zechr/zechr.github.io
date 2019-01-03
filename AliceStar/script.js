@@ -198,7 +198,7 @@ function classify(words) {
     console.log(topicKey);
     console.log(topicP[topicKey]);
     console.log(topicG[topicKey]);
-    var temp = 0.25*topicG[topicKey] + 0.75*topicP[topicKey];
+    var temp = 0.05*topicG[topicKey] + 0.95*topicP[topicKey];
     if (temp > maxP || maxP == 0) {
       maxP = temp;
       maxTopic = topicKey;
@@ -257,10 +257,7 @@ function sayMessage(message) {
   var myTimer = setInterval(function() {
     var voices = speechSynthesis.getVoices();
     if (voices.length !== 0) {
-      //12 is Japanese
-      //4 is British
-      //3 is American
-      msg.voice = voices[3];
+      msg.voice = voices.find(voice => voice.name === "Google US English");
       speechSynthesis.speak(msg);
       clearInterval(myTimer);
     }
