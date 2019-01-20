@@ -1,0 +1,22 @@
+{
+    "c2array": true,
+    "size": [15, 2, 1],
+    "data": [
+        [["Haste"], ["Increases action rate by NUM%"]],
+        [["Resolute Aura"], ["Increases TC gain rate by NUM%"]],
+        [["Precise Force"], ["Increases critical hit damage by NUM%"]],
+        [["Auto-Charge"], ["Fills the TC gauge by NUM% every second"]],
+        [["Quick Draw"], ["Increases reload speed by NUM%"]],
+        [["Enhanced Recovery"], ["Increases healing received by NUM%"]],
+        [["Blazing Rage"], ["Increases Fire element power by NUM%"]],
+        [["Tempest Drift"], ["Increases Wind element power by NUM%"]],
+        [["Quaking Disaster"], ["Increases Earth element power by NUM%"]],
+        [["Shocking Conductor"], ["Increases Elec element power by NUM%"]],
+        [["Torrent Rider"], ["Increases Water element power by NUM%"]],
+        [["Ethereal Existence"], ["Increases Null element power by NUM%"]],
+        [["Firm Stance"], ["Immune to flinching"]],
+        [["Hover Step"], ["Can walk over hole panels"]],
+        [["Self-Restoration"], ["Immune to status effects"]],
+        [["Light Tread"], ["Immune to harmful panel effects"]]
+    ]
+}

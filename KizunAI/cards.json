@@ -1,17 +1,1247 @@
 {
     "c2array": true,
-    "size": [9, 7, 5],
+    "size": [124, 8, 5],
     "data": 
         [
-            [["Revolver", "Bronze", 0, 0, 0], ["Shoot", 0, 0, 0, 0], ["Auto", "Row", 1, 0.2, 0], ["AOERect", 1, 1, 0, 0], [4, 1, 0, 0, 0], ["Null", 0, 0, 0, 0], ["Shoots an enemy in the same row.", 0, 0, 0, 0]],
-            [["Slash", "Bronze", 0, 0, 0], ["Slash", 0, 0, 0, 0], ["Attach", 0, 0, 0, 0], ["AOERect", 1, 1, 0, 0], [10, 1, 0, 0, 0], ["Null", 0, 0, 0, 0], ["Slashes the enemy in front.", 0, 0, 0, 0]],
-            [["StaticShock", "Bronze", 0, 0, 0], ["Shoot", 0, 0, 0, 0], ["Auto", "Row", 1, 0.1, 0], ["AOERect", 1, 1, 0, 0], [3, 1, 0, 0, 0], ["Elec", 0, "Paralyze", 0, 0], ["Shocks an enemy in the same row and inflicts paralysis.", 0, 0, 0, 0]],
-            [["Buckshot", "Bronze", 0, 0, 0], ["Shoot", 0, 0, 0, 0], ["Detach", "Row", 1, 0, 1400], ["Surround", 1, 0, 0, 0], [1, 3, 0, 0, 0], ["Null", 0, 0, 0, 0], ["Shoots a scattering shot at the enemy down the row.", 0, 0, 0, 0]],
-            [["WideSlash", "Bronze", 0, 0, 0], ["Slash", 0, 0, 0, 0], ["Attach", 0, 0, 0 ,0], ["AOERect", 5, 1, 0, 0], [8, 1, 0, 0, 0], ["Null", 0, 0, 0, 0], ["Slashes the column in front.", 0, 0, 0, 0]],
-            [["RangeSlash", "Bronze", 0, 0, 0], ["Slash", 0, 0, 0, 0], ["Attach", 0, 0, 0 ,0], ["AOERect", 1, 2, 0, 0], [8, 1, 0, 0, 0], ["Null", 0, 0, 0, 0], ["Slashes the 2 squares in front.", 0, 0, 0, 0]],
-            [["Blizzard", "Bronze", 0, 0, 0], ["Shoot", 0, 0, 0, 0], ["Detach", "Row", 1, 0 , 525], ["AOERect", 1, 1, 0, 0], [3, 1, 0, 0, 0], ["Water", 0, "Freeze", 0, 0], ["Launches an energy shot of ice down the row.", 0, 0, 0, 0]],
-            [["Cure", "Bronze", 0, 0, 0], ["Raise", 0, 0, 0, 0], ["Attach", 0, -1, 0, 0], ["AOERect", 1, 1, 0, 0], [3, 1, 0, 0, 0], ["Null", 0, "Heal"], ["Heals own HP.", 0, 0, 0, 0]],
-            [["Trump Beyond Hope and Despair", "Gold", 0, 0, 0], ["Trump", 0, 0, 0, 0], ["Attach", 0, 0, 0, 0], ["AOERect", 3, 5, 0, 0], [4, 8, 0, 0, 0], ["Null", 0, 0, 0, 0], 
-                ["The temptation of the gods and my folly, the sin of humanity. Witness what I have wrought and may the light guide us... Beyond Hope and Despair!"]]
+            [
+                ["Revolver1", "Bronze", 8, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "Row", 1, 0.2, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [400, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Shoots an enemy in the same row.", 0, 0, 0, 0],
+                [0.4, 0.2, 0.2, 0.15, 0.05]
+            ],
+            [
+                ["Revolver2", "Bronze", 24, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "Row", 1, 0.2, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [900, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Shoots an enemy in the same row.", 0, 0, 0, 0],
+                [0.4, 0.2, 0.2, 0.15, 0.05]
+            ],
+            [
+                ["Revolver3", "Bronze", 40, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "Row", 1, 0.2, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1400, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Shoots an enemy in the same row.", 0, 0, 0, 0],
+                [0.4, 0.2, 0.2, 0.15, 0.05]
+            ],
+            [
+                ["Buckshot1", "Bronze", 10, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0, 1400],
+                ["Surround", 1, 0, 0, 0],
+                [100, 3, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Shoots the enemy and adjacent squares down the row 3x.", 0, 0, 0, 0],
+                [0.3, 0.2, 0.3, 0.15, 0.05]
+            ],
+            [
+                ["Buckshot2", "Bronze", 30, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0, 1400],
+                ["Surround", 1, 0, 0, 0],
+                [200, 3, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Shoots the enemy and adjacent squares down the row 3x.", 0, 0, 0, 0],
+                [0.3, 0.2, 0.3, 0.15, 0.05]
+            ],
+            [
+                ["Buckshot3", "Bronze", 50, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0, 1400],
+                ["Surround", 1, 0, 0, 0],
+                [300, 3, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Shoots the enemy and adjacent squares down the row 3x.", 0, 0, 0, 0],
+                [0.3, 0.2, 0.3, 0.15, 0.05]
+            ],
+            [
+                ["StaticShock", "Bronze", 10, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "Row", 1, 0.1, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [300, 1, 0, 0, 0],
+                ["Elec", 0, "Paralyze", 0, 0],
+                ["Shocks an enemy in the same row and inflicts paralysis.", 0, 0, 0, 0],
+                [0.24, 0.24, 0.24, 0.24, 0.04]
+            ],
+            [
+                ["Gatling1", "Bronze", 10, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "Row", 1, 0.1, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [100, 5, 0, 0, 0],
+                ["Null", 0, "NoFlash", 0, 0],
+                ["Shoots an enemy 5x in the same row.", 0, 0, 0, 0],
+                [0, 0.5, 0.5, 0, 0]
+            ],
+            [
+                ["Gatling2", "Bronze", 18, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "Row", 1, 0.1, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [100, 7, 0, 0, 0],
+                ["Null", 0, "NoFlash", 0, 0],
+                ["Shoots an enemy 7x in the same row.", 0, 0, 0, 0],
+                [0, 0.5, 0.5, 0, 0]
+            ],
+            [
+                ["Gatling3", "Bronze", 32, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "Row", 1, 0.1, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [100, 10, 0, 0, 0],
+                ["Null", 0, "NoFlash", 0, 0],
+                ["Shoots an enemy 10x in the same row.", 0, 0, 0, 0],
+                [0, 0.5, 0.5, 0, 0]
+            ],
+            [
+                ["Slash", "Bronze", 9, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1000, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Slashes the enemy in front.", 0, 0, 0, 0],
+                [0.45, 0, 0.45, 0, 0.1]
+            ],
+            [
+                ["WideSlash", "Bronze", 12, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0 ,0],
+                ["AOERect", 5, 1, 0, 0],
+                [800, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Slashes the column in front.", 0, 0, 0, 0],
+                [0.45, 0, 0.45, 0, 0.1]
+            ],
+            [
+                ["RangeSlash", "Bronze", 12, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0 ,0],
+                ["AOERect", 1, 2, 0, 0],
+                [800, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Slashes the 2 squares in front.", 0, 0, 0, 0],
+                [0.45, 0, 0.45, 0, 0.1]
+            ],
+            [
+                ["AuraSword1", "Bronze", 20, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 3, 0, 0],
+                [1000, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Energy slashes 3 squares ahead.", 0, 0, 0, 0],
+                [0.45, 0, 0.45, 0, 0.1]
+            ],
+            [
+                ["AuraSword2", "Bronze", 32, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 3, 0, 0],
+                [1200, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Energy slashes 3 squares ahead.", 0, 0, 0, 0],
+                [0.45, 0, 0.45, 0, 0.1]
+            ],
+            [
+                ["AuraSword3", "Bronze", 44, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 3, 0, 0],
+                [1500, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Energy slashes 3 squares ahead.", 0, 0, 0, 0],
+                [0.45, 0, 0.45, 0, 0.1]
+            ],
+            [
+                ["Twister", "Bronze", 8, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 2, 2, 0, 0],
+                [100, 7, 0, 0, 0],
+                ["Wind", 0, "NoFlash", 0, 0],
+                ["2 x 2 spiral of wind hits 7x.", 0, 0, 0, 0],
+                [0, 0.5, 0, 0.5, 0]
+            ],
+            [
+                ["Cyclone", "Bronze", 22, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 2, 2, 0, 0],
+                [200, 7, 0, 0, 0],
+                ["Wind", 0, "NoFlash", 0, 0],
+                ["2 x 2 spiral of wind hits 7x.", 0, 0, 0, 0],
+                [0, 0.5, 0, 0.5, 0]
+            ],
+            [
+                ["Typhoon", "Bronze", 38, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 2, 2, 0, 0],
+                [300, 7, 0, 0, 0],
+                ["Wind", 0, "NoFlash", 0, 0],
+                ["2 x 2 spiral of wind hits 7x.", 0, 0, 0, 0],
+                [0, 0.5, 0, 0.5, 0]
+            ],
+            [
+                ["Drill1", "Bronze", 18, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 2, 0, 0],
+                [300, 3, 0, 0, 0],
+                ["Null", "Break", 0, 0, 0],
+                ["Drill spins 3x 2 squares ahead.", 0, 0, 0, 0],
+                [0.5, 0, 0, 0.5, 0]
+            ],
+            [
+                ["Drill2", "Bronze", 32, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 2, 0, 0],
+                [400, 3, 0, 0, 0],
+                ["Null", "Break", 0, 0, 0],
+                ["Drill spins 3x 2 squares ahead", 0, 0, 0, 0],
+                [0.5, 0, 0, 0.5, 0]
+            ],
+            [
+                ["Drill3", "Bronze", 44, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 2, 0, 0],
+                [500, 3, 0, 0, 0],
+                ["Null", "Break", 0, 0, 0],
+                ["Drill spins 3x 2 squares ahead", 0, 0, 0, 0],
+                [0.5, 0, 0, 0.5, 0]
+            ],
+            [
+                ["MeteorShower", "Bronze", 30, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", 0, 0, 2, 3.5],
+                ["AOERect", 5, 2, 0, 0],
+                [300, 2, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Meteors bombard rightmost 2 cols twice.", 0, 0, 0, 0],
+                [0.45, 0, 0, 0.45, 0.1]
+            ],
+            [
+                ["HeavenFall", "Bronze", 40, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", 0, 0, 2, 3.5],
+                ["AOERect", 5, 2, 0, 0],
+                [500, 2, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Meteors bombard rightmost 2 cols twice.", 0, 0, 0, 0],
+                [0.45, 0, 0, 0.45, 0.1]
+            ],
+            [
+                ["CosmicBombardment", "Bronze", 50, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", 0, 0, 2, 3.5],
+                ["AOERect", 5, 2, 0, 0],
+                [700, 2, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Meteors bombard rightmost 2 cols twice.", 0, 0, 0, 0],
+                [0.45, 0, 0, 0.45, 0.1]
+            ],
+            [
+                ["DroneCharge1", "Bronze", 12, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0 , 1000],
+                ["AOERect", 1, 1, 0, 0],
+                [900, 1, 0, 0, 0],
+                ["Wind", "Break", 0, 0, 0],
+                ["Launches a speeding drone down the row.", 0, 0, 0, 0],
+                [0.5, 0, 0.45, 0, 0.05]
+            ],
+            [
+                ["DroneCharge2", "Bronze", 34, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0 , 1000],
+                ["AOERect", 1, 1, 0, 0],
+                [1300, 1, 0, 0, 0],
+                ["Wind", "Break", 0, 0, 0],
+                ["Launches a speeding drone down the row.", 0, 0, 0, 0],
+                [0.5, 0, 0.45, 0, 0.05]
+            ],
+            [
+                ["DroneCharge3", "Bronze", 46, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0 , 1000],
+                ["AOERect", 1, 1, 0, 0],
+                [1700, 1, 0, 0, 0],
+                ["Wind", "Break", 0, 0, 0],
+                ["Launches a speeding drone down the row.", 0, 0, 0, 0],
+                [0.5, 0, 0.45, 0, 0.05]
+            ],
+            [
+                ["JackAxe", "Bronze", 24, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 5, 2, 0, 0],
+                [1200, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Swing an axe over 2 cols.", 0, 0, 0, 0],
+                [0.3, 0, 0.3, 0.4, 0]
+            ],
+            [
+                ["VikingAxe", "Bronze", 44, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 5, 2, 0, 0],
+                [1600, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Swing an axe over 2 cols.", 0, 0, 0, 0],
+                [0.3, 0, 0.3, 0.4, 0]
+            ],
+            [
+                ["CriticalDagger1", "Bronze", 10, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Auto", "Attacking", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [900, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Counters an enemy that's currently attacking.", 0, 0, 0, 0],
+                [0.3, 0, 0.5, 0.1, 0.1]
+            ],
+            [
+                ["CriticalDagger2", "Bronze", 20, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Auto", "Attacking", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1200, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Counters an enemy that's currently attacking.", 0, 0, 0, 0],
+                [0.3, 0, 0.5, 0.1, 0.1]
+            ],
+            [
+                ["CriticalDagger3", "Bronze", 30, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Auto", "Attacking", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1400, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Counters an enemy that's currently attacking.", 0, 0, 0, 0],
+                [0.3, 0, 0.5, 0.1, 0.1]
+            ],
+            [
+                ["KumaRoll1", "Bronze", 8, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0 , 525],
+                ["AOERect", 1, 1, 0, 0],
+                [400, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Rolls a honey pot down the row.", 0, 0, 0, 0],
+                [0.2, 0.2, 0.2, 0.2, 0.2]
+            ],
+            [
+                ["KumaRoll2", "Bronze", 24, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0 , 525],
+                ["AOERect", 1, 1, 0, 0],
+                [800, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Rolls a honey pot down the row.", 0, 0, 0, 0],
+                [0.2, 0.2, 0.2, 0.2, 0.2]
+            ],
+            [
+                ["KumaRoll3", "Bronze", 40, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0 , 525],
+                ["AOERect", 1, 1, 0, 0],
+                [1200, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Rolls a honey pot down the row.", 0, 0, 0, 0],
+                [0.2, 0.2, 0.2, 0.2, 0.2]
+            ],
+            [
+                ["Gavel1", "Bronze", 12, 0, 0],
+                ["Throw", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 3, 3, 0, 0],
+                [1000, 1, 0, 0, 0],
+                ["Null", "Break", 0, 0, 0],
+                ["Bring down a heavy hammer on a 3 x 3 area.", 0, 0, 0, 0],
+                [0.6, 0, 0.4, 0, 0]
+            ],
+            [
+                ["Gavel2", "Bronze", 24, 0, 0],
+                ["Throw", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 3, 3, 0, 0],
+                [1200, 1, 0, 0, 0],
+                ["Null", "Break", 0, 0, 0],
+                ["Bring down a heavy hammer on a 3 x 3 area.", 0, 0, 0, 0],
+                [0.6, 0, 0.4, 0, 0]
+            ],
+            [
+                ["Gavel3", "Bronze", 40, 0, 0],
+                ["Throw", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 3, 3, 0, 0],
+                [1500, 1, 0, 0, 0],
+                ["Null", "Break", 0, 0, 0],
+                ["Bring down a heavy hammer on a 3 x 3 area.", 0, 0, 0, 0],
+                [0.6, 0, 0.4, 0, 0]
+            ],
+            [
+                ["Reaction1", "Bronze", 14, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "Near", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [300, 3, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Rain down 3 social media reactions on the nearest enemy.", 0, 0, 0, 0],
+                [0, 0.4, 0.3, 0.3, 0]
+            ],
+            [
+                ["Reaction2", "Bronze", 28, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "Near", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [400, 3, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Rain down 3 social media reactions on the nearest enemy.", 0, 0, 0, 0],
+                [0, 0.4, 0.3, 0.3, 0]
+            ],
+            [
+                ["Reaction3", "Bronze", 42, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "Near", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [500, 3, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Rain down 3 social media reactions on the nearest enemy.", 0, 0, 0, 0],
+                [0, 0.4, 0.3, 0.3, 0]
+            ],
+            [
+                ["Yoyo1", "Bronze", 22, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 4, 0, 0],
+                [500, 2, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Slice down the row twice with a yoyo.", 0, 0, 0, 0],
+                [0, 0, 0.9, 0, 0.1]
+            ],
+            [
+                ["Yoyo2", "Bronze", 32, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 4, 0, 0],
+                [600, 2, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Slice down the row twice with a yoyo.", 0, 0, 0, 0],
+                [0, 0, 0.9, 0, 0.1]
+            ],
+            [
+                ["Yoyo3", "Bronze", 42, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 4, 0, 0],
+                [700, 2, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Slice down the row twice with a yoyo.", 0, 0, 0, 0],
+                [0, 0, 0.9, 0, 0.1]
+            ],
+            [
+                ["Moai1", "Bronze", 16, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["RelativeFix", "Row", 2, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1200, 2, 0, 0, 0],
+                ["Earth", "Break", 0, 0, 0],
+                ["A moai falls 2 squares ahead.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["Moai2", "Bronze", 26, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["RelativeFix", "Row", 2, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1600, 2, 0, 0, 0],
+                ["Earth", "Break", 0, 0, 0],
+                ["A moai falls 2 squares ahead.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["Moai3", "Bronze", 36, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["RelativeFix", "Row", 2, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [2000, 2, 0, 0, 0],
+                ["Earth", "Break", 0, 0, 0],
+                ["A moai falls 2 squares ahead.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["BonsaiBranch1", "Bronze", 18, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", "Col", 4, 0, 0],
+                ["AOERect", 5, 1, 0, 0],
+                [1300, 2, 0, 0, 0],
+                ["Earth", "Break", 0, 0, 0],
+                ["Bonsai branches hit the rightmost col.", 0, 0, 0, 0],
+                [0.4, 0, 0.3, 0.3, 0]
+            ],
+            [
+                ["BonsaiBranch2", "Bronze", 28, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", "Col", 4, 0, 0],
+                ["AOERect", 5, 1, 0, 0],
+                [1500, 2, 0, 0, 0],
+                ["Earth", "Break", 0, 0, 0],
+                ["Bonsai branches hit the rightmost col.", 0, 0, 0, 0],
+                [0.4, 0, 0.3, 0.3, 0]
+            ],
+            [
+                ["BonsaiBranch3", "Bronze", 38, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", "Col", 4, 0, 0],
+                ["AOERect", 5, 1, 0, 0],
+                [1700, 2, 0, 0, 0],
+                ["Earth", "Break", 0, 0, 0],
+                ["Bonsai branches hit the rightmost col.", 0, 0, 0, 0],
+                [0.4, 0, 0.3, 0.3, 0]
+            ],
+            [
+                ["AncientCube1", "Bronze", 40, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 4, 0, 0],
+                [400, 3, 0, 0, 0],
+                ["Null", "Break", 0, 0, 0],
+                ["A cube of ancient origin fires a 3 hit laser down the row.", 0, 0, 0, 0],
+                [0, 0.5, 0.5, 0, 0]
+            ],
+            [
+                ["AncientCube2", "Bronze", 50, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 4, 0, 0],
+                [500, 3, 0, 0, 0],
+                ["Null", "Break", 0, 0, 0],
+                ["A cube of ancient origin fires a 3 hit laser down the row.", 0, 0, 0, 0],
+                [0, 0.5, 0.5, 0, 0]
+            ],
+            [
+                ["AncientCube3", "Bronze", 60, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 4, 0, 0],
+                [600, 3, 0, 0, 0],
+                ["Null", "Break", 0, 0, 0],
+                ["A cube of ancient origin fires a 3 hit laser down the row.", 0, 0, 0, 0],
+                [0, 0.5, 0.5, 0, 0]
+            ],
+            [
+                ["Will-O-Wisp1", "Bronze", 16, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1000, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["A fire snakes around a 5 x 5 area around your AI.", 0, 0, 0, 0],
+                [0.45, 0, 0, 0.45, 0.1]
+            ],
+            [
+                ["Will-O-Wisp2", "Bronze", 32, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1500, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["A fire snakes around a 5 x 5 area around your AI.", 0, 0, 0, 0],
+                [0.45, 0, 0, 0.45, 0.1]
+            ],
+            [
+                ["Will-O-Wisp3", "Bronze", 46, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [2000, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["A fire snakes around a 5 x 5 area around your AI.", 0, 0, 0, 0],
+                [0.45, 0, 0, 0.45, 0.1]
+            ],
+            [
+                ["FireFist1", "Bronze", 20, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1200, 1, 0, 0, 0],
+                ["Fire", "Break", 0, 0, 0],
+                ["Punches the square ahead with guard breaking fire fist.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["FireFist2", "Bronze", 30, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1500, 1, 0, 0, 0],
+                ["Fire", "Break", 0, 0, 0],
+                ["Punches the square ahead with guard breaking fire fist.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["FireFist3", "Bronze", 40, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [2000, 1, 0, 0, 0],
+                ["Fire", "Break", 0, 0, 0],
+                ["Punches the square ahead with guard breaking fire fist.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["Flamethrower1", "Bronze", 20, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 3, 0, 0],
+                [1000, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Flamethrower covers row up to 3 squares ahead.", 0, 0, 0, 0],
+                [0.45, 0, 0.45, 0.1, 0]
+            ],
+            [
+                ["Flamethrower2", "Bronze", 32, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 3, 0, 0],
+                [1200, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Flamethrower covers row up to 3 squares ahead.", 0, 0, 0, 0],
+                [0.45, 0, 0.45, 0.1, 0]
+            ],
+            [
+                ["Flamethrower3", "Bronze", 44, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 3, 0, 0],
+                [1500, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Flamethrower covers row up to 3 squares ahead.", 0, 0, 0, 0],
+                [0.45, 0, 0.45, 0.1, 0]
+            ],
+            [
+                ["Grenade1", "Bronze", 22, 0, 0],
+                ["Throw", 0, 0, 0, 0],
+                ["RelativeFix", "Row", 3, 0, 0],
+                ["AOERect", 3, 3, 0, 0],
+                [1000, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Throws a grenade 3 squares ahead that explodes 3 x 3.", 0, 0, 0, 0],
+                [0.5, 0, 0, 0.5, 0]
+            ],
+            [
+                ["Grenade2", "Bronze", 34, 0, 0],
+                ["Throw", 0, 0, 0, 0],
+                ["RelativeFix", "Row", 3, 0, 0],
+                ["AOERect", 3, 3, 0, 0],
+                [1300, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Throws a grenade 3 squares ahead that explodes 3 x 3.", 0, 0, 0, 0],
+                [0.5, 0, 0, 0.5, 0]
+            ],
+            [
+                ["Grenade3", "Bronze", 46, 0, 0],
+                ["Throw", 0, 0, 0, 0],
+                ["RelativeFix", "Row", 3, 0, 0],
+                ["AOERect", 3, 3, 0, 0],
+                [1600, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Throws a grenade 3 squares ahead that explodes 3 x 3.", 0, 0, 0, 0],
+                [0.5, 0, 0, 0.5, 0]
+            ],
+            [
+                ["Surf1", "Bronze", 18, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 3, 0, 0],
+                ["AOERect", 5, 1, 0, 0],
+                [600, 1, 0, 0, 0],
+                ["Water", 0, 0, 0, 0],
+                ["Launches a wave that sweeps the whole field.", 0, 0, 0, 0],
+                [0.5, 0, 0, 0.5, 0]
+            ],
+            [
+                ["Surf2", "Bronze", 30, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 3, 0, 0],
+                ["AOERect", 5, 1, 0, 0],
+                [900, 1, 0, 0, 0],
+                ["Water", 0, 0, 0, 0],
+                ["Launches a wave that sweeps the whole field.", 0, 0, 0, 0],
+                [0.5, 0, 0, 0.5, 0]
+            ],
+            [
+                ["Surf3", "Bronze", 40, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 3, 0, 0],
+                ["AOERect", 5, 1, 0, 0],
+                [1200, 1, 0, 0, 0],
+                ["Water", 0, 0, 0, 0],
+                ["Launches a wave that sweeps the whole field.", 0, 0, 0, 0],
+                [0.5, 0, 0, 0.5, 0]
+            ],
+            [
+                ["StarBubble1", "Bronze", 20, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [600, 1, 0, 0, 0],
+                ["Water", 0, "Bubble", 0, 0],
+                ["Send starfish down the row that traps enemy in bubble.", 0, 0, 0, 0],
+                [0, 0, 1, 0, 0]
+            ],
+            [
+                ["StarBubble2", "Bronze", 32, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [900, 1, 0, 0, 0],
+                ["Water", 0, "Bubble", 0, 0],
+                ["Send starfish down the row that traps enemy in bubble.", 0, 0, 0, 0],
+                [0, 0, 1, 0, 0]
+            ],
+            [
+                ["StarBubble3", "Bronze", 44, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 1, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1200, 1, 0, 0, 0],
+                ["Water", 0, "Bubble", 0, 0],
+                ["Send starfish down the row that traps enemy in bubble.", 0, 0, 0, 0],
+                [0, 0, 1, 0, 0]
+            ],
+            [
+                ["CrystalBeigomax1", "Bronze", 24, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Detach", "DiagBounce", 6, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [700, 1, 0, 0, 0],
+                ["Water", "Break", "Freeze", 0, 0],
+                ["Ice top bounces back and forth diagonally.", 0, 0, 0, 0],
+                [0.25, 0.25, 0.25, 0.25, 0]
+            ],
+            [
+                ["CrystalBeigomax2", "Bronze", 36, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Detach", "DiagBounce", 6, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [900, 1, 0, 0, 0],
+                ["Water", "Break", "Freeze", 0, 0],
+                ["Ice top bounces back and forth diagonally.", 0, 0, 0, 0],
+                [0.25, 0.25, 0.25, 0.25, 0]
+            ],
+            [
+                ["CrystalBeigomax3", "Bronze", 50, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Detach", "DiagBounce", 6, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1100, 1, 0, 0, 0],
+                ["Water", "Break", "Freeze", 0, 0],
+                ["Ice top bounces back and forth diagonally.", 0, 0, 0, 0],
+                [0.25, 0.25, 0.25, 0.25, 0]
+            ],
+            [
+                ["OutsiderAdvent1", "Bronze", 24, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "AllAdj", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [100, 1, 0, 0, 0],
+                ["Water", 0, 0, 0, 0],
+                ["Tentacles drag enemy from all adjacent panels.", 0, 0, 0, 0],
+                [0, 0.5, 0, 0.5, 0]
+            ],
+            [
+                ["OutsiderAdvent2", "Bronze", 36, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "AllAdj", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [200, 1, 0, 0, 0],
+                ["Water", 0, 0, 0, 0],
+                ["Tentacles drag enemy from all adjacent panels.", 0, 0, 0, 0],
+                [0, 0.5, 0, 0.5, 0]
+            ],
+            [
+                ["OutsiderAdvent3", "Bronze", 50, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "AllAdj", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [300, 1, 0, 0, 0],
+                ["Water", 0, 0, 0, 0],
+                ["Tentacles drag enemy from all adjacent panels.", 0, 0, 0, 0],
+                [0, 0.5, 0, 0.5, 0]
+            ],
+            [
+                ["Thunderbolt1", "Bronze", 24, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 4, 0, 0],
+                [1100, 1, 0, 0, 0],
+                ["Elec", "Pierce", 0, 0, 0],
+                ["Shoot lightning down row.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["Thunderbolt2", "Bronze", 36, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 4, 0, 0],
+                [1400, 1, 0, 0, 0],
+                ["Elec", "Pierce", 0, 0, 0],
+                ["Shoot lightning down row.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["Thunderbolt3", "Bronze", 48, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 4, 0, 0],
+                [1700, 1, 0, 0, 0],
+                ["Elec", "Pierce", 0, 0, 0],
+                ["Shoot lightning down row.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["BunnyDrum1", "Bronze", 22, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 2, 0, 0],
+                [200, 4, 0, 0, 0],
+                ["Elec", 0, "Paralyze", 0, 0],
+                ["Drum waves hit 2 squares forward.", 0, 0, 0, 0],
+                [0.2, 0.5, 0.25, 0, 0.05]
+            ],
+            [
+                ["BunnyDrum2", "Bronze", 34, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 2, 0, 0],
+                [300, 4, 0, 0, 0],
+                ["Elec", 0, "Paralyze", 0, 0],
+                ["Drum waves hit 2 squares forward.", 0, 0, 0, 0],
+                [0.2, 0.5, 0.25, 0, 0.05]
+            ],
+            [
+                ["BunnyDrum3", "Bronze", 46, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 2, 0, 0],
+                [400, 4, 0, 0, 0],
+                ["Elec", 0, "Paralyze", 0, 0],
+                ["Drum waves hit 2 squares forward.", 0, 0, 0, 0],
+                [0.2, 0.5, 0.25, 0, 0.05]
+            ],
+            [
+                ["BoomSonic1", "Bronze", 20, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 3, 2, 0, 0],
+                [1200, 1, 0, 0, 0],
+                ["Elec", 0, 0, 0, 0],
+                ["Speaker blasts sound on 3 x 2 area.", 0, 0, 0, 0],
+                [0.2, 0, 0.3, 0.5, 0]
+            ],
+            [
+                ["BoomSonic2", "Bronze", 34, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 5, 2, 0, 0],
+                [1500, 1, 0, 0, 0],
+                ["Elec", 0, 0, 0, 0],
+                ["Speaker blasts sound on 3 x 2 area.", 0, 0, 0, 0],
+                [0.2, 0, 0.3, 0.5, 0]
+            ],
+            [
+                ["BoomSonic3", "Bronze", 46, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 5, 2, 0, 0],
+                [1800, 1, 0, 0, 0],
+                ["Elec", 0, 0, 0, 0],
+                ["Speaker blasts sound on 3 x 2 area.", 0, 0, 0, 0],
+                [0.2, 0, 0.3, 0.5, 0]
+            ],
+            [
+                ["TeaBot1", "Bronze", 14, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Detach", "Edge", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1000, 1, 0, 0, 0],
+                ["Earth", 0, "NoFlash", 0, 0],
+                ["Karakuri tea automata circles edge of field.", 0, 0, 0, 0],
+                [0.45, 0, 0, 0.45, 0.1]
+            ],
+            [
+                ["TeaBot2", "Bronze", 28, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Detach", "Edge", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1200, 1, 0, 0, 0],
+                ["Earth", 0, "NoFlash", 0, 0],
+                ["Karakuri tea automata circles edge of field.", 0, 0, 0, 0],
+                [0.45, 0, 0, 0.45, 0.1]
+            ],
+            [
+                ["TeaBot3", "Bronze", 42, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Detach", "Edge", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1400, 1, 0, 0, 0],
+                ["Earth", 0, "NoFlash", 0, 0],
+                ["Karakuri tea automata circles edge of field.", 0, 0, 0, 0],
+                [0.45, 0, 0, 0.45, 0.1]
+            ],
+            [
+                ["DryadBreath1", "Bronze", 12, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["T", 2, 3, 0, 0],
+                [1000, 1, 0, 0, 0],
+                ["Earth", 0, "NoFlash", 0, 0],
+                ["Dryad's breath spreads out in T-shape.", 0, 0, 0, 0],
+                [0.45, 0, 0.1, 0.45, 0]
+            ],
+            [
+                ["DryadBreath2", "Bronze", 26, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["T", 2, 3, 0, 0],
+                [1300, 1, 0, 0, 0],
+                ["Earth", 0, "NoFlash", 0, 0],
+                ["Dryad's breath spreads out in T-shape.", 0, 0, 0, 0],
+                [0.45, 0, 0.1, 0.45, 0]
+            ],
+            [
+                ["DryadBreath3", "Bronze", 40, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["T", 2, 3, 0, 0],
+                [1600, 1, 0, 0, 0],
+                ["Earth", 0, "NoFlash", 0, 0],
+                ["Dryad's breath spreads out in T-shape.", 0, 0, 0, 0],
+                [0.45, 0, 0.1, 0.45, 0]
+            ],
+            [
+                ["Cure1", "Bronze", 6, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, -1, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [300, 1, 0, 0, 0],
+                ["Null", 0, "Heal", 0, 0],
+                ["Heals own HP by 300.", 0, 0, 0, 0],
+                [0.2, 0.2, 0.2, 0.2, 0.2]
+            ],
+            [
+                ["Cure2", "Bronze", 16, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, -1, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [1000, 1, 0, 0, 0],
+                ["Null", 0, "Heal", 0, 0],
+                ["Heals own HP by 1000.", 0, 0, 0, 0],
+                [0.2, 0.2, 0.2, 0.2, 0.2]
+            ],
+            [
+                ["Cure3", "Bronze", 30, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, -1, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [2500, 1, 0, 0, 0],
+                ["Null", 0, "Heal", 0, 0],
+                ["Heals own HP by 2500.", 0, 0, 0, 0],
+                [0.25, 0.25, 0.25, 0.25, 0]
+            ],
+            [
+                ["Earthquake", "Bronze", 30, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", 2, 2, 0, 0],
+                ["Special", 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                ["Null", 0, "BreakField", 0, 0],
+                ["Break all panels on the field.", 0, 0, 0, 0],
+                [0.2, 0.2, 0.2, 0.2, 0.2]
+            ],
+            [
+                ["Terraform", "Bronze", 30, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", 2, 2, 0, 0],
+                ["Special", 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                ["Earth", 0, "GrassField", 0, 0],
+                ["Change all panels on the field to grass.", 0, 0, 0, 0],
+                [0.2, 0.2, 0.2, 0.2, 0.2]
+            ],
+            [
+                ["IceAge", "Bronze", 30, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", 2, 2, 0, 0],
+                ["Special", 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                ["Water", 0, "IceField", 0, 0],
+                ["Change the rightmost 2 rows to ice.", 0, 0, 0, 0],
+                [0.2, 0.2, 0.2, 0.2, 0.2]
+            ],
+            [
+                ["HazardousWasteDump", "Bronze", 30, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", 2, 2, 0, 0],
+                ["Special", 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                ["Null", 0, "PoisonField", 0, 0],
+                ["Change the rightmost 2 rows to poison.", 0, 0, 0, 0],
+                [0.2, 0.2, 0.2, 0.2, 0.2]
+            ],
+            [
+                ["Nobu", "Silver", 30, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 3, 4, 0, 0],
+                [300, 3, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Three line formation shoots 3 rows 3 times.", 0, 0, 0, 0],
+                [0, 0, 0.5, 0.5, 0]
+            ],
+            [
+                ["NobuV2", "Silver", 46, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 3, 4, 0, 0],
+                [450, 3, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Three line formation shoots 3 rows 3 times.", 0, 0, 0, 0],
+                [0, 0, 0.5, 0.5, 0]
+            ],
+            [
+                ["NobuV3", "Silver", 62, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 3, 4, 0, 0],
+                [600, 3, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Three line formation shoots 3 rows 3 times.", 0, 0, 0, 0],
+                [0, 0, 0.5, 0.5, 0]
+            ],
+            [
+                ["ValkyriaNocht", "Silver", 30, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["ReverseT", 2, 5, 0, 0],
+                [500, 2, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["2 hit wing attack on row in front and 2 squares ahead.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["ValkyriaNochtV2", "Silver", 46, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["ReverseT", 2, 5, 0, 0],
+                [700, 2, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["2 hit wing attack on row in front and 2 squares ahead.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["ValkyriaNochtV3", "Silver", 62, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["ReverseT", 2, 5, 0, 0],
+                [1000, 2, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["2 hit wing attack on row in front and 2 squares ahead.", 0, 0, 0, 0],
+                [0.5, 0, 0.5, 0, 0]
+            ],
+            [
+                ["Jason", "Silver", 40, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["Special", 2, 5, 0, 0],
+                [0, 0, 0, 0, 0],
+                ["Null", 0, "AllChain", 0.3, 0],
+                ["Charges TC gauge 7.5%, 7.5% ATK/DEF up 3 sec, 3% heal, engage critical mode.", 0, 0, 0, 0],
+                [0, 0, 0, 0, 1]
+            ],
+            [
+                ["JasonV2", "Silver", 54, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["Special", 2, 5, 0, 0],
+                [0, 0, 0, 0, 0],
+                ["Null", 0, "AllChain", 0.6, 0],
+                ["Charges TC gauge 15%, 15% ATK/DEF up 3 sec, 6% heal, engage critical mode.", 0, 0, 0, 0],
+                [0, 0, 0, 0, 1]
+            ],
+            [
+                ["JasonV3", "Silver", 70, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["Special", 2, 5, 0, 0],
+                [0, 0, 0, 0, 0],
+                ["Null", 0, "AllChain", 1, 0],
+                ["Charges TC gauge 25%, 25% ATK/DEF up 3 sec, 10% heal, engage critical mode.", 0, 0, 0, 0],
+                [0, 0, 0, 0, 1]
+            ],
+            [
+                ["Prometheus", "Silver", 50, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 3, 0, 0],
+                [1500, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Flame hits 3 panels ahead.", 0, 0, 0, 0],
+                [1, 0, 0, 0, 0]
+            ],
+            [
+                ["PrometheusV2", "Silver", 66, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 3, 0, 0],
+                [2000, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Flame hits 3 panels ahead.", 0, 0, 0, 0],
+                [1, 0, 0, 0, 0]
+            ],
+            [
+                ["PrometheusV3", "Silver", 80, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 3, 0, 0],
+                [2500, 1, 0, 0, 0],
+                ["Fire", 0, 0, 0, 0],
+                ["Flame hits 3 panels ahead.", 0, 0, 0, 0],
+                [1, 0, 0, 0, 0]
+            ],
+            [
+                ["Tez", "Silver", 48, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["T", 4, 5, 0, 0],
+                [200, 6, 0, 0, 0],
+                ["Wind", 0, 0, 0, 0],
+                ["Tornado hits 6x in T shape.", 0, 0, 0, 0],
+                [0, 1, 0, 0, 0]
+            ],
+            [
+                ["TezV2", "Silver", 64, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["T", 4, 5, 0, 0],
+                [250, 6, 0, 0, 0],
+                ["Wind", 0, 0, 0, 0],
+                ["Tornado hits 6x in T shape.", 0, 0, 0, 0],
+                [0, 1, 0, 0, 0]
+            ],
+            [
+                ["TezV3", "Silver", 78, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["T", 4, 5, 0, 0],
+                [350, 6, 0, 0, 0],
+                ["Wind", 0, 0, 0, 0],
+                ["Tornado hits 6x in T shape.", 0, 0, 0, 0],
+                [0, 1, 0, 0, 0]
+            ],
+            [
+                ["Anastasia", "Silver", 70, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", 0, 0, 2, 3.5],
+                ["AOERect", 5, 2, 0, 0],
+                [400, 4, 0, 0, 0],
+                ["Water", 0, 0, 0, 0],
+                ["Blizzard hits rightmost 2 rows 4x.", 0, 0, 0, 0],
+                [0, 0, 0.5, 0.5, 0]
+            ],
+            [
+                ["AnastasiaV2", "Silver", 78, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", 0, 0, 2, 3.5],
+                ["AOERect", 5, 2, 0, 0],
+                [500, 4, 0, 0, 0],
+                ["Water", 0, 0, 0, 0],
+                ["Blizzard hits rightmost 2 rows 4x.", 0, 0, 0, 0],
+                [0, 0, 0.5, 0.5, 0]
+            ],
+            [
+                ["AnastasiaV3", "Silver", 86, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", 0, 0, 2, 3.5],
+                ["AOERect", 5, 2, 0, 0],
+                [600, 4, 0, 0, 0],
+                ["Water", 0, 0, 0, 0],
+                ["Blizzard hits rightmost 2 rows 4x.", 0, 0, 0, 0],
+                [0, 0, 0.5, 0.5, 0]
+            ],
+            [
+                ["Eruption", "Gold", 97, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Fixed", 0, 0, 2, 3.5],
+                ["AOERect", 5, 2, 0, 0],
+                [4500, 1, 0, 0, 0],
+                ["Fire", "Break", 0, 0, 0],
+                ["Burn rightmost 2 rows with powerful explosion.", 0, 0, 0, 0],
+                [1, 0, 0, 0, 0]
+            ],
+            [
+                ["SuperBlackHole", "Gold", 98, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "All", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [5000, 1, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["Drains HP from all enemies.", 0, 0, 0, 0],
+                [0, 0, 1, 0, 0]
+            ],
+            [
+                ["ZodiacBarrage", "Gold", 95, 0, 0],
+                ["Slash", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [400, 12, 0, 0, 0],
+                ["Null", 0, 0, 0, 0],
+                ["12 hit barrage on panel in front.", 0, 0, 0, 0],
+                [0, 1, 0, 0, 0]
+            ],
+            [
+                ["Curse", "Gold", 80, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Auto", "All", 0, 0, 0],
+                ["AOERect", 1, 1, 0, 0],
+                [0, 1, 350, 0, 0],
+                ["Null", 0, "Poison", 0, 0],
+                ["Poison all enemies.", 0, 0, 0, 0],
+                [0, 0, 0, 1, 0]
+            ],
+            [
+                ["Mjolnir", "Gold", 92, 0, 0],
+                ["Shoot", 0, 0, 0, 0],
+                ["Detach", "Row", 0, 0, 1400],
+                ["AOERect", 1, 1, 0, 0],
+                [5000, 1, 0, 0, 0],
+                ["Elec", 0, "Paralyze", 0, 0],
+                ["Send a paralyzing thunder hammer down the row.", 0, 0, 0, 0],
+                [0, 0, 1, 0, 0]
+            ],
+            [
+                ["Trump Beyond Hope and Despair", "Gold", 0, 0, 0],
+                ["Trump", 0, 0, 0, 0],
+                ["Attach", 0, 0, 0, 0],
+                ["AOERect", 3, 5, 0, 0],
+                [400, 8, 0, 0, 0],
+                ["Null", 0, 0, 0, 0], 
+                ["8 hit energy beam across 3 rows", "The temptation of the gods and my folly, the sin of humanity. Witness what I have wrought and may the light guide us... Beyond Hope and Despair!", 0, 0, 0],
+                [0, 0, 0, 0, 0]
+            ]
         ]
 }
