@@ -1,6 +1,6 @@
 ﻿{
-	"name": "New project",
-	"short_name": "New project",
+	"name": "KizunAI",
+	"short_name": "KizunAI",
 	"start_url": "index.html",
 	"display": "fullscreen",
 	"orientation": "landscape",

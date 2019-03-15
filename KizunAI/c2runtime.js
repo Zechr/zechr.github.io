@@ -15228,6 +15228,33 @@ cr.shaders["brightness"] = {src: ["varying mediump vec2 vTex;",
 	preservesOpaqueness: true,
 	animated: false,
 	parameters: [["brightness", 0, 1]] }
+cr.shaders["glowhorizontal"] = {src: ["varying mediump vec2 vTex;",
+"uniform mediump sampler2D samplerFront;",
+"uniform mediump float pixelWidth;",
+"uniform mediump float intensity;",
+"void main(void)",
+"{",
+"mediump vec4 sum = vec4(0.0);",
+"mediump float halfPixelWidth = pixelWidth / 2.0;",
+"sum += texture2D(samplerFront, vTex - vec2(pixelWidth * 7.0 + halfPixelWidth, 0.0)) * 0.06;",
+"sum += texture2D(samplerFront, vTex - vec2(pixelWidth * 5.0 + halfPixelWidth, 0.0)) * 0.10;",
+"sum += texture2D(samplerFront, vTex - vec2(pixelWidth * 3.0 + halfPixelWidth, 0.0)) * 0.13;",
+"sum += texture2D(samplerFront, vTex - vec2(pixelWidth * 1.0 + halfPixelWidth, 0.0)) * 0.16;",
+"mediump vec4 front = texture2D(samplerFront, vTex);",
+"sum += front * 0.10;",
+"sum += texture2D(samplerFront, vTex + vec2(pixelWidth * 1.0 + halfPixelWidth, 0.0)) * 0.16;",
+"sum += texture2D(samplerFront, vTex + vec2(pixelWidth * 3.0 + halfPixelWidth, 0.0)) * 0.13;",
+"sum += texture2D(samplerFront, vTex + vec2(pixelWidth * 5.0 + halfPixelWidth, 0.0)) * 0.10;",
+"sum += texture2D(samplerFront, vTex + vec2(pixelWidth * 7.0 + halfPixelWidth, 0.0)) * 0.06;",
+"gl_FragColor = mix(front, max(front, sum), intensity);",
+"}"
+].join("\n"),
+	extendBoxHorizontal: 8,
+	extendBoxVertical: 0,
+	crossSampling: false,
+	preservesOpaqueness: false,
+	animated: false,
+	parameters: [["intensity", 0, 1]] }
 cr.shaders["glowvertical"] = {src: ["varying mediump vec2 vTex;",
 "uniform mediump sampler2D samplerFront;",
 "uniform mediump float pixelHeight;",
@@ -19434,6 +19461,188 @@ cr.plugins_.Audio = function(runtime)
 }());
 ;
 ;
+cr.plugins_.Dictionary = function(runtime)
+{
+	this.runtime = runtime;
+};
+(function ()
+{
+	var pluginProto = cr.plugins_.Dictionary.prototype;
+	pluginProto.Type = function(plugin)
+	{
+		this.plugin = plugin;
+		this.runtime = plugin.runtime;
+	};
+	var typeProto = pluginProto.Type.prototype;
+	typeProto.onCreate = function()
+	{
+	};
+	pluginProto.Instance = function(type)
+	{
+		this.type = type;
+		this.runtime = type.runtime;
+	};
+	var instanceProto = pluginProto.Instance.prototype;
+	instanceProto.onCreate = function()
+	{
+		this.dictionary = {};
+		this.cur_key = "";		// current key in for-each loop
+		this.key_count = 0;
+	};
+	instanceProto.saveToJSON = function ()
+	{
+		return this.dictionary;
+	};
+	instanceProto.loadFromJSON = function (o)
+	{
+		this.dictionary = o;
+		this.key_count = 0;
+		for (var p in this.dictionary)
+		{
+			if (this.dictionary.hasOwnProperty(p))
+				this.key_count++;
+		}
+	};
+	function Cnds() {};
+	Cnds.prototype.CompareValue = function (key_, cmp_, value_)
+	{
+		return cr.do_cmp(this.dictionary[key_], cmp_, value_);
+	};
+	Cnds.prototype.ForEachKey = function ()
+	{
+		var current_event = this.runtime.getCurrentEventStack().current_event;
+		for (var p in this.dictionary)
+		{
+			if (this.dictionary.hasOwnProperty(p))
+			{
+				this.cur_key = p;
+				this.runtime.pushCopySol(current_event.solModifiers);
+				current_event.retrigger();
+				this.runtime.popSol(current_event.solModifiers);
+			}
+		}
+		this.cur_key = "";
+		return false;
+	};
+	Cnds.prototype.CompareCurrentValue = function (cmp_, value_)
+	{
+		return cr.do_cmp(this.dictionary[this.cur_key], cmp_, value_);
+	};
+	Cnds.prototype.HasKey = function (key_)
+	{
+		return this.dictionary.hasOwnProperty(key_);
+	};
+	Cnds.prototype.IsEmpty = function ()
+	{
+		return this.key_count === 0;
+	};
+	pluginProto.cnds = new Cnds();
+	function Acts() {};
+	Acts.prototype.AddKey = function (key_, value_)
+	{
+		if (!this.dictionary.hasOwnProperty(key_))
+			this.key_count++;
+		this.dictionary[key_] = value_;
+	};
+	Acts.prototype.SetKey = function (key_, value_)
+	{
+		if (this.dictionary.hasOwnProperty(key_))
+			this.dictionary[key_] = value_;
+	};
+	Acts.prototype.DeleteKey = function (key_)
+	{
+		if (this.dictionary.hasOwnProperty(key_))
+		{
+			delete this.dictionary[key_];
+			this.key_count--;
+		}
+	};
+	Acts.prototype.Clear = function ()
+	{
+		cr.wipe(this.dictionary);		// avoid garbaging
+		this.key_count = 0;
+	};
+	Acts.prototype.JSONLoad = function (json_)
+	{
+		var o;
+		try {
+			o = JSON.parse(json_);
+		}
+		catch(e) { return; }
+		if (!o["c2dictionary"])		// presumably not a c2dictionary object
+			return;
+		this.dictionary = o["data"];
+		this.key_count = 0;
+		for (var p in this.dictionary)
+		{
+			if (this.dictionary.hasOwnProperty(p))
+				this.key_count++;
+		}
+	};
+	Acts.prototype.JSONDownload = function (filename)
+	{
+		var a = document.createElement("a");
+		if (typeof a.download === "undefined")
+		{
+			var str = 'data:text/html,' + encodeURIComponent("<p><a download='data.json' href=\"data:application/json,"
+				+ encodeURIComponent(JSON.stringify({
+						"c2dictionary": true,
+						"data": this.dictionary
+					}))
+				+ "\">Download link</a></p>");
+			window.open(str);
+		}
+		else
+		{
+			var body = document.getElementsByTagName("body")[0];
+			a.textContent = filename;
+			a.href = "data:application/json," + encodeURIComponent(JSON.stringify({
+						"c2dictionary": true,
+						"data": this.dictionary
+					}));
+			a.download = filename;
+			body.appendChild(a);
+			var clickEvent = document.createEvent("MouseEvent");
+			clickEvent.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+			a.dispatchEvent(clickEvent);
+			body.removeChild(a);
+		}
+	};
+	pluginProto.acts = new Acts();
+	function Exps() {};
+	Exps.prototype.Get = function (ret, key_)
+	{
+		if (this.dictionary.hasOwnProperty(key_))
+			ret.set_any(this.dictionary[key_]);
+		else
+			ret.set_int(0);
+	};
+	Exps.prototype.KeyCount = function (ret)
+	{
+		ret.set_int(this.key_count);
+	};
+	Exps.prototype.CurrentKey = function (ret)
+	{
+		ret.set_string(this.cur_key);
+	};
+	Exps.prototype.CurrentValue = function (ret)
+	{
+		if (this.dictionary.hasOwnProperty(this.cur_key))
+			ret.set_any(this.dictionary[this.cur_key]);
+		else
+			ret.set_int(0);
+	};
+	Exps.prototype.AsJSON = function (ret)
+	{
+		ret.set_string(JSON.stringify({
+			"c2dictionary": true,
+			"data": this.dictionary
+		}));
+	};
+	pluginProto.exps = new Exps();
+}());
+;
+;
 cr.plugins_.Function = function(runtime)
 {
 	this.runtime = runtime;
@@ -20141,6 +20350,187 @@ cr.plugins_.Mouse = function(runtime)
 		ret.set_float(this.mouseYcanvas);
 	};
 	pluginProto.exps = new Exps();
+}());
+;
+;
+cr.plugins_.Rex_Date = function(runtime)
+{
+	this.runtime = runtime;
+};
+(function ()
+{
+	var pluginProto = cr.plugins_.Rex_Date.prototype;
+	pluginProto.Type = function(plugin)
+	{
+		this.plugin = plugin;
+		this.runtime = plugin.runtime;
+	};
+	var typeProto = pluginProto.Type.prototype;
+	typeProto.onCreate = function()
+	{
+	};
+	pluginProto.Instance = function(type)
+	{
+		this.type = type;
+		this.runtime = type.runtime;
+	};
+	var instanceProto = pluginProto.Instance.prototype;
+	instanceProto.onCreate = function()
+	{
+	    this.timers = {};
+        /*
+        {
+            "state":1=run, 0=paused
+            "start": timstamp, updated when resumed
+            "acc": delta-time, updated when paused
+        }
+        */
+	};
+    var startTimer = function(timer, curTimestamp)
+    {
+        if (!timer)
+            timer = {};
+        if (!curTimestamp)
+            curTimestamp = (new Date()).getTime();
+        timer["state"] = 1;
+        timer["start"] = curTimestamp;
+        timer["acc"] = 0;
+        return timer;
+    };
+    var getElapsedTime = function(timer)
+    {
+        if (!timer)
+            return 0;
+        var deltaTime = timer["acc"];
+        if (timer["state"] === 1)
+        {
+            var curTime = (new Date()).getTime();
+            deltaTime += (curTime - timer["start"]);
+        }
+        return deltaTime;
+    };
+    var pauseTimer = function(timer)
+    {
+        if ((!timer) || (timer["state"] === 0))
+            return;
+        timer["state"] = 0;
+        var curTime = (new Date()).getTime();
+        timer["acc"] += (curTime - timer["start"]);
+    };
+    var resumeTimer = function(timer)
+    {
+        if ((!timer) || (timer["state"] === 1))
+            return;
+        timer["state"] = 1;
+        timer["start"] = (new Date()).getTime();
+    };
+	var getDate = function (timestamp)
+	{
+		return (timestamp != null)? new Date(timestamp): new Date();
+	};
+    instanceProto.saveToJSON = function ()
+	{
+		return { "tims": this.timers,
+                };
+	};
+	instanceProto.loadFromJSON = function (o)
+	{
+		this.timers = o["tims"];
+	};
+	function Cnds() {};
+	pluginProto.cnds = new Cnds();
+	function Acts() {};
+	pluginProto.acts = new Acts();
+	Acts.prototype.StartTimer = function (name)
+	{
+        this.timers[name] = startTimer(this.timers[name]);
+	};
+	Acts.prototype.PauseTimer = function (name)
+	{
+        pauseTimer(this.timers[name]);
+	};
+	Acts.prototype.ResumeTimer = function (name)
+	{
+        resumeTimer(this.timers[name]);
+	};
+	function Exps() {};
+	pluginProto.exps = new Exps();
+	Exps.prototype.Year = function (ret, timestamp)
+	{
+		ret.set_int(getDate(timestamp).getFullYear());
+	};
+	Exps.prototype.Month = function (ret, timestamp)
+	{
+	    ret.set_int(getDate(timestamp).getMonth()+1);
+	};
+	Exps.prototype.Date = function (ret, timestamp)
+	{
+	    ret.set_int(getDate(timestamp).getDate());
+	};
+	Exps.prototype.Day = function (ret, timestamp)
+	{
+	    ret.set_int(getDate(timestamp).getDay());
+	};
+	Exps.prototype.Hours = function (ret, timestamp)
+	{
+	    ret.set_int(getDate(timestamp).getHours());
+	};
+	Exps.prototype.Minutes = function (ret, timestamp)
+	{
+	    ret.set_int(getDate(timestamp).getMinutes());
+	};
+	Exps.prototype.Seconds = function (ret, timestamp)
+	{
+	    ret.set_int(getDate(timestamp).getSeconds());
+	};
+	Exps.prototype.Milliseconds = function (ret, timestamp)
+	{
+	    ret.set_int(getDate(timestamp).getMilliseconds());
+	};
+	Exps.prototype.Timer = function (ret, name)
+	{
+		ret.set_float(getElapsedTime(this.timers[name])/1000);
+	};
+	Exps.prototype.CurTicks = function (ret)
+	{
+	    var today = new Date();
+        ret.set_int(today.getTime());
+	};
+	Exps.prototype.UnixTimestamp = function (ret, year, month, day, hours, minutes, seconds, milliseconds)
+	{
+        var d;
+        if (year == null)
+        {
+            d = new Date();
+        }
+        else
+        {
+            month = month || 1;
+            day = day || 1;
+            hours = hours || 0;
+            minutes = minutes || 0;
+            seconds = seconds || 0;
+            milliseconds = milliseconds || 0;
+            d = new Date(year, month-1, day, hours, minutes, seconds, milliseconds);
+        }
+        ret.set_float(d.getTime());
+	};
+	Exps.prototype.Date2UnixTimestamp = function (ret, year, month, day, hours, minutes, seconds, milliseconds)
+	{
+        year = year || 2000;
+        month = month || 1;
+        day = day || 1;
+        hours = hours || 0;
+        minutes = minutes || 0;
+        seconds = seconds || 0;
+        milliseconds = milliseconds || 0;
+        var timestamp = new Date(year, month-1, day, hours, minutes, seconds, milliseconds); // build Date object
+        ret.set_float(timestamp.getTime());
+	};
+    Exps.prototype.LocalExpression = function (ret, timestamp, locales)
+	{
+	    ret.set_string( getDate(timestamp).toLocaleString(locales) );
+	};
 }());
 ;
 ;
@@ -23406,6 +23796,300 @@ cr.plugins_.Touch = function(runtime)
 }());
 ;
 ;
+cr.plugins_.hmmg_layoutTransition_v2 = function(runtime)
+{
+	this.runtime = runtime;
+};
+(function ()
+{
+	var pluginProto = cr.plugins_.hmmg_layoutTransition_v2.prototype;
+	pluginProto.Type = function(plugin)
+	{
+		this.plugin = plugin;
+		this.runtime = plugin.runtime;
+	};
+	var typeProto = pluginProto.Type.prototype;
+	typeProto.onCreate = function()
+	{
+	};
+	pluginProto.Instance = function(type)
+	{
+		this.type = type;
+		this.runtime = type.runtime;
+	};
+	var instanceProto = pluginProto.Instance.prototype;
+	instanceProto.onCreate = function()
+	{
+		var time = this.properties[0] || null;
+		if(time != null)
+			if(time >0)
+				$("head").append("<style>.animated,animated.hinge,.animated.flipOutX,.animated.flipOutY,.animated.bounceIn,.animated.bounceOut,.animated.flipOutXX,.animated.flipInXX,.animated.flipInYY,.animated.flipOutYY{-webkit-animation-duration: "+time+"s !important;animation-duration: "+time+"s !important;}</style>");
+	};
+	instanceProto.onDestroy = function ()
+	{
+	};
+	instanceProto.saveToJSON = function ()
+	{
+		return {
+		};
+	};
+	instanceProto.loadFromJSON = function (o)
+	{
+	};
+	instanceProto.draw = function(ctx)
+	{
+	};
+	instanceProto.drawGL = function (glw)
+	{
+	};
+	function Cnds() {};
+	Cnds.prototype.isTransitionReady = function ()
+	{
+		return true;
+	};
+	Cnds.prototype.didTransitionStart = function ()
+	{
+		return true;
+	};
+	Cnds.prototype.didTransitionFinish = function ()
+	{
+		return true;
+	};
+	pluginProto.cnds = new Cnds();
+	function Acts() {};
+	Acts.prototype.prepareTransition = function ()
+	{
+		var self = this ;
+		function prepareCanvas(elem,callback1)
+		{
+			self.runtime.doCanvasSnapshot("image/jpeg", 100/100);
+			setTimeout(function()
+			{
+				callback1(self.runtime.snapshotData);
+			},50);
+		}
+		function isCanvasReady(callback)
+		{
+			prepareCanvas(self,function(returnedPic)
+			{
+				if($("#fakeCanvas")[0] == undefined)
+				{
+					var c2canvasdiv = $("#c2canvasdiv") ;
+					var fakeCanvas  = $("<div id='fakeCanvas'><img src='"+returnedPic+"' height='"+c2canvasdiv.height()+"' width='"+c2canvasdiv.width()+"'/><div></div></div>");
+					var fakeBody = $("<div id='fakeBody'></div>");
+					var marginLeft = parseFloat(c2canvasdiv.css("margin-left"));
+					fakeBody.css(
+					{
+						"top":c2canvasdiv.offset().top,
+						"left":c2canvasdiv.offset().left,
+						"width":c2canvasdiv.width(),
+						"height":c2canvasdiv.height()
+					});
+					c2canvasdiv.addClass("prepared").find(" > :not(canvas)").each(function()
+					{
+						$(this).css("left",($(this).offset().left-marginLeft)+"px");
+					});
+					fakeBody.appendTo(document.body).append(c2canvasdiv).append(fakeCanvas);
+					if(callback)
+						callback();
+				}
+			});
+		}
+		isCanvasReady(function()
+		{
+			self.runtime.trigger(cr.plugins_.hmmg_layoutTransition_v2.prototype.cnds.isTransitionReady, self);
+		});
+	};
+	Acts.prototype.startTransition = function (transID)
+	{
+		var fakeBody = $("#fakeBody");
+		var c2canvasdiv = fakeBody.find("#c2canvasdiv") ;
+		var fakeCanvas  = fakeBody.find("#fakeCanvas");
+		var self = this ;
+		function darkTheFakeCanvas(callback)
+		{
+			setTimeout(function()
+			{
+				fakeCanvas.find("div").addClass("darker");
+				if(callback)
+					callback();
+			},1);
+		}
+		function removeChanges()
+		{
+			c2canvasdiv.appendTo(document.body).removeClass("prepared");
+			fakeBody.remove();
+			self.runtime.trigger(cr.plugins_.hmmg_layoutTransition_v2.prototype.cnds.didTransitionFinish, self)
+		}
+		self.runtime.trigger(cr.plugins_.hmmg_layoutTransition_v2.prototype.cnds.didTransitionStart, self)
+		if(transID == 14)
+		{
+			c2canvasdiv.addClass("hidden");
+			fakeCanvas.addClass('animated rotateOut').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				fakeCanvas.addClass("hidden");
+			});
+			c2canvasdiv.removeClass("hidden").addClass('animated rotateIn').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				c2canvasdiv.removeClass("animated rotateIn");
+				removeChanges();
+			});
+		}
+		else if(transID == 13)
+		{
+			fakeCanvas.addClass('animated rollOut').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				fakeCanvas.addClass("hidden");
+			});
+			c2canvasdiv.addClass('animated rollIn').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				c2canvasdiv.removeClass("animated rollIn");
+				removeChanges();
+			});
+		}
+		else if(transID == 12)
+		{
+			fakeCanvas.addClass('animated zoomOut').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				fakeCanvas.addClass("hidden");
+			});
+			c2canvasdiv.addClass('animated zoomIn').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				c2canvasdiv.removeClass("animated zoomIn");
+				removeChanges();
+			});
+		}
+		else if(transID == 11)
+		{
+			c2canvasdiv.addClass("hidden");
+			fakeCanvas.addClass('animated fadeOut').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				fakeCanvas.addClass("hidden");
+				c2canvasdiv.removeClass("hidden").addClass('animated fadeIn').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+				{
+					c2canvasdiv.removeClass("animated fadeIn");
+					removeChanges();
+				});
+			});
+		}
+		else if(transID == 10)
+		{
+			c2canvasdiv.addClass("hidden");
+			fakeCanvas.addClass('animated fadeOut').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				fakeCanvas.addClass("hidden");
+			});
+			c2canvasdiv.removeClass("hidden").addClass('animated fadeIn').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				c2canvasdiv.removeClass("animated fadeIn");
+				removeChanges();
+			});
+		}
+		else if(transID == 9)
+		{
+			c2canvasdiv.addClass("hidden");
+			fakeCanvas.addClass('animated flipOutYY').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				fakeCanvas.addClass("hidden");
+				c2canvasdiv.removeClass("hidden").addClass('animated flipInYY').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+				{
+					c2canvasdiv.removeClass("animated flipInYY");
+					removeChanges();
+				});
+			});
+		}
+		else if(transID == 8)
+		{
+			c2canvasdiv.addClass("hidden");
+			fakeCanvas.addClass('animated flipOutXX').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				fakeCanvas.addClass("hidden");
+				c2canvasdiv.removeClass("hidden").addClass('animated flipInXX').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+				{
+					c2canvasdiv.removeClass("animated flipInXX");
+					removeChanges();
+				});
+			});
+		}
+		else if(transID == 7)
+		{
+			c2canvasdiv.addClass('animated slideInRight').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				removeChanges();
+				c2canvasdiv.removeClass("animated slideInRight");
+			});
+		}
+		else if(transID == 6)
+		{
+			c2canvasdiv.addClass('animated slideInLeft').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				removeChanges();
+				c2canvasdiv.removeClass('animated slideInLeft');
+			});
+		}
+		else if(transID == 5)
+		{
+			c2canvasdiv.addClass('animated slideInDown').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				removeChanges();
+				c2canvasdiv.removeClass('animated slideInDown');
+			});
+		}
+		else if(transID == 4)
+		{
+			c2canvasdiv.addClass('animated slideInUp').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				removeChanges();
+				c2canvasdiv.removeClass('animated slideInUp');
+			});
+		}
+		else if(transID == 3)
+		{
+			c2canvasdiv.addClass('animated slideInRight').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				removeChanges();
+				c2canvasdiv.removeClass("animated slideInRight");
+				fakeCanvas.removeClass('animated slideOutLeft');
+			});
+			fakeCanvas.addClass('animated slideOutLeft');
+		}
+		else if(transID == 2)
+		{
+			c2canvasdiv.addClass('animated slideInLeft').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				removeChanges();
+				fakeCanvas.removeClass("animated slideOutRight");
+				c2canvasdiv.removeClass('animated slideInLeft');
+			});
+			fakeCanvas.addClass('animated slideOutRight');
+		}
+		else if(transID == 1)
+		{
+			c2canvasdiv.addClass('animated slideInDown').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				removeChanges();
+				fakeCanvas.removeClass("animated slideOutDown");
+				c2canvasdiv.removeClass('animated slideInDown');
+			});
+			fakeCanvas.addClass('animated slideOutDown');
+		}
+		else if(transID == 0)
+		{
+			c2canvasdiv.addClass('animated slideInUp').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+			{
+				removeChanges();
+				fakeCanvas.removeClass("animated slideOutUp");
+				c2canvasdiv.removeClass('animated slideInUp');
+			});
+			fakeCanvas.addClass('animated slideOutUp');
+		}
+	};
+	pluginProto.acts = new Acts();
+	function Exps() {};
+	pluginProto.exps = new Exps();
+}());
+;
+;
 cr.behaviors.Bullet = function(runtime)
 {
 	this.runtime = runtime;
@@ -24043,6 +24727,439 @@ cr.behaviors.DragnDrop = function(runtime)
 }());
 ;
 ;
+cr.behaviors.EightDir = function(runtime)
+{
+	this.runtime = runtime;
+};
+(function ()
+{
+	var behaviorProto = cr.behaviors.EightDir.prototype;
+	behaviorProto.Type = function(behavior, objtype)
+	{
+		this.behavior = behavior;
+		this.objtype = objtype;
+		this.runtime = behavior.runtime;
+	};
+	var behtypeProto = behaviorProto.Type.prototype;
+	behtypeProto.onCreate = function()
+	{
+	};
+	behaviorProto.Instance = function(type, inst)
+	{
+		this.type = type;
+		this.behavior = type.behavior;
+		this.inst = inst;				// associated object instance to modify
+		this.runtime = type.runtime;
+		this.upkey = false;
+		this.downkey = false;
+		this.leftkey = false;
+		this.rightkey = false;
+		this.ignoreInput = false;
+		this.simup = false;
+		this.simdown = false;
+		this.simleft = false;
+		this.simright = false;
+		this.lastuptick = -1;
+		this.lastdowntick = -1;
+		this.lastlefttick = -1;
+		this.lastrighttick = -1;
+		this.dx = 0;
+		this.dy = 0;
+	};
+	var behinstProto = behaviorProto.Instance.prototype;
+	behinstProto.onCreate = function()
+	{
+		this.maxspeed = this.properties[0];
+		this.acc = this.properties[1];
+		this.dec = this.properties[2];
+		this.directions = this.properties[3];	// 0=Up & down, 1=Left & right, 2=4 directions, 3=8 directions"
+		this.angleMode = this.properties[4];	// 0=No,1=90-degree intervals, 2=45-degree intervals, 3=360 degree (smooth)
+		this.defaultControls = (this.properties[5] === 1);	// 0=no, 1=yes
+		this.enabled = (this.properties[6] !== 0);
+		if (this.defaultControls && !this.runtime.isDomFree)
+		{
+			jQuery(document).keydown(
+				(function (self) {
+					return function(info) {
+						self.onKeyDown(info);
+					};
+				})(this)
+			);
+			jQuery(document).keyup(
+				(function (self) {
+					return function(info) {
+						self.onKeyUp(info);
+					};
+				})(this)
+			);
+		}
+	};
+	behinstProto.saveToJSON = function ()
+	{
+		return {
+			"dx": this.dx,
+			"dy": this.dy,
+			"enabled": this.enabled,
+			"maxspeed": this.maxspeed,
+			"acc": this.acc,
+			"dec": this.dec,
+			"ignoreInput": this.ignoreInput
+		};
+	};
+	behinstProto.loadFromJSON = function (o)
+	{
+		this.dx = o["dx"];
+		this.dy = o["dy"];
+		this.enabled = o["enabled"];
+		this.maxspeed = o["maxspeed"];
+		this.acc = o["acc"];
+		this.dec = o["dec"];
+		this.ignoreInput = o["ignoreInput"];
+		this.upkey = false;
+		this.downkey = false;
+		this.leftkey = false;
+		this.rightkey = false;
+		this.simup = false;
+		this.simdown = false;
+		this.simleft = false;
+		this.simright = false;
+		this.lastuptick = -1;
+		this.lastdowntick = -1;
+		this.lastlefttick = -1;
+		this.lastrighttick = -1;
+	};
+	behinstProto.onKeyDown = function (info)
+	{
+		var tickcount = this.runtime.tickcount;
+		switch (info.which) {
+		case 37:	// left
+			info.preventDefault();
+			if (this.lastlefttick < tickcount)
+				this.leftkey = true;
+			break;
+		case 38:	// up
+			info.preventDefault();
+			if (this.lastuptick < tickcount)
+				this.upkey = true;
+			break;
+		case 39:	// right
+			info.preventDefault();
+			if (this.lastrighttick < tickcount)
+				this.rightkey = true;
+			break;
+		case 40:	// down
+			info.preventDefault();
+			if (this.lastdowntick < tickcount)
+				this.downkey = true;
+			break;
+		}
+	};
+	behinstProto.onKeyUp = function (info)
+	{
+		var tickcount = this.runtime.tickcount;
+		switch (info.which) {
+		case 37:	// left
+			info.preventDefault();
+			this.leftkey = false;
+			this.lastlefttick = tickcount;
+			break;
+		case 38:	// up
+			info.preventDefault();
+			this.upkey = false;
+			this.lastuptick = tickcount;
+			break;
+		case 39:	// right
+			info.preventDefault();
+			this.rightkey = false;
+			this.lastrighttick = tickcount;
+			break;
+		case 40:	// down
+			info.preventDefault();
+			this.downkey = false;
+			this.lastdowntick = tickcount;
+			break;
+		}
+	};
+	behinstProto.onWindowBlur = function ()
+	{
+		this.upkey = false;
+		this.downkey = false;
+		this.leftkey = false;
+		this.rightkey = false;
+	};
+	behinstProto.tick = function ()
+	{
+		var dt = this.runtime.getDt(this.inst);
+		var left = this.leftkey || this.simleft;
+		var right = this.rightkey || this.simright;
+		var up = this.upkey || this.simup;
+		var down = this.downkey || this.simdown;
+		this.simleft = false;
+		this.simright = false;
+		this.simup = false;
+		this.simdown = false;
+		if (!this.enabled)
+			return;
+		var collobj = this.runtime.testOverlapSolid(this.inst);
+		if (collobj)
+		{
+			this.runtime.registerCollision(this.inst, collobj);
+			if (!this.runtime.pushOutSolidNearest(this.inst))
+				return;		// must be stuck in solid
+		}
+		if (this.ignoreInput)
+		{
+			left = false;
+			right = false;
+			up = false;
+			down = false;
+		}
+		if (this.directions === 0)
+		{
+			left = false;
+			right = false;
+		}
+		else if (this.directions === 1)
+		{
+			up = false;
+			down = false;
+		}
+		if (this.directions === 2 && (up || down))
+		{
+			left = false;
+			right = false;
+		}
+		if (left == right)	// both up or both down
+		{
+			if (this.dx < 0)
+			{
+				this.dx += this.dec * dt;
+				if (this.dx > 0)
+					this.dx = 0;
+			}
+			else if (this.dx > 0)
+			{
+				this.dx -= this.dec * dt;
+				if (this.dx < 0)
+					this.dx = 0;
+			}
+		}
+		if (up == down)
+		{
+			if (this.dy < 0)
+			{
+				this.dy += this.dec * dt;
+				if (this.dy > 0)
+					this.dy = 0;
+			}
+			else if (this.dy > 0)
+			{
+				this.dy -= this.dec * dt;
+				if (this.dy < 0)
+					this.dy = 0;
+			}
+		}
+		if (left && !right)
+		{
+			if (this.dx > 0)
+				this.dx -= (this.acc + this.dec) * dt;
+			else
+				this.dx -= this.acc * dt;
+		}
+		if (right && !left)
+		{
+			if (this.dx < 0)
+				this.dx += (this.acc + this.dec) * dt;
+			else
+				this.dx += this.acc * dt;
+		}
+		if (up && !down)
+		{
+			if (this.dy > 0)
+				this.dy -= (this.acc + this.dec) * dt;
+			else
+				this.dy -= this.acc * dt;
+		}
+		if (down && !up)
+		{
+			if (this.dy < 0)
+				this.dy += (this.acc + this.dec) * dt;
+			else
+				this.dy += this.acc * dt;
+		}
+		var ax, ay;
+		if (this.dx !== 0 || this.dy !== 0)
+		{
+			var speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+			if (speed > this.maxspeed)
+			{
+				var a = Math.atan2(this.dy, this.dx);
+				this.dx = this.maxspeed * Math.cos(a);
+				this.dy = this.maxspeed * Math.sin(a);
+			}
+			var oldx = this.inst.x;
+			var oldy = this.inst.y;
+			var oldangle = this.inst.angle;
+			this.inst.x += this.dx * dt;
+			this.inst.set_bbox_changed();
+			collobj = this.runtime.testOverlapSolid(this.inst);
+			if (collobj)
+			{
+				if (!this.runtime.pushOutSolid(this.inst, (this.dx < 0 ? 1 : -1), 0, Math.abs(Math.floor(this.dx * dt))))
+				{
+					this.inst.x = oldx;
+				}
+				this.dx = 0;
+				this.inst.set_bbox_changed();
+				this.runtime.registerCollision(this.inst, collobj);
+			}
+			this.inst.y += this.dy * dt;
+			this.inst.set_bbox_changed();
+			collobj = this.runtime.testOverlapSolid(this.inst);
+			if (collobj)
+			{
+				if (!this.runtime.pushOutSolid(this.inst, 0, (this.dy < 0 ? 1 : -1), Math.abs(Math.floor(this.dy * dt))))
+				{
+					this.inst.y = oldy;
+				}
+				this.dy = 0;
+				this.inst.set_bbox_changed();
+				this.runtime.registerCollision(this.inst, collobj);
+			}
+			ax = cr.round6dp(this.dx);
+			ay = cr.round6dp(this.dy);
+			if ((ax !== 0 || ay !== 0) && this.inst.type.plugin.is_rotatable)
+			{
+				if (this.angleMode === 1)	// 90 degree intervals
+					this.inst.angle = cr.to_clamped_radians(Math.round(cr.to_degrees(Math.atan2(ay, ax)) / 90.0) * 90.0);
+				else if (this.angleMode === 2)	// 45 degree intervals
+					this.inst.angle = cr.to_clamped_radians(Math.round(cr.to_degrees(Math.atan2(ay, ax)) / 45.0) * 45.0);
+				else if (this.angleMode === 3)	// 360 degree
+					this.inst.angle = Math.atan2(ay, ax);
+			}
+			this.inst.set_bbox_changed();
+			if (this.inst.angle != oldangle)
+			{
+				collobj = this.runtime.testOverlapSolid(this.inst);
+				if (collobj)
+				{
+					this.inst.angle = oldangle;
+					this.inst.set_bbox_changed();
+					this.runtime.registerCollision(this.inst, collobj);
+				}
+			}
+		}
+	};
+	function Cnds() {};
+	Cnds.prototype.IsMoving = function ()
+	{
+		var speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+		return speed > 1e-10;
+	};
+	Cnds.prototype.CompareSpeed = function (cmp, s)
+	{
+		var speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+		return cr.do_cmp(speed, cmp, s);
+	};
+	behaviorProto.cnds = new Cnds();
+	function Acts() {};
+	Acts.prototype.Stop = function ()
+	{
+		this.dx = 0;
+		this.dy = 0;
+	};
+	Acts.prototype.Reverse = function ()
+	{
+		this.dx *= -1;
+		this.dy *= -1;
+	};
+	Acts.prototype.SetIgnoreInput = function (ignoring)
+	{
+		this.ignoreInput = ignoring;
+	};
+	Acts.prototype.SetSpeed = function (speed)
+	{
+		if (speed < 0)
+			speed = 0;
+		if (speed > this.maxspeed)
+			speed = this.maxspeed;
+		var a = Math.atan2(this.dy, this.dx);
+		this.dx = speed * Math.cos(a);
+		this.dy = speed * Math.sin(a);
+	};
+	Acts.prototype.SetMaxSpeed = function (maxspeed)
+	{
+		this.maxspeed = maxspeed;
+		if (this.maxspeed < 0)
+			this.maxspeed = 0;
+	};
+	Acts.prototype.SetAcceleration = function (acc)
+	{
+		this.acc = acc;
+		if (this.acc < 0)
+			this.acc = 0;
+	};
+	Acts.prototype.SetDeceleration = function (dec)
+	{
+		this.dec = dec;
+		if (this.dec < 0)
+			this.dec = 0;
+	};
+	Acts.prototype.SimulateControl = function (ctrl)
+	{
+		switch (ctrl) {
+		case 0:		this.simleft = true;	break;
+		case 1:		this.simright = true;	break;
+		case 2:		this.simup = true;		break;
+		case 3:		this.simdown = true;	break;
+		}
+	};
+	Acts.prototype.SetEnabled = function (en)
+	{
+		this.enabled = (en === 1);
+	};
+	Acts.prototype.SetVectorX = function (x_)
+	{
+		this.dx = x_;
+	};
+	Acts.prototype.SetVectorY = function (y_)
+	{
+		this.dy = y_;
+	};
+	behaviorProto.acts = new Acts();
+	function Exps() {};
+	Exps.prototype.Speed = function (ret)
+	{
+		ret.set_float(Math.sqrt(this.dx * this.dx + this.dy * this.dy));
+	};
+	Exps.prototype.MaxSpeed = function (ret)
+	{
+		ret.set_float(this.maxspeed);
+	};
+	Exps.prototype.Acceleration = function (ret)
+	{
+		ret.set_float(this.acc);
+	};
+	Exps.prototype.Deceleration = function (ret)
+	{
+		ret.set_float(this.dec);
+	};
+	Exps.prototype.MovingAngle = function (ret)
+	{
+		ret.set_float(cr.to_degrees(Math.atan2(this.dy, this.dx)));
+	};
+	Exps.prototype.VectorX = function (ret)
+	{
+		ret.set_float(this.dx);
+	};
+	Exps.prototype.VectorY = function (ret)
+	{
+		ret.set_float(this.dy);
+	};
+	behaviorProto.exps = new Exps();
+}());
+;
+;
 cr.behaviors.Fade = function(runtime)
 {
 	this.runtime = runtime;
@@ -24403,48 +25520,220 @@ cr.behaviors.Pin = function(runtime)
 	};
 	behaviorProto.exps = new Exps();
 }());
+;
+;
+cr.behaviors.Rotate = function(runtime)
+{
+	this.runtime = runtime;
+};
+(function ()
+{
+	var behaviorProto = cr.behaviors.Rotate.prototype;
+	behaviorProto.Type = function(behavior, objtype)
+	{
+		this.behavior = behavior;
+		this.objtype = objtype;
+		this.runtime = behavior.runtime;
+	};
+	var behtypeProto = behaviorProto.Type.prototype;
+	behtypeProto.onCreate = function()
+	{
+	};
+	behaviorProto.Instance = function(type, inst)
+	{
+		this.type = type;
+		this.behavior = type.behavior;
+		this.inst = inst;				// associated object instance to modify
+		this.runtime = type.runtime;
+	};
+	var behinstProto = behaviorProto.Instance.prototype;
+	behinstProto.onCreate = function()
+	{
+		this.speed = cr.to_radians(this.properties[0]);
+		this.acc = cr.to_radians(this.properties[1]);
+	};
+	behinstProto.saveToJSON = function ()
+	{
+		return {
+			"speed": this.speed,
+			"acc": this.acc
+		};
+	};
+	behinstProto.loadFromJSON = function (o)
+	{
+		this.speed = o["speed"];
+		this.acc = o["acc"];
+	};
+	behinstProto.tick = function ()
+	{
+		var dt = this.runtime.getDt(this.inst);
+		if (dt === 0)
+			return;
+		if (this.acc !== 0)
+			this.speed += this.acc * dt;
+		if (this.speed !== 0)
+		{
+			this.inst.angle = cr.clamp_angle(this.inst.angle + this.speed * dt);
+			this.inst.set_bbox_changed();
+		}
+	};
+	function Cnds() {};
+	behaviorProto.cnds = new Cnds();
+	function Acts() {};
+	Acts.prototype.SetSpeed = function (s)
+	{
+		this.speed = cr.to_radians(s);
+	};
+	Acts.prototype.SetAcceleration = function (a)
+	{
+		this.acc = cr.to_radians(a);
+	};
+	behaviorProto.acts = new Acts();
+	function Exps() {};
+	Exps.prototype.Speed = function (ret)
+	{
+		ret.set_float(cr.to_degrees(this.speed));
+	};
+	Exps.prototype.Acceleration = function (ret)
+	{
+		ret.set_float(cr.to_degrees(this.acc));
+	};
+	behaviorProto.exps = new Exps();
+}());
+;
+;
+cr.behaviors.wrap = function(runtime)
+{
+	this.runtime = runtime;
+};
+(function ()
+{
+	var behaviorProto = cr.behaviors.wrap.prototype;
+	behaviorProto.Type = function(behavior, objtype)
+	{
+		this.behavior = behavior;
+		this.objtype = objtype;
+		this.runtime = behavior.runtime;
+	};
+	var behtypeProto = behaviorProto.Type.prototype;
+	behtypeProto.onCreate = function()
+	{
+	};
+	behaviorProto.Instance = function(type, inst)
+	{
+		this.type = type;
+		this.behavior = type.behavior;
+		this.inst = inst;				// associated object instance to modify
+		this.runtime = type.runtime;
+	};
+	var behinstProto = behaviorProto.Instance.prototype;
+	behinstProto.onCreate = function()
+	{
+		this.mode = this.properties[0];		// 0 = wrap to layout, 1 = wrap to viewport
+	};
+	behinstProto.tick = function ()
+	{
+		var inst = this.inst;
+		inst.update_bbox();
+		var bbox = inst.bbox;
+		var layer = inst.layer;
+		var layout = layer.layout;
+		var lbound = 0, rbound = 0, tbound = 0, bbound = 0;
+		if (this.mode === 0)
+		{
+			rbound = layout.width;
+			bbound = layout.height;
+		}
+		else
+		{
+			lbound = layer.viewLeft;
+			rbound = layer.viewRight;
+			tbound = layer.viewTop;
+			bbound = layer.viewBottom;
+		}
+		if (bbox.right < lbound)
+		{
+			inst.x = (rbound - 1) + (inst.x - bbox.left);
+			inst.set_bbox_changed();
+		}
+		else if (bbox.left > rbound)
+		{
+			inst.x = (lbound + 1) - (bbox.right - inst.x);
+			inst.set_bbox_changed();
+		}
+		else if (bbox.bottom < tbound)
+		{
+			inst.y = (bbound - 1) + (inst.y - bbox.top);
+			inst.set_bbox_changed();
+		}
+		else if (bbox.top > bbound)
+		{
+			inst.y = (tbound + 1) - (bbox.bottom - inst.y);
+			inst.set_bbox_changed();
+		}
+	};
+}());
 cr.getObjectRefTable = function () { return [
 	cr.plugins_.AJAX,
 	cr.plugins_.Arr,
 	cr.plugins_.Function,
 	cr.plugins_.Audio,
+	cr.plugins_.Dictionary,
 	cr.plugins_.Mouse,
 	cr.plugins_.Keyboard,
-	cr.plugins_.Text,
-	cr.plugins_.Touch,
-	cr.plugins_.Sprite,
+	cr.plugins_.hmmg_layoutTransition_v2,
 	cr.plugins_.TiledBg,
+	cr.plugins_.Text,
+	cr.plugins_.Sprite,
+	cr.plugins_.Touch,
+	cr.plugins_.Rex_Date,
 	cr.behaviors.Pin,
 	cr.behaviors.DragnDrop,
 	cr.behaviors.Fade,
+	cr.behaviors.wrap,
+	cr.behaviors.EightDir,
+	cr.behaviors.Rotate,
 	cr.behaviors.Bullet,
 	cr.system_object.prototype.cnds.IsGroupActive,
 	cr.system_object.prototype.cnds.OnLayoutStart,
+	cr.plugins_.Audio.prototype.acts.Play,
+	cr.system_object.prototype.acts.SetVar,
 	cr.system_object.prototype.cnds.Compare,
 	cr.plugins_.AJAX.prototype.acts.RequestFile,
-	cr.system_object.prototype.acts.SetVar,
 	cr.plugins_.AJAX.prototype.cnds.OnComplete,
 	cr.plugins_.Arr.prototype.acts.JSONLoad,
 	cr.plugins_.AJAX.prototype.exps.LastData,
-	cr.plugins_.Touch.prototype.cnds.OnTapGestureObject,
-	cr.plugins_.Sprite.prototype.acts.SetAnim,
-	cr.plugins_.Audio.prototype.acts.Play,
+	cr.plugins_.Dictionary.prototype.acts.JSONLoad,
+	cr.plugins_.Function.prototype.cnds.OnFunction,
+	cr.system_object.prototype.cnds.For,
+	cr.system_object.prototype.exps.loopindex,
 	cr.system_object.prototype.acts.Wait,
-	cr.system_object.prototype.acts.GoToLayout,
-	cr.plugins_.Mouse.prototype.cnds.IsOverObject,
+	cr.plugins_.Audio.prototype.acts.SetVolume,
 	cr.system_object.prototype.cnds.Else,
-	cr.plugins_.Sprite.prototype.acts.SetSize,
-	cr.plugins_.Arr.prototype.exps.At,
+	cr.plugins_.Audio.prototype.acts.Stop,
+	cr.plugins_.Touch.prototype.cnds.OnTapGestureObject,
+	cr.plugins_.Text.prototype.cnds.IsBoolInstanceVarSet,
+	cr.plugins_.Text.prototype.acts.SetBoolInstanceVar,
+	cr.plugins_.Text.prototype.acts.SetFontColor,
+	cr.system_object.prototype.exps.rgb,
 	cr.plugins_.Function.prototype.acts.CallFunction,
+	cr.behaviors.Fade.prototype.acts.StartFade,
+	cr.plugins_.hmmg_layoutTransition_v2.prototype.acts.prepareTransition,
+	cr.plugins_.hmmg_layoutTransition_v2.prototype.cnds.isTransitionReady,
+	cr.plugins_.hmmg_layoutTransition_v2.prototype.acts.startTransition,
+	cr.system_object.prototype.acts.GoToLayout,
+	cr.plugins_.Sprite.prototype.acts.SetSize,
+	cr.plugins_.Sprite.prototype.acts.SetAnim,
+	cr.plugins_.Arr.prototype.exps.At,
 	cr.plugins_.Sprite.prototype.acts.SetEffectEnabled,
 	cr.plugins_.Sprite.prototype.acts.SetEffectParam,
 	cr.behaviors.Pin.prototype.acts.Pin,
+	cr.system_object.prototype.acts.CreateObject,
+	cr.plugins_.Sprite.prototype.acts.SetMirrored,
+	cr.behaviors.EightDir.prototype.acts.SetVectorX,
 	cr.system_object.prototype.cnds.EveryTick,
-	cr.plugins_.Function.prototype.cnds.OnFunction,
 	cr.plugins_.Sprite.prototype.acts.SetInstanceVar,
 	cr.system_object.prototype.exps.round,
-	cr.system_object.prototype.cnds.For,
-	cr.system_object.prototype.exps.loopindex,
 	cr.plugins_.Sprite.prototype.acts.AddInstanceVar,
 	cr.plugins_.Sprite.prototype.acts.SetBoolInstanceVar,
 	cr.plugins_.Arr.prototype.acts.Clear,
@@ -24461,7 +25750,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetY,
 	cr.plugins_.Sprite.prototype.acts.SetX,
 	cr.plugins_.Sprite.prototype.exps.Y,
-	cr.system_object.prototype.acts.CreateObject,
 	cr.plugins_.Sprite.prototype.exps.X,
 	cr.plugins_.Sprite.prototype.acts.SetPosToObject,
 	cr.plugins_.Sprite.prototype.cnds.IsBoolInstanceVarSet,
@@ -24477,7 +25765,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.cnds.OnDestroyed,
 	cr.plugins_.Sprite.prototype.cnds.OnAnimFinished,
 	cr.plugins_.Text.prototype.acts.Destroy,
-	cr.behaviors.Fade.prototype.acts.StartFade,
 	cr.system_object.prototype.exps.min,
 	cr.system_object.prototype.exps.max,
 	cr.system_object.prototype.cnds.ForEach,
@@ -24489,14 +25776,13 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Text.prototype.acts.SetText,
 	cr.plugins_.Text.prototype.acts.SetInstanceVar,
 	cr.plugins_.Text.prototype.acts.ZMoveToObject,
+	cr.plugins_.Text.prototype.exps.Text,
 	cr.plugins_.Sprite.prototype.exps.Count,
-	cr.plugins_.Audio.prototype.acts.Stop,
 	cr.plugins_.Sprite.prototype.cnds.OnCreated,
 	cr.plugins_.Sprite.prototype.exps.Height,
 	cr.plugins_.Keyboard.prototype.cnds.OnKey,
 	cr.plugins_.Sprite.prototype.acts.MoveToTop,
 	cr.plugins_.Text.prototype.acts.MoveToTop,
-	cr.plugins_.Text.prototype.exps.Text,
 	cr.plugins_.Sprite.prototype.acts.SetWidth,
 	cr.plugins_.Sprite.prototype.acts.SetVisible,
 	cr.system_object.prototype.exps.floor,
@@ -24527,8 +25813,20 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Arr.prototype.exps.Depth,
 	cr.system_object.prototype.acts.SetGroupActive,
 	cr.system_object.prototype.exps.ceil,
-	cr.plugins_.Text.prototype.cnds.IsBoolInstanceVarSet,
-	cr.plugins_.Text.prototype.acts.SetFontColor,
-	cr.system_object.prototype.exps.rgb,
-	cr.system_object.prototype.acts.SetLayerVisible
+	cr.system_object.prototype.acts.SetLayerVisible,
+	cr.plugins_.Dictionary.prototype.exps.Get,
+	cr.plugins_.Audio.prototype.cnds.IsTagPlaying,
+	cr.plugins_.Rex_Date.prototype.exps.Date2UnixTimestamp,
+	cr.system_object.prototype.exps["int"],
+	cr.system_object.prototype.exps.tokenat,
+	cr.plugins_.Rex_Date.prototype.exps.UnixTimestamp,
+	cr.plugins_.Sprite.prototype.acts.MoveToBottom,
+	cr.plugins_.Text.prototype.acts.SetPosToObject,
+	cr.behaviors.Pin.prototype.acts.Unpin,
+	cr.plugins_.Mouse.prototype.cnds.IsOverObject,
+	cr.plugins_.Sprite.prototype.cnds.CompareY,
+	cr.system_object.prototype.exps.len,
+	cr.system_object.prototype.exps.left,
+	cr.plugins_.Dictionary.prototype.acts.AddKey,
+	cr.plugins_.Text.prototype.acts.SetOpacity
 ];};
