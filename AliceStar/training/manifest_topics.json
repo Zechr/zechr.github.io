@@ -1,0 +1,6 @@
+{
+	"general_corpus": "general_corpus/wsj2-21.txt",
+	"conversation_lines": "general_corpus/conversation.txt",
+	"convmode_distribution": "../data/convmode.txt",
+	"topic_distribution": "../data/topics.txt"
+}

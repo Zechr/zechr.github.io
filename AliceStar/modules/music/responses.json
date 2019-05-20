@@ -1,0 +1,16 @@
+{
+    "music": [
+        {
+            "response": "Ah, is my angelic voice not enough for you?",
+            "img": "AliceAvatarHaughty.png"
+        },
+        {
+            "response": "Setting the mood, are we?",
+            "img": "AliceAvatarSexy.png"
+        },
+        {
+            "response": "Let's rock n roll",
+            "img": "AliceAvatarHappy.png"
+        }
+    ]
+}

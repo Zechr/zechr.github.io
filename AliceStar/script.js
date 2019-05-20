@@ -20,13 +20,13 @@ var curModule = 0;
 // should be the same as the keyword
 
 $(document).ready(function() {
-  $.get("lw.txt", function(data) { loadLW(data); });
-  $.get("ll.txt", function(data) { loadLL(data); });
-  $.get("commands.txt", function(data) { loadCommands(data); });
-  $.get("topics.txt", function(data) { loadTopics(data); });
-  $.get("responses.txt", function(data) { loadResponses(data); });
-  $.get("conversation.txt", function(data) { loadConversation(data); });
-  $.get("convmode.txt", function(data) { loadConvMap(data); });
+  $.get("data/lw.txt", function(data) { loadLW(data); });
+  $.get("data/ll.txt", function(data) { loadLL(data); });
+  $.get("data/commands.txt", function(data) { loadCommands(data); });
+  $.get("data/topics.txt", function(data) { loadTopics(data); });
+  $.getJSON("data/responses.json", function(data) { loadResponses(data); });
+  $.get("data/conversation.txt", function(data) { loadConversation(data); });
+  $.get("data/convmode.txt", function(data) { loadConvMap(data); });
   $.get("module_list.txt", function(data) { loadModules(data); });
   $.getScript("main_dependencies/classifier.js", function(data) {});
   //$.get("costumes.txt", function(data) {loadCostumes(data);});
@@ -102,16 +102,15 @@ function loadTopics(t) {
   }
 }
 
-function loadResponses(r) {
-  var allTextLines = r.split(/\r\n|\n/);
-  for (var i = 0; i < allTextLines.length; i+=3) {
-    var data1 = allTextLines[i];
-    var data2 = allTextLines[i+1];
-    if (!responses.hasOwnProperty(data1)) {
-      responses[data1] = [];
+function loadResponses(responseJSON) {
+  for (const key in responseJSON) {
+    if (!responses.hasOwnProperty(key)) {
+      responses[key] = []
     }
-    responses[data1].push(data2);
-    respimg[data2] = allTextLines[i+2];
+    for (const { response, img } of responseJSON[key]) {
+      responses[key].push(response)
+      respimg[response] = img
+    }
   }
 }
 
@@ -151,7 +150,7 @@ function loadModules(data) {
   for (var i = 0; i < allTextLines.length; i++) {   
     keyword = allTextLines[i];
     modules[keyword] = 1;
-    $.getScript("modules/" + keyword + ".js", function() {
+    $.getScript("modules/" + keyword + "/" + keyword + ".js", function() {
       curModule = curModule + 1; 
       if (curModule >= numModules) {
         assignModuleFunctions();
@@ -182,10 +181,10 @@ function process(sentence) {
 }
 
 function classify(words) {
-  var topicG = grammarMatch(posLabel(words)[1]);
-  var topicP = topic(words, topics);
-  var maxP = 0;
-  var maxTopic = "";
+  const topicG = grammarMatch(posLabel(words)[1]);
+  const topicP = topic(words, topics);
+  let maxP = 0;
+  let maxTopic = "";
   grammarTotal = 0;
   for (topicKey in topicP) {
     topicG[topicKey] = (topicG[topicKey]+1)/(words.length+1);
@@ -198,7 +197,7 @@ function classify(words) {
     console.log(topicKey);
     console.log(topicP[topicKey]);
     console.log(topicG[topicKey]);
-    var temp = 0.05*topicG[topicKey] + 0.95*topicP[topicKey];
+    let temp = 0.05*topicG[topicKey] + 0.95*topicP[topicKey];
     if (temp > maxP || maxP == 0) {
       maxP = temp;
       maxTopic = topicKey;

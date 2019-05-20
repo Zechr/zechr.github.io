@@ -1,0 +1,20 @@
+{
+    "yelp": [
+        {
+            "response": "So between food, a bath, and me, you chose food?",
+            "img": "AliceAvatarDisgust.png"
+        },
+        {
+            "response": "Unfair. I can't taste food",
+            "img": "AliceAvatarPout.png"
+        },
+        {
+            "response": "Have a safe trip. You really need to go outside",
+            "img": "AliceAvatar.png"
+        },
+        {
+            "response": "Wouldn't you rather eat me?",
+            "img": "AliceAvatarSexy.png"
+        }
+    ]
+}

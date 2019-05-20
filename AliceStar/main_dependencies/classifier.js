@@ -144,7 +144,7 @@ function lcs(pos1, pos2) {
 }
 
 function grammarMatch(syntax) {
-  var topicG = {};
+  const topicG = {};
   for (topicKey in topicSyntax) {
     topicG[topicKey] = lcs(syntax, topicSyntax[topicKey]);
   }
