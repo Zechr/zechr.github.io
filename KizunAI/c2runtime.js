@@ -3703,6 +3703,8 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		if (this.fullscreen_mode === 0 && this.isiOS)
 			this.isRetina = false;
 		this.devicePixelRatio = (this.isRetina ? (window["devicePixelRatio"] || window["webkitDevicePixelRatio"] || window["mozDevicePixelRatio"] || window["msDevicePixelRatio"] || 1) : 1);
+		if (typeof window["StatusBar"] === "object")
+			window["StatusBar"]["hide"]();
 		this.ClearDeathRow();
 		var attribs;
 		if (this.fullscreen_mode > 0)
@@ -3946,6 +3948,11 @@ quat4.str=function(a){return"["+a[0]+", "+a[1]+", "+a[2]+", "+a[3]+"]"};
 		var dpr = this.devicePixelRatio;
 		if (mode >= 4)
 		{
+			if (mode === 5 && dpr !== 1)	// integer scaling
+			{
+				w += 1;
+				h += 1;
+			}
 			orig_aspect = this.original_width / this.original_height;
 			cur_aspect = w / h;
 			if (cur_aspect > orig_aspect)
@@ -25675,18 +25682,18 @@ cr.behaviors.wrap = function(runtime)
 }());
 cr.getObjectRefTable = function () { return [
 	cr.plugins_.AJAX,
-	cr.plugins_.Arr,
-	cr.plugins_.Function,
 	cr.plugins_.Audio,
+	cr.plugins_.Arr,
 	cr.plugins_.Dictionary,
-	cr.plugins_.Mouse,
+	cr.plugins_.Function,
 	cr.plugins_.Keyboard,
+	cr.plugins_.Mouse,
 	cr.plugins_.hmmg_layoutTransition_v2,
+	cr.plugins_.Rex_Date,
 	cr.plugins_.TiledBg,
 	cr.plugins_.Text,
-	cr.plugins_.Sprite,
 	cr.plugins_.Touch,
-	cr.plugins_.Rex_Date,
+	cr.plugins_.Sprite,
 	cr.behaviors.Pin,
 	cr.behaviors.DragnDrop,
 	cr.behaviors.Fade,
@@ -25728,16 +25735,27 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetEffectEnabled,
 	cr.plugins_.Sprite.prototype.acts.SetEffectParam,
 	cr.behaviors.Pin.prototype.acts.Pin,
+	cr.system_object.prototype.acts.SetGroupActive,
 	cr.system_object.prototype.acts.CreateObject,
 	cr.plugins_.Sprite.prototype.acts.SetMirrored,
 	cr.behaviors.EightDir.prototype.acts.SetVectorX,
 	cr.system_object.prototype.cnds.EveryTick,
+	cr.plugins_.Sprite.prototype.acts.SetVisible,
+	cr.plugins_.Text.prototype.acts.SetVisible,
+	cr.plugins_.Arr.prototype.exps.Width,
+	cr.system_object.prototype.cnds.IsMobile,
+	cr.plugins_.Text.prototype.acts.SetText,
+	cr.plugins_.Keyboard.prototype.cnds.OnKey,
+	cr.plugins_.Text.prototype.acts.Destroy,
+	cr.plugins_.Sprite.prototype.acts.Destroy,
+	cr.plugins_.Sprite.prototype.exps.AnimationName,
+	cr.system_object.prototype.cnds.PickByComparison,
+	cr.plugins_.Sprite.prototype.exps.X,
 	cr.plugins_.Sprite.prototype.acts.SetInstanceVar,
 	cr.system_object.prototype.exps.round,
 	cr.plugins_.Sprite.prototype.acts.AddInstanceVar,
 	cr.plugins_.Sprite.prototype.acts.SetBoolInstanceVar,
 	cr.plugins_.Arr.prototype.acts.Clear,
-	cr.system_object.prototype.cnds.PickByComparison,
 	cr.plugins_.Sprite.prototype.exps.UID,
 	cr.plugins_.Function.prototype.exps.Param,
 	cr.plugins_.Arr.prototype.exps.Height,
@@ -25750,7 +25768,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetY,
 	cr.plugins_.Sprite.prototype.acts.SetX,
 	cr.plugins_.Sprite.prototype.exps.Y,
-	cr.plugins_.Sprite.prototype.exps.X,
 	cr.plugins_.Sprite.prototype.acts.SetPosToObject,
 	cr.plugins_.Sprite.prototype.cnds.IsBoolInstanceVarSet,
 	cr.system_object.prototype.acts.Signal,
@@ -25759,12 +25776,9 @@ cr.getObjectRefTable = function () { return [
 	cr.behaviors.Bullet.prototype.acts.SetSpeed,
 	cr.plugins_.Sprite.prototype.cnds.OnAnyAnimFinished,
 	cr.system_object.prototype.exps.find,
-	cr.plugins_.Sprite.prototype.exps.AnimationName,
-	cr.plugins_.Sprite.prototype.acts.Destroy,
 	cr.plugins_.Sprite.prototype.cnds.CompareX,
 	cr.plugins_.Sprite.prototype.cnds.OnDestroyed,
 	cr.plugins_.Sprite.prototype.cnds.OnAnimFinished,
-	cr.plugins_.Text.prototype.acts.Destroy,
 	cr.system_object.prototype.exps.min,
 	cr.system_object.prototype.exps.max,
 	cr.system_object.prototype.cnds.ForEach,
@@ -25772,19 +25786,15 @@ cr.getObjectRefTable = function () { return [
 	cr.system_object.prototype.acts.AddVar,
 	cr.plugins_.Function.prototype.acts.SetReturnValue,
 	cr.plugins_.Function.prototype.exps.Call,
-	cr.plugins_.Arr.prototype.exps.Width,
-	cr.plugins_.Text.prototype.acts.SetText,
 	cr.plugins_.Text.prototype.acts.SetInstanceVar,
 	cr.plugins_.Text.prototype.acts.ZMoveToObject,
 	cr.plugins_.Text.prototype.exps.Text,
 	cr.plugins_.Sprite.prototype.exps.Count,
 	cr.plugins_.Sprite.prototype.cnds.OnCreated,
 	cr.plugins_.Sprite.prototype.exps.Height,
-	cr.plugins_.Keyboard.prototype.cnds.OnKey,
 	cr.plugins_.Sprite.prototype.acts.MoveToTop,
 	cr.plugins_.Text.prototype.acts.MoveToTop,
 	cr.plugins_.Sprite.prototype.acts.SetWidth,
-	cr.plugins_.Sprite.prototype.acts.SetVisible,
 	cr.system_object.prototype.exps.floor,
 	cr.system_object.prototype.cnds.CompareBetween,
 	cr.plugins_.Sprite.prototype.acts.SetOpacity,
@@ -25810,9 +25820,13 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.StartAnim,
 	cr.system_object.prototype.cnds.CompareVar,
 	cr.system_object.prototype.cnds.Every,
+	cr.plugins_.Arr.prototype.acts.Delete,
 	cr.plugins_.Arr.prototype.exps.Depth,
-	cr.system_object.prototype.acts.SetGroupActive,
 	cr.system_object.prototype.exps.ceil,
+	cr.system_object.prototype.cnds.PickByEvaluate,
+	cr.plugins_.Text.prototype.exps.LayerName,
+	cr.plugins_.Sprite.prototype.exps.LayerName,
+	cr.plugins_.Text.prototype.cnds.IsOnLayer,
 	cr.system_object.prototype.acts.SetLayerVisible,
 	cr.plugins_.Dictionary.prototype.exps.Get,
 	cr.plugins_.Audio.prototype.cnds.IsTagPlaying,
@@ -25828,5 +25842,8 @@ cr.getObjectRefTable = function () { return [
 	cr.system_object.prototype.exps.len,
 	cr.system_object.prototype.exps.left,
 	cr.plugins_.Dictionary.prototype.acts.AddKey,
-	cr.plugins_.Text.prototype.acts.SetOpacity
+	cr.plugins_.Text.prototype.acts.SetOpacity,
+	cr.plugins_.Touch.prototype.cnds.OnTapGesture,
+	cr.plugins_.Text.prototype.exps.Count,
+	cr.plugins_.Mouse.prototype.cnds.OnWheel
 ];};
