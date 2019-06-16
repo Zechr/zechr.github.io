@@ -25609,6 +25609,156 @@ cr.behaviors.Rotate = function(runtime)
 }());
 ;
 ;
+cr.behaviors.Timer = function(runtime)
+{
+	this.runtime = runtime;
+};
+(function ()
+{
+	var behaviorProto = cr.behaviors.Timer.prototype;
+	behaviorProto.Type = function(behavior, objtype)
+	{
+		this.behavior = behavior;
+		this.objtype = objtype;
+		this.runtime = behavior.runtime;
+	};
+	var behtypeProto = behaviorProto.Type.prototype;
+	behtypeProto.onCreate = function()
+	{
+	};
+	behaviorProto.Instance = function(type, inst)
+	{
+		this.type = type;
+		this.behavior = type.behavior;
+		this.inst = inst;				// associated object instance to modify
+		this.runtime = type.runtime;
+	};
+	var behinstProto = behaviorProto.Instance.prototype;
+	behinstProto.onCreate = function()
+	{
+		this.timers = {};
+	};
+	behinstProto.onDestroy = function ()
+	{
+		cr.wipe(this.timers);
+	};
+	behinstProto.saveToJSON = function ()
+	{
+		var o = {};
+		var p, t;
+		for (p in this.timers)
+		{
+			if (this.timers.hasOwnProperty(p))
+			{
+				t = this.timers[p];
+				o[p] = {
+					"c": t.current.sum,
+					"t": t.total.sum,
+					"d": t.duration,
+					"r": t.regular
+				};
+			}
+		}
+		return o;
+	};
+	behinstProto.loadFromJSON = function (o)
+	{
+		this.timers = {};
+		var p;
+		for (p in o)
+		{
+			if (o.hasOwnProperty(p))
+			{
+				this.timers[p] = {
+					current: new cr.KahanAdder(),
+					total: new cr.KahanAdder(),
+					duration: o[p]["d"],
+					regular: o[p]["r"]
+				};
+				this.timers[p].current.sum = o[p]["c"];
+				this.timers[p].total.sum = o[p]["t"];
+			}
+		}
+	};
+	behinstProto.tick = function ()
+	{
+		var dt = this.runtime.getDt(this.inst);
+		var p, t;
+		for (p in this.timers)
+		{
+			if (this.timers.hasOwnProperty(p))
+			{
+				t = this.timers[p];
+				t.current.add(dt);
+				t.total.add(dt);
+			}
+		}
+	};
+	behinstProto.tick2 = function ()
+	{
+		var p, t;
+		for (p in this.timers)
+		{
+			if (this.timers.hasOwnProperty(p))
+			{
+				t = this.timers[p];
+				if (t.current.sum >= t.duration)
+				{
+					if (t.regular)
+						t.current.sum -= t.duration;
+					else
+						delete this.timers[p];
+				}
+			}
+		}
+	};
+	function Cnds() {};
+	Cnds.prototype.OnTimer = function (tag_)
+	{
+		tag_ = tag_.toLowerCase();
+		var t = this.timers[tag_];
+		if (!t)
+			return false;
+		return t.current.sum >= t.duration;
+	};
+	behaviorProto.cnds = new Cnds();
+	function Acts() {};
+	Acts.prototype.StartTimer = function (duration_, type_, tag_)
+	{
+		this.timers[tag_.toLowerCase()] = {
+			current: new cr.KahanAdder(),
+			total: new cr.KahanAdder(),
+			duration: duration_,
+			regular: (type_ === 1)
+		};
+	};
+	Acts.prototype.StopTimer = function (tag_)
+	{
+		tag_ = tag_.toLowerCase();
+		if (this.timers.hasOwnProperty(tag_))
+			delete this.timers[tag_];
+	};
+	behaviorProto.acts = new Acts();
+	function Exps() {};
+	Exps.prototype.CurrentTime = function (ret, tag_)
+	{
+		var t = this.timers[tag_.toLowerCase()];
+		ret.set_float(t ? t.current.sum : 0);
+	};
+	Exps.prototype.TotalTime = function (ret, tag_)
+	{
+		var t = this.timers[tag_.toLowerCase()];
+		ret.set_float(t ? t.total.sum : 0);
+	};
+	Exps.prototype.Duration = function (ret, tag_)
+	{
+		var t = this.timers[tag_.toLowerCase()];
+		ret.set_float(t ? t.duration : 0);
+	};
+	behaviorProto.exps = new Exps();
+}());
+;
+;
 cr.behaviors.wrap = function(runtime)
 {
 	this.runtime = runtime;
@@ -25682,23 +25832,24 @@ cr.behaviors.wrap = function(runtime)
 }());
 cr.getObjectRefTable = function () { return [
 	cr.plugins_.AJAX,
-	cr.plugins_.Audio,
 	cr.plugins_.Arr,
+	cr.plugins_.Audio,
 	cr.plugins_.Dictionary,
 	cr.plugins_.Function,
-	cr.plugins_.Keyboard,
 	cr.plugins_.Mouse,
 	cr.plugins_.hmmg_layoutTransition_v2,
-	cr.plugins_.Rex_Date,
-	cr.plugins_.TiledBg,
-	cr.plugins_.Text,
-	cr.plugins_.Touch,
+	cr.plugins_.Keyboard,
 	cr.plugins_.Sprite,
+	cr.plugins_.Rex_Date,
+	cr.plugins_.Touch,
+	cr.plugins_.Text,
+	cr.plugins_.TiledBg,
 	cr.behaviors.Pin,
 	cr.behaviors.DragnDrop,
 	cr.behaviors.Fade,
-	cr.behaviors.wrap,
 	cr.behaviors.EightDir,
+	cr.behaviors.Timer,
+	cr.behaviors.wrap,
 	cr.behaviors.Rotate,
 	cr.behaviors.Bullet,
 	cr.system_object.prototype.cnds.IsGroupActive,
@@ -25740,38 +25891,70 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.SetMirrored,
 	cr.behaviors.EightDir.prototype.acts.SetVectorX,
 	cr.system_object.prototype.cnds.EveryTick,
-	cr.plugins_.Sprite.prototype.acts.SetVisible,
-	cr.plugins_.Text.prototype.acts.SetVisible,
-	cr.plugins_.Arr.prototype.exps.Width,
-	cr.system_object.prototype.cnds.IsMobile,
+	cr.plugins_.Sprite.prototype.exps.Count,
+	cr.plugins_.Dictionary.prototype.exps.Get,
+	cr.plugins_.Function.prototype.exps.Call,
+	cr.plugins_.Function.prototype.exps.Param,
+	cr.plugins_.Sprite.prototype.acts.Spawn,
+	cr.plugins_.Sprite.prototype.acts.SetX,
+	cr.plugins_.Sprite.prototype.exps.X,
+	cr.plugins_.Sprite.prototype.acts.SetWidth,
+	cr.system_object.prototype.exps.floor,
+	cr.plugins_.Sprite.prototype.acts.SetInstanceVar,
+	cr.plugins_.Text.prototype.exps.X,
+	cr.plugins_.Text.prototype.exps.Y,
 	cr.plugins_.Text.prototype.acts.SetText,
-	cr.plugins_.Keyboard.prototype.cnds.OnKey,
+	cr.plugins_.Text.prototype.acts.SetInstanceVar,
+	cr.plugins_.Function.prototype.acts.SetReturnValue,
+	cr.plugins_.Dictionary.prototype.acts.SetKey,
+	cr.system_object.prototype.exps.ceil,
+	cr.system_object.prototype.exps.min,
+	cr.system_object.prototype.exps.max,
+	cr.system_object.prototype.cnds.PickByComparison,
+	cr.plugins_.Sprite.prototype.exps.Width,
+	cr.plugins_.Arr.prototype.acts.SetXYZ,
+	cr.behaviors.Timer.prototype.acts.StartTimer,
+	cr.behaviors.Timer.prototype.cnds.OnTimer,
+	cr.plugins_.Text.prototype.cnds.CompareInstanceVar,
+	cr.system_object.prototype.exps.len,
+	cr.system_object.prototype.exps.left,
+	cr.behaviors.Timer.prototype.acts.StopTimer,
+	cr.system_object.prototype.cnds.While,
+	cr.plugins_.Sprite.prototype.cnds.OnCreated,
+	cr.system_object.prototype.exps.random,
+	cr.system_object.prototype.exps.tokenat,
+	cr.system_object.prototype.cnds.Repeat,
+	cr.plugins_.Arr.prototype.acts.Push,
+	cr.plugins_.Arr.prototype.acts.SetXY,
+	cr.plugins_.Arr.prototype.exps.Width,
+	cr.behaviors.EightDir.prototype.acts.SetVectorY,
+	cr.behaviors.EightDir.prototype.acts.Stop,
+	cr.plugins_.Sprite.prototype.acts.SetVisible,
+	cr.system_object.prototype.exps.round,
+	cr.plugins_.Arr.prototype.acts.Pop,
+	cr.plugins_.Sprite.prototype.acts.AddInstanceVar,
 	cr.plugins_.Text.prototype.acts.Destroy,
 	cr.plugins_.Sprite.prototype.acts.Destroy,
+	cr.system_object.prototype.exps["int"],
+	cr.system_object.prototype.exps.replace,
+	cr.plugins_.Sprite.prototype.acts.SubInstanceVar,
+	cr.plugins_.Text.prototype.acts.SetVisible,
+	cr.system_object.prototype.cnds.IsMobile,
+	cr.plugins_.Keyboard.prototype.cnds.OnKey,
 	cr.plugins_.Sprite.prototype.exps.AnimationName,
-	cr.system_object.prototype.cnds.PickByComparison,
-	cr.plugins_.Sprite.prototype.exps.X,
-	cr.plugins_.Sprite.prototype.acts.SetInstanceVar,
-	cr.system_object.prototype.exps.round,
-	cr.plugins_.Sprite.prototype.acts.AddInstanceVar,
 	cr.plugins_.Sprite.prototype.acts.SetBoolInstanceVar,
 	cr.plugins_.Arr.prototype.acts.Clear,
 	cr.plugins_.Sprite.prototype.exps.UID,
-	cr.plugins_.Function.prototype.exps.Param,
 	cr.plugins_.Arr.prototype.exps.Height,
 	cr.system_object.prototype.acts.WaitForSignal,
-	cr.plugins_.Arr.prototype.acts.SetXY,
 	cr.plugins_.Arr.prototype.acts.SetX,
-	cr.system_object.prototype.cnds.While,
 	cr.plugins_.Sprite.prototype.cnds.CompareInstanceVar,
 	cr.plugins_.Sprite.prototype.acts.SetPos,
 	cr.plugins_.Sprite.prototype.acts.SetY,
-	cr.plugins_.Sprite.prototype.acts.SetX,
 	cr.plugins_.Sprite.prototype.exps.Y,
 	cr.plugins_.Sprite.prototype.acts.SetPosToObject,
 	cr.plugins_.Sprite.prototype.cnds.IsBoolInstanceVarSet,
 	cr.system_object.prototype.acts.Signal,
-	cr.system_object.prototype.exps.replace,
 	cr.behaviors.Bullet.prototype.acts.SetEnabled,
 	cr.behaviors.Bullet.prototype.acts.SetSpeed,
 	cr.plugins_.Sprite.prototype.cnds.OnAnyAnimFinished,
@@ -25779,35 +25962,20 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.cnds.CompareX,
 	cr.plugins_.Sprite.prototype.cnds.OnDestroyed,
 	cr.plugins_.Sprite.prototype.cnds.OnAnimFinished,
-	cr.system_object.prototype.exps.min,
-	cr.system_object.prototype.exps.max,
 	cr.system_object.prototype.cnds.ForEach,
-	cr.plugins_.Arr.prototype.acts.SetXYZ,
 	cr.system_object.prototype.acts.AddVar,
-	cr.plugins_.Function.prototype.acts.SetReturnValue,
-	cr.plugins_.Function.prototype.exps.Call,
-	cr.plugins_.Text.prototype.acts.SetInstanceVar,
 	cr.plugins_.Text.prototype.acts.ZMoveToObject,
 	cr.plugins_.Text.prototype.exps.Text,
-	cr.plugins_.Sprite.prototype.exps.Count,
-	cr.plugins_.Sprite.prototype.cnds.OnCreated,
 	cr.plugins_.Sprite.prototype.exps.Height,
 	cr.plugins_.Sprite.prototype.acts.MoveToTop,
 	cr.plugins_.Text.prototype.acts.MoveToTop,
-	cr.plugins_.Sprite.prototype.acts.SetWidth,
-	cr.system_object.prototype.exps.floor,
 	cr.system_object.prototype.cnds.CompareBetween,
 	cr.plugins_.Sprite.prototype.acts.SetOpacity,
 	cr.plugins_.Sprite.prototype.exps.Opacity,
 	cr.plugins_.Audio.prototype.acts.PlayByName,
 	cr.plugins_.Arr.prototype.cnds.CompareSize,
-	cr.plugins_.Arr.prototype.acts.Pop,
 	cr.plugins_.Sprite.prototype.cnds.OnCollision,
 	cr.plugins_.Sprite.prototype.acts.SetScale,
-	cr.plugins_.Sprite.prototype.exps.Width,
-	cr.plugins_.Arr.prototype.acts.Push,
-	cr.plugins_.Sprite.prototype.acts.Spawn,
-	cr.system_object.prototype.exps.random,
 	cr.plugins_.Sprite.prototype.acts.ZMoveToObject,
 	cr.plugins_.Sprite.prototype.acts.SetHeight,
 	cr.plugins_.Touch.prototype.cnds.IsTouchingObject,
@@ -25815,32 +25983,25 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite.prototype.acts.StopAnim,
 	cr.plugins_.Text.prototype.cnds.OnCreated,
 	cr.plugins_.Text.prototype.acts.SetX,
-	cr.plugins_.Text.prototype.exps.X,
 	cr.plugins_.Text.prototype.exps.Width,
 	cr.plugins_.Sprite.prototype.acts.StartAnim,
 	cr.system_object.prototype.cnds.CompareVar,
 	cr.system_object.prototype.cnds.Every,
 	cr.plugins_.Arr.prototype.acts.Delete,
 	cr.plugins_.Arr.prototype.exps.Depth,
-	cr.system_object.prototype.exps.ceil,
 	cr.system_object.prototype.cnds.PickByEvaluate,
 	cr.plugins_.Text.prototype.exps.LayerName,
 	cr.plugins_.Sprite.prototype.exps.LayerName,
 	cr.plugins_.Text.prototype.cnds.IsOnLayer,
 	cr.system_object.prototype.acts.SetLayerVisible,
-	cr.plugins_.Dictionary.prototype.exps.Get,
 	cr.plugins_.Audio.prototype.cnds.IsTagPlaying,
 	cr.plugins_.Rex_Date.prototype.exps.Date2UnixTimestamp,
-	cr.system_object.prototype.exps["int"],
-	cr.system_object.prototype.exps.tokenat,
 	cr.plugins_.Rex_Date.prototype.exps.UnixTimestamp,
 	cr.plugins_.Sprite.prototype.acts.MoveToBottom,
 	cr.plugins_.Text.prototype.acts.SetPosToObject,
 	cr.behaviors.Pin.prototype.acts.Unpin,
 	cr.plugins_.Mouse.prototype.cnds.IsOverObject,
 	cr.plugins_.Sprite.prototype.cnds.CompareY,
-	cr.system_object.prototype.exps.len,
-	cr.system_object.prototype.exps.left,
 	cr.plugins_.Dictionary.prototype.acts.AddKey,
 	cr.plugins_.Text.prototype.acts.SetOpacity,
 	cr.plugins_.Touch.prototype.cnds.OnTapGesture,
