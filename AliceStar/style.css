@@ -1,9 +1,12 @@
+html {
+	height: 100%;
+}
 body {
-  /*background: rgb(235, 235, 235);*/
   margin: 0;
   padding: 0;
   overflow: hidden;
   font-family: 'Josefin Sans', sans-serif;
+  height: 100%;
 }
 
 ::-webkit-scrollbar { 
@@ -14,10 +17,7 @@ body {
 	float: left;
 	min-width: 30%;
 	max-width: 30%;
-	/*position: absolute;
-	bottom: 0;
-	top: 0;*/
-	height: 100vh;
+	height: 100%;
 }
 
 @media only screen and (max-width: 768px) {
@@ -30,8 +30,8 @@ body {
 	float: left;
 	min-width: 40%;
 	max-width: 40%;
-	height:100vh;
-	background: rgb(235, 235, 235);
+	height:100%;
+	background: rgb(0, 43, 55);
 	
 }
 
@@ -45,7 +45,7 @@ body {
 #chatbox {
 	float: left;
 	width: 90%;
-	height: 87vh;
+	height: 91%;
 	margin-left: 5%;
 	margin-right: 5%;
 	margin-top: 3%;
@@ -56,18 +56,25 @@ body {
 	float: left;
 	margin-top: 1em;
 	width: 100%;
+	height: 9%;
 }
 
 .main-box {
 	margin-left: 2.25%;
 	position: relative;
 	width: 95%;
-	height: 2.3em;
+	height: 2.5em;
+	background: rgb(129, 148, 150);
+	border: none;
+}
+
+textarea:focus, input:focus{
+    outline: none;
 }
 
 .message {
-	background: white;
-	color: rgb(60, 60, 60);
+	background: rgb(92, 123, 131);
+	color: rgb(253, 246, 227);
 	border-radius: 1em;
 	padding: 1em;
 	margin-top: 0.75em;
@@ -88,7 +95,7 @@ body {
 	max-width: 75%;
 	margin-top: 0.75em;
 	margin-bottom: 0.75em;
-	background: white;
+	background: rgb(129, 148, 150);
 	color: rgb(60, 60, 60);
 	border-radius: 1em;
 	float: right;
@@ -110,13 +117,13 @@ body {
 
 #miniweb {
 	width: 99%;
-	height: 99vh;
+	height: 100%;
 }
 
 .avatar {
 	width: 100%;
 	background-size: cover;
-	height:100vh;
+	height:100%;
 }
 
 #AliceAvatar {
