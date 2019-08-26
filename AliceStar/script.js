@@ -145,9 +145,9 @@ function loadCostumes(data) {
 }
 
 function loadModules(data) {
-  var allTextLines = data.split(/\r\n|\n/);
+  const allTextLines = data.split(/\r\n|\n/);
   numModules = allTextLines.length;
-  for (var i = 0; i < allTextLines.length; i++) {   
+  for (let i = 0; i < allTextLines.length; i++) {   
     keyword = allTextLines[i];
     modules[keyword] = 1;
     $.getScript("modules/" + keyword + "/" + keyword + ".js", function() {
@@ -166,8 +166,8 @@ function assignModuleFunctions() {
 }
 
 function process(sentence) {
-  var wordstemp = sentence.toLowerCase().split(" ");
-  var words = [];
+  const wordstemp = sentence.toLowerCase().split(" ");
+  const words = [];
   for (var i = 0; i < wordstemp.length; i++) {
     var ws = wordstemp[i].split(/(\W)/);
     for (var j = 0; j < ws.length; j++) {
@@ -213,9 +213,9 @@ function classify(words) {
 }
 
 function paramSearch(baselink, words, separator, ender, source) {
-  var link = baselink;
-  var temp = "";
-  var query = ""
+  let link = baselink;
+  let temp = "";
+  let query = ""
   for (var i = 0; i < words.length; i++) {
     if (i < words.length - 1) {
       temp += words[i] + separator;
@@ -237,8 +237,8 @@ function paramSearch(baselink, words, separator, ender, source) {
 }
 
 function topicResp(topicClass) {
-  var resps = responses[topicClass]
-  var resp = resps[Math.floor(Math.random()*resps.length)];
+  const resps = responses[topicClass]
+  let resp = resps[Math.floor(Math.random()*resps.length)];
   while (topicClass in respprev && resp === respprev[topicClass]) {
     resp = resps[Math.floor(Math.random()*resps.length)];
   }
@@ -252,11 +252,11 @@ function sayMessage(message) {
   $("#chatbox").animate({
         scrollTop: $("#chatbox")[0].scrollHeight
     }, 300);
-  var msg = new SpeechSynthesisUtterance(message);
-  var myTimer = setInterval(function() {
-    var voices = speechSynthesis.getVoices();
+  const msg = new SpeechSynthesisUtterance(message);
+  const myTimer = setInterval(function() {
+    const voices = speechSynthesis.getVoices();
     if (voices.length !== 0) {
-      msg.voice = voices.find(voice => voice.name === "Google US English");
+      msg.voice = voices.find(voice => voice.name === "Google UK English Female");
       speechSynthesis.speak(msg);
       clearInterval(myTimer);
     }
@@ -273,7 +273,7 @@ function chatCom(words, topicClass) {
   maxTopic = "";
   maxP = -1;
   adjwords = []
-  for (var i = 0; i < words.length; i++) {
+  for (let i = 0; i < words.length; i++) {
     if (words[i].match(/^[a-z0-9]+$/)) {
       adjwords.push(words[i]);
     }

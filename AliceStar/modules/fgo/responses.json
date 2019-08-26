@@ -1,0 +1,24 @@
+{
+    "fgo": [
+        {
+            "response": "Play with me instead.",
+            "img": "AliceAvatarPout.png"
+        },
+        {
+            "response": "You should grail me. Unlike those servers, I'll never leave your side.",
+            "img": "AliceAvatarSexy.png"
+        },
+        {
+            "response": "You're completely a loot box addict, aren't you?",
+            "img": "AliceAvatarHaughty.png"
+        },
+        {
+            "response": "Am I an SSR?",
+            "img": "AliceAvatar.png"
+        },
+        {
+            "response": "Cha-ching! Ka-ching! That's my Mash impression!",
+            "img": "AliceAvatarHappy.png"
+        }
+    ]
+}

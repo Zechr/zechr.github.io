@@ -1,14 +1,16 @@
-yugioh yugioh card name
-yugioh JJ NN NN
-anime anime show name
-anime JJ NN NN
-weather weather report
-weather NN NN
-conv hi how are you
-conv UH WRB VBZ PRP NN
+math 96 * 40
+math CD CD
 yelp yelp food type in place
 yelp NN JJ NN IN NNP
 music play music type playlist
 music VB JJ NNP NN
-math 96 * 40
-math CD CD
+weather weather report
+weather NN NN
+anime anime show name
+anime JJ NN NN
+yugioh yugioh card name
+yugioh JJ NN NN
+fgo fgo artoria pendragon
+fgo NNP NNP NNP
+conv hi how are you
+conv UH WRB VBZ PRP NN

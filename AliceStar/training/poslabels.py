@@ -3,6 +3,7 @@ import json
 import sys
 
 manifest_data = None
+# manifest_labels.json path
 with open(sys.argv[1], 'r') as f:
     manifest_data = json.load(f)
 

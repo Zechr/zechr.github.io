@@ -106,14 +106,14 @@ function topic(words, topicDictionary) {
 }
 
 function lcs(pos1, pos2) {
-  var dp = [];
-  for (var i = 0; i < pos1.length; i++) {
+  const dp = [];
+  for (let i = 0; i < pos1.length; i++) {
     dp[i] = [];
-    for (var j = 0; j < pos2.length; j++) {
+    for (let j = 0; j < pos2.length; j++) {
       dp[i].push(0);
     }
   }  
-  for (var x = 0; x < pos1.length; x++) {
+  for (let x = 0; x < pos1.length; x++) {
     if (pos1[x] == pos2[0]) {
       dp[x][0] = 1;
     } else {

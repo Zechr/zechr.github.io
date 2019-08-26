@@ -84,7 +84,7 @@ def topicwrite(docs):
             f.write(" ")
             f.write(str(cvocab[word]))
         f.write("\n")
-        for topic in ctopics:
+        for index, topic in enumerate(ctopics.keys()):
             psum = 0
             f.write(topic)
             for word in ctopics[topic]:
@@ -98,7 +98,8 @@ def topicwrite(docs):
                 f.write(word)
                 f.write(" ")
                 f.write(str(diffval))
-            f.write("\n")
+            if index < len(ctopics) - 1:
+                f.write("\n")
     
     with open(manifest_data["topic_distribution"], 'w+', encoding="utf8") as f:
         f.write("commons")
@@ -108,7 +109,7 @@ def topicwrite(docs):
             f.write(" ")
             f.write(str(vocab[word]))
         f.write("\n")
-        for topic in topics:
+        for index, topic in enumerate(topics.keys()):
             psum = 0
             f.write(topic)
             for word in topics[topic]:
@@ -122,7 +123,8 @@ def topicwrite(docs):
                 f.write(word)
                 f.write(" ")
                 f.write(str(diffval))
-            f.write("\n")
+            if index < len(topics.keys()) - 1:
+                f.write("\n")
             d = collections.Counter(topics[topic])
     
 
