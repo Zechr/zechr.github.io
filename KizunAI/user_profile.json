@@ -1,9 +1,11 @@
 {
     "c2dictionary": true,
     "data": {
-        "username": "Alan",
+        "username": "Alan Dennett",
+        "gender": "male",
         "userLV": 1,
         "userEXP": 0,
-        "Bytecoin": 0
+        "Bytecoin": 0,
+        "cpuCredits": 0
     }
 }
