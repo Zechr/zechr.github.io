@@ -3,8 +3,8 @@ function weatherCom(topicClass) {
         scrollTop: $("#chatbox")[0].scrollHeight
     }, 300);
   if (window.matchMedia('screen and (max-width: 768px)').matches) {
-    window.open("https://www.wunderground.com/");
+    window.open("https://www.weather.com/weather/today");
   } else {
-    $('#miniweb').attr('src', "https://www.wunderground.com/");
+    $('#miniweb').attr('src', "https://www.weather.com/weather/today");
   }
 }
