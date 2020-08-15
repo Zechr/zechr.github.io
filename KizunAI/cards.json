@@ -340,7 +340,7 @@
                 ["AOERect", 1, 1, 0, 0],
                 [400, 1, 0, 0, 0],
                 ["Null", 0, 0, 0, 0],
-                ["Rolls a honey pot down the row.", 0, 0, 0, 0],
+                ["Rolls an emoji down the row.", 0, 0, 0, 0],
                 [0.2, 0.2, 0.2, 0.2, 0.2]
             ],
             [
@@ -350,7 +350,7 @@
                 ["AOERect", 1, 1, 0, 0],
                 [800, 1, 0, 0, 0],
                 ["Null", 0, 0, 0, 0],
-                ["Rolls a honey pot down the row.", 0, 0, 0, 0],
+                ["Rolls an emoji down the row.", 0, 0, 0, 0],
                 [0.2, 0.2, 0.2, 0.2, 0.2]
             ],
             [
@@ -360,7 +360,7 @@
                 ["AOERect", 1, 1, 0, 0],
                 [1200, 1, 0, 0, 0],
                 ["Null", 0, 0, 0, 0],
-                ["Rolls a honey pot down the row.", 0, 0, 0, 0],
+                ["Rolls an emoji down the row.", 0, 0, 0, 0],
                 [0.2, 0.2, 0.2, 0.2, 0.2]
             ],
             [
@@ -1238,9 +1238,9 @@
                 ["Trump", 0, 0, 0, 0],
                 ["Attach", 0, 0, 0, 0],
                 ["AOERect", 3, 5, 0, 0],
-                [400, 8, 0, 0, 0],
+                [400, 6, 0, 0, 0],
                 ["Null", 0, 0, 0, 0], 
-                ["8 hit energy beam across 3 rows", "The temptation of the gods and my folly, the sin of humanity. Witness what I have wrought and may the light guide us... Beyond Hope and Despair!", 0, 0, 0],
+                ["6 hit energy beam across 3 rows", "The temptation of the gods and my folly, the sin of humanity. Witness what I have wrought and may the light guide us... Beyond Hope and Despair!", 0, 0, 0],
                 [0, 0, 0, 0, 0]
             ]
         ]

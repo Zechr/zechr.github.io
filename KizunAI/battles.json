@@ -1,7 +1,8 @@
 {
     "c2array": true,
-    "size": [1, 4, 3],
+    "size": [2, 4, 3],
     "data": [
-        [[1, "Flowers", 0], [0, 4, 2], [0, 0, 0], [0, 0, 0]]
+        [[1, "Flowers", "Boss Battle - Showdown In Dis"], [0, 2, 4], [0, 0, 0], [0, 0, 0]],
+        [[2, "Home", "Regular Battle - Chaos In The Bubblebath"], [1, 1, 2], [1, 3, 3], [0, 0, 0]]
     ]
 }

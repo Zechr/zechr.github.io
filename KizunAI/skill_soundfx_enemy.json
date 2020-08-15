@@ -1,0 +1,10 @@
+{
+    "c2array": true,
+    "size": [4, 2, 1],
+    "data": [
+        [["flamethrower"], [""]],
+        [["fireblast"], [""]],
+        [["fireball"], ["fireblast"]],
+        [["8_bit_noise"], ["8_bit_click"]]
+    ]
+}
