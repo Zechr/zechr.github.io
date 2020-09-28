@@ -1,3 +1,5 @@
+const DEFAULT_PROBABILITY = 1e-10;
+
 function dictDefault(dictmap, key, deft) {
   if (dictmap.hasOwnProperty(key)) {
     return dictmap[key];
@@ -24,7 +26,7 @@ function posLabel(words) {
       var lmax = "";
       var lmaxIndex = -1;
       for (var k = 0; k < numLabels; k++) {
-        var tempP = dictDefault(llabels[labelSet[k]], "STOP", Math.log(0.0000001)) + viterbi[i - 1][k][0];
+        var tempP = dictDefault(llabels[labelSet[k]], "STOP", Math.log(DEFAULT_PROBABILITY)) + viterbi[i - 1][k][0];
         if (tempP > pmax || pmax == 2) {
           pmax = tempP;
           lmax = labelSet[k];
@@ -41,7 +43,7 @@ function posLabel(words) {
       var lmax = "";
       var lmaxIndex = -1;
       if (i == 0) {
-        pmax = dictDefault(wlabels[labelSet[j]], words[i], Math.log(0.0000001));
+        pmax = dictDefault(wlabels[labelSet[j]], words[i], Math.log(DEFAULT_PROBABILITY));
         viterbi[i][j] = [pmax,"STOP", -1];
         continue;
       }
@@ -49,8 +51,8 @@ function posLabel(words) {
         if (labelSet[k] == "STOP") {
           continue;
         }
-        var tempP = dictDefault(wlabels[labelSet[j]], words[i], Math.log(0.0000001)) 
-                  + dictDefault(llabels[labelSet[k]], labelSet[j], Math.log(0.0000001)) 
+        var tempP = dictDefault(wlabels[labelSet[j]], words[i], Math.log(DEFAULT_PROBABILITY)) 
+                  + dictDefault(llabels[labelSet[k]], labelSet[j], Math.log(DEFAULT_PROBABILITY)) 
                   + viterbi[i-1][k][0];
         if (tempP > pmax || pmax == 2) {
           pmax = tempP;
@@ -85,8 +87,8 @@ function topic(words, topicDictionary) {
     let psum = 0;
     for (var i = 0; i < words.length; i++) {
       const multiplier = words.length - i;
-      const pval = (Math.log(dictDefault(topicDictionary[topicKey], words[i], 0.0001)) -
-        Math.log(dictDefault(topicDictionary["commons"], words[i], 0.0001))) * multiplier;
+      const pval = (Math.log(dictDefault(topicDictionary[topicKey], words[i], DEFAULT_PROBABILITY)) -
+        Math.log(dictDefault(topicDictionary["commons"], words[i], DEFAULT_PROBABILITY))) * multiplier;
       psum += pval;
     }
     topicP[topicKey] = psum;
