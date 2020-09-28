@@ -12,5 +12,7 @@ yugioh yugioh card name
 yugioh JJ NN NN
 fgo fgo artoria pendragon
 fgo NNP NNP NNP
+mtg mtg card name
+mtg JJ NN NN
 conv hi how are you
 conv UH WRB VBZ PRP NN

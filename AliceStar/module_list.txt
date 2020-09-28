@@ -5,3 +5,4 @@ weather
 anime
 yugioh
 fgo
+mtg

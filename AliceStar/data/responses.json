@@ -1,24 +1,34 @@
 {
-    "fgo": [
+    "math": [
         {
-            "response": "Play with me instead.",
-            "img": "AliceAvatarPout.png"
-        },
-        {
-            "response": "You should grail me. Unlike those servers, I'll never leave your side.",
-            "img": "AliceAvatarSexy.png"
-        },
-        {
-            "response": "You're completely a loot box addict, aren't you?",
-            "img": "AliceAvatarHaughty.png"
-        },
-        {
-            "response": "Am I an SSR?",
+            "response": "I'm an AI. You can count on me for this",
             "img": "AliceAvatar.png"
         },
         {
-            "response": "Cha-ching! Ka-ching! That's my Mash impression!",
+            "response": "This is my specialty!",
             "img": "AliceAvatarHappy.png"
+        },
+        {
+            "response": "You came crawling to me for something of this level. I guess it can't be helped",
+            "img": "AliceAvatarHaughty.png"
+        }
+    ],
+    "yelp": [
+        {
+            "response": "So between food, a bath, and me, you chose food?",
+            "img": "AliceAvatarDisgust.png"
+        },
+        {
+            "response": "Unfair. I can't taste food",
+            "img": "AliceAvatarPout.png"
+        },
+        {
+            "response": "Have a safe trip. You really need to go outside",
+            "img": "AliceAvatar.png"
+        },
+        {
+            "response": "Wouldn't you rather eat me?",
+            "img": "AliceAvatarSexy.png"
         }
     ],
     "music": [
@@ -35,40 +45,18 @@
             "img": "AliceAvatarHappy.png"
         }
     ],
-    "yugioh": [
+    "weather": [
         {
-            "response": "Don't spend too much. You have to pay me too",
-            "img": "AliceAvatarPout.png"
-        },
-        {
-            "response": "More yugioh cards? Why don't you play with me instead?",
-            "img": "AliceAvatarSexy.png"
-        },
-        {
-            "response": "You're so childish. You should play Go",
+            "response": "Why does it matter? You're not going outside anyway",
             "img": "AliceAvatarHaughty.png"
         },
         {
-            "response": "I wonder if they sell any maid cards",
+            "response": "You could also try looking out the window",
+            "img": "AliceAvatarDisgust.png"
+        },
+        {
+            "response": "I wish I could experience weather too",
             "img": "AliceAvatar.png"
-        },
-        {
-            "response": "That card's looking good!",
-            "img": "AliceAvatarHappy.png"
-        }
-    ],
-    "math": [
-        {
-            "response": "I'm an AI. You can count on me for this",
-            "img": "AliceAvatar.png"
-        },
-        {
-            "response": "This is my specialty!",
-            "img": "AliceAvatarHappy.png"
-        },
-        {
-            "response": "You came crawling to me for something of this level. I guess it can't be helped",
-            "img": "AliceAvatarHaughty.png"
         }
     ],
     "anime": [
@@ -93,36 +81,70 @@
             "img": "AliceAvatarPout.png"
         }
     ],
-    "weather": [
+    "yugioh": [
         {
-            "response": "Why does it matter? You're not going outside anyway",
-            "img": "AliceAvatarHaughty.png"
-        },
-        {
-            "response": "You could also try looking out the window",
-            "img": "AliceAvatarDisgust.png"
-        },
-        {
-            "response": "I wish I could experience weather too",
-            "img": "AliceAvatar.png"
-        }
-    ],
-    "yelp": [
-        {
-            "response": "So between food, a bath, and me, you chose food?",
-            "img": "AliceAvatarDisgust.png"
-        },
-        {
-            "response": "Unfair. I can't taste food",
+            "response": "Don't spend too much. You have to pay me too",
             "img": "AliceAvatarPout.png"
         },
         {
-            "response": "Have a safe trip. You really need to go outside",
+            "response": "More yugioh cards? Why don't you play with me instead?",
+            "img": "AliceAvatarSexy.png"
+        },
+        {
+            "response": "You're so childish. You should play Go",
+            "img": "AliceAvatarHaughty.png"
+        },
+        {
+            "response": "I wonder if they sell any maid cards",
             "img": "AliceAvatar.png"
         },
         {
-            "response": "Wouldn't you rather eat me?",
+            "response": "That card's looking good!",
+            "img": "AliceAvatarHappy.png"
+        }
+    ],
+    "fgo": [
+        {
+            "response": "Play with me instead.",
+            "img": "AliceAvatarPout.png"
+        },
+        {
+            "response": "You should grail me. Unlike those servers, I'll never leave your side.",
             "img": "AliceAvatarSexy.png"
+        },
+        {
+            "response": "You're completely a loot box addict, aren't you?",
+            "img": "AliceAvatarHaughty.png"
+        },
+        {
+            "response": "Am I an SSR?",
+            "img": "AliceAvatar.png"
+        },
+        {
+            "response": "Cha-ching! Ka-ching! That's my Mash impression!",
+            "img": "AliceAvatarHappy.png"
+        }
+    ],
+    "mtg": [
+        {
+            "response": "Don't spend too much. You have to pay me too",
+            "img": "AliceAvatarPout.png"
+        },
+        {
+            "response": "More magic cards? Why don't you play with me instead?",
+            "img": "AliceAvatarSexy.png"
+        },
+        {
+            "response": "You're so childish. You should play Go",
+            "img": "AliceAvatarHaughty.png"
+        },
+        {
+            "response": "I wonder if they sell any maid cards",
+            "img": "AliceAvatar.png"
+        },
+        {
+            "response": "That card's looking good!",
+            "img": "AliceAvatarHappy.png"
         }
     ]
 }
