@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1597525012,
+	"version": 1602919981,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -164,8 +164,11 @@
 		"images/cutscenecharactersprite-sheet17.png",
 		"images/cutscenecharactersprite-sheet18.png",
 		"images/cutscenecharactersprite-sheet19.png",
+		"images/cutscenecharactersprite-sheet20.png",
+		"images/cutscenecharactersprite-sheet21.png",
 		"images/storymapbg-sheet0.png",
 		"images/storymaplocation-sheet0.png",
+		"images/locationmarker-sheet0.png",
 		"images/attack-sheet0.png",
 		"images/attack-sheet1.png",
 		"images/attack-sheet2.png",
@@ -183,6 +186,7 @@
 		"images/stance-sheet1.png",
 		"images/stance-sheet2.png",
 		"images/gobutton-sheet0.png",
+		"images/questcategorynotificationcircle-sheet0.png",
 		"media/shotgun.m4a",
 		"media/shotgun.ogg",
 		"media/revolver.m4a",
@@ -278,6 +282,7 @@
 		"chapter_locations.json",
 		"location_quests.json",
 		"skill_soundfx_enemy.json",
+		"story_quest_order.json",
 		"html2canvas.min.js",
 		"animate.css",
 		"hmmg_layoutTransition.css"
