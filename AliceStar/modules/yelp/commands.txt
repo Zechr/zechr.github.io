@@ -1,2 +1,0 @@
-yelp yelp food type in place
-yelp NN JJ NN IN NNP

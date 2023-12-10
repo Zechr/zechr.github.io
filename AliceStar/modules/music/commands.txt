@@ -1,2 +1,0 @@
-music play music type playlist
-music VB JJ NNP NN

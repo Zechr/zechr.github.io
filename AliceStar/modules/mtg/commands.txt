@@ -1,2 +1,0 @@
-mtg mtg card name
-mtg JJ NN NN

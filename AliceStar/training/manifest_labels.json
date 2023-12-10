@@ -1,5 +1,0 @@
-{
-	"corpus": "general_corpus/wsj2-21.txt",
-	"label_label": "../data/ll.txt",
-	"label_word": "../data/lw.txt"
-}

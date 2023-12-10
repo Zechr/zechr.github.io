@@ -1,8 +1,0 @@
-math
-yelp
-music
-weather
-anime
-yugioh
-fgo
-mtg

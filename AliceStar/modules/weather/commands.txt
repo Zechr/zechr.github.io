@@ -1,2 +1,0 @@
-weather weather report
-weather NN NN
