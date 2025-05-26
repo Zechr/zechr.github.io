@@ -1,0 +1,352 @@
+{
+    "c2array": true,
+    "size": [
+        9,
+        12,
+        1
+    ],
+    "data": [
+        [
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ]
+        ],
+        [
+            [
+                1
+            ],
+            [
+                "Karen"
+            ],
+            [
+                "Underprivileged Position: Starting hand size -1"
+            ],
+            [
+                "I'm not going to lose!"
+            ],
+            [
+                "People like me never had a chance..."
+            ],
+            [
+                "Things are going to change now."
+            ],
+            [
+                "Having to fight for the scraps of salvation is nothing new. Bring it!"
+            ],
+            [
+                "I'm sorry everyone... Curse this rotten world."
+            ],
+            [
+                "Only one of us can be saved. I just wanted it more."
+            ],
+            [
+                "I promised the kids I'd see them again. I WILL win!"
+            ],
+            [
+                "I was so close. Why me? Why did the gods brand me a sinner?"
+            ],
+            [
+                "You're a fellow sinner. I wish for you to be reborn into a happier life but will not pray to the gods for that."
+            ]
+        ],
+        [
+            [
+                2
+            ],
+            [
+                "Luna"
+            ],
+            [
+                "Extortionate Tithe: Whenever you play a card, lose $1."
+            ],
+            [
+                "Ohohoho! Time for your beating!"
+            ],
+            [
+                "It can't be... It's over before I ever started..."
+            ],
+            [
+                "In this world, money is everything."
+            ],
+            [
+                "I'm a self-made woman. Those others underestimated me."
+            ],
+            [
+                "I've been robbed of what's rightfully mine. Again."
+            ],
+            [
+                "This is meritocracy. This is fair... and just..."
+            ],
+            [
+                "I've stepped on many to get here. You'll be one more."
+            ],
+            [
+                "Just one more step, and I could've obtained what my money couldn't buy..."
+            ],
+            [
+                "Wait for me, mother, father. I'll see you soon."
+            ]
+        ],
+        [
+            [
+                3
+            ],
+            [
+                "Alice"
+            ],
+            [
+                "Fraying Sanity: You get -0.5 mult."
+            ],
+            [
+                "You will fall before me."
+            ],
+            [
+                "How could this happen to me?"
+            ],
+            [
+                "You're 100 years too early to challenge me."
+            ],
+            [
+                "I walked the realm of gods. This is nothing in comparison."
+            ],
+            [
+                "My punishment never ends."
+            ],
+            [
+                "I'm a survivor, always have been."
+            ],
+            [
+                "You've made it this far. You must be a worthy enemy."
+            ],
+            [
+                "I gave up my humanity for power, and it wasn't enough."
+            ],
+            [
+                "Finally, I shall be rid of my brand."
+            ]
+        ],
+        [
+            [
+                4
+            ],
+            [
+                "Ravi"
+            ],
+            [
+                "Overconsumption: This character has double the usual points."
+            ],
+            [
+                "I'll clean you up before lunchtime."
+            ],
+            [
+                "My stomach doesn't feel so good..."
+            ],
+            [
+                "You're just an appetizer!"
+            ],
+            [
+                "My wish is to always have more."
+            ],
+            [
+                "Infinite growth was unsustainable."
+            ],
+            [
+                "Your soul will at least keep me full for a while."
+            ],
+            [
+                "Nothing tastes like the food from the farm we lost."
+            ],
+            [
+                "It's ok. I finally don't feel hungry anymore."
+            ],
+            [
+                "One step closer to having more..."
+            ]
+        ],
+        [
+            [
+                5
+            ],
+            [
+                "Tiffany"
+            ],
+            [
+                "Choking Scent: Nullify the effects of 1 randomly selected suit."
+            ],
+            [
+                "Think you got what it takes to hang with me?"
+            ],
+            [
+                "This is so lame."
+            ],
+            [
+                "Take the L."
+            ],
+            [
+                "The chumps till now couldn't satisfy me. Are you different?"
+            ],
+            [
+                "I should've listened to my parents..."
+            ],
+            [
+                "Lol, that was too quick."
+            ],
+            [
+                "Neither of us will be saved. But I want to enjoy the pleasure of living just a bit longer."
+            ],
+            [
+                "Have enough fun for the both of us."
+            ],
+            [
+                "You were tough. I just wanted it more."
+            ]
+        ],
+        [
+            [
+                6
+            ],
+            [
+                "Mona"
+            ],
+            [
+                "Frozen Time Zone: 1 random square becomes unusuable."
+            ],
+            [
+                "What a drag."
+            ],
+            [
+                "I didn't even get started."
+            ],
+            [
+                "Whew, I didn't break a sweat."
+            ],
+            [
+                "I haven't worked this hard since college."
+            ],
+            [
+                "Why can't I ever do anything right?"
+            ],
+            [
+                "You couldn't cut it. I know that feeling."
+            ],
+            [
+                "I haven't slept in days. It'll be over soon."
+            ],
+            [
+                "I can never get a break."
+            ],
+            [
+                "I'll never have to work again!"
+            ]
+        ],
+        [
+            [
+                7
+            ],
+            [
+                "Wendy"
+            ],
+            [
+                "Jealous Sabotage:1 random item you have is nullifed until end of battle."
+            ],
+            [
+                "You've got something flashy I want."
+            ],
+            [
+                "I never get what I want."
+            ],
+            [
+                "What's yours is mine."
+            ],
+            [
+                "Let's see if you're just another spoiled rich kid."
+            ],
+            [
+                "If only I could've been as blessed as you."
+            ],
+            [
+                "You didn't earn anything. I did."
+            ],
+            [
+                "You have no idea how much I've had to fight to survive."
+            ],
+            [
+                "Take what's left of me. You deserve it."
+            ],
+            [
+                "Everything will belong to me, not the parasites who inherited them."
+            ]
+        ],
+        [
+            [
+                8
+            ],
+            [
+                "The First Witch"
+            ],
+            [
+                "Void: You get -1 mult."
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ],
+            [
+                ""
+            ]
+        ]
+    ]
+}

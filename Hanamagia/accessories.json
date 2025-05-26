@@ -1,0 +1,231 @@
+{
+    "c2array": true,
+    "size": [
+        13,
+        5,
+        1
+    ],
+    "data": [
+        [
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ]
+        ],
+        [
+            [
+                1
+            ],
+            [
+                "Foil"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Silver"
+            ],
+            [
+                "+100 points."
+            ]
+        ],
+        [
+            [
+                2
+            ],
+            [
+                "Foil"
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Gold"
+            ],
+            [
+                "+0.5 mult."
+            ]
+        ],
+        [
+            [
+                3
+            ],
+            [
+                "Foil"
+            ],
+            [
+                "Rare"
+            ],
+            [
+                "Chromatic"
+            ],
+            [
+                "x1.5 mult."
+            ]
+        ],
+        [
+            [
+                4
+            ],
+            [
+                "Stamp"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Growth Talisman"
+            ],
+            [
+                "Level up 1 random combo."
+            ]
+        ],
+        [
+            [
+                5
+            ],
+            [
+                "Stamp"
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Wealth Talisman"
+            ],
+            [
+                "+0.05 mult for each $1 you have."
+            ]
+        ],
+        [
+            [
+                6
+            ],
+            [
+                "Stamp"
+            ],
+            [
+                "Rare"
+            ],
+            [
+                "Memory Talisman"
+            ],
+            [
+                "Retrigger all non-Talisman effects."
+            ]
+        ],
+        [
+            [
+                7
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Wild Card"
+            ],
+            [
+                "This card is all suits."
+            ]
+        ],
+        [
+            [
+                8
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Welfare Card"
+            ],
+            [
+                "Gain $1."
+            ]
+        ],
+        [
+            [
+                9
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Bonus Card"
+            ],
+            [
+                "+50 points."
+            ]
+        ],
+        [
+            [
+                10
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Lottery Card"
+            ],
+            [
+                "1/5 chance: gain $4. 1/10 chance: +1 mult."
+            ]
+        ],
+        [
+            [
+                11
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Rare"
+            ],
+            [
+                "Post Card"
+            ],
+            [
+                "+0.15 mult for each Summer or Winter card in this card's row and column."
+            ]
+        ],
+        [
+            [
+                12
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Membership Card"
+            ],
+            [
+                "+0.25 mult"
+            ]
+        ]
+    ]
+}

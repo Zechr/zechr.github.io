@@ -1,0 +1,153 @@
+{
+    "c2array": true,
+    "size": [
+        13,
+        3,
+        1
+    ],
+    "data": [
+        [
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ]
+        ],
+        [
+            [
+                1
+            ],
+            [
+                "Shell Game"
+            ],
+            [
+                "You may swap positions of 2 cards on the field."
+            ]
+        ],
+        [
+            [
+                2
+            ],
+            [
+                "Brainstoned"
+            ],
+            [
+                "Draw 2 cards, then discard 2 cards."
+            ]
+        ],
+        [
+            [
+                3
+            ],
+            [
+                "Threes"
+            ],
+            [
+                "+0.5 mult for each card divisible by 3 in this card's row or column."
+            ]
+        ],
+        [
+            [
+                4
+            ],
+            [
+                "Millstone"
+            ],
+            [
+                "Discard up to 1 card on the field and the top card of your deck."
+            ]
+        ],
+        [
+            [
+                5
+            ],
+            [
+                "Mirror of Fate"
+            ],
+            [
+                "(1/Turn) Retrigger the effects of an adjacent card, except a Mirror of Fate, and use it for scoring. Priority: Up, right, down, left."
+            ]
+        ],
+        [
+            [
+                6
+            ],
+            [
+                "Lucky Star"
+            ],
+            [
+                "With a 1/4 chance, level up the combo this card is involved in. (Triggers separately for each combo)."
+            ]
+        ],
+        [
+            [
+                7
+            ],
+            [
+                "Flashback"
+            ],
+            [
+                "Put 1 card from your discard pile into your hand."
+            ]
+        ],
+        [
+            [
+                8
+            ],
+            [
+                "Sleight of Hand"
+            ],
+            [
+                "(1/Turn) Swap this card with 1 card in your discard pile (it must be able to occupy this square)."
+            ]
+        ],
+        [
+            [
+                9
+            ],
+            [
+                "Rummage"
+            ],
+            [
+                "Discard 1 card, then draw 1 card."
+            ]
+        ],
+        [
+            [
+                10
+            ],
+            [
+                "Wanderer"
+            ],
+            [
+                "When this card changes positions or zones by effect, +2 mult."
+            ]
+        ],
+        [
+            [
+                11
+            ],
+            [
+                "Doubler"
+            ],
+            [
+                "When this card is discarded, x2 mult."
+            ]
+        ],
+        [
+            [
+                12
+            ],
+            [
+                "Chaos Channel"
+            ],
+            [
+                "For each card with a different suit adjacent to this card, +1 mult."
+            ]
+        ]
+    ]
+}

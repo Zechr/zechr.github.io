@@ -1,0 +1,537 @@
+{
+    "c2array": true,
+    "size": [
+        31,
+        5,
+        1
+    ],
+    "data": [
+        [
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ]
+        ],
+        [
+            [
+                1
+            ],
+            [
+                "Bandaged Hand"
+            ],
+            [
+                0
+            ],
+            [
+                "Starter"
+            ],
+            [
+                "Starting hand size +1."
+            ]
+        ],
+        [
+            [
+                2
+            ],
+            [
+                "Inheritance"
+            ],
+            [
+                0
+            ],
+            [
+                "Starter"
+            ],
+            [
+                "Start with $10."
+            ]
+        ],
+        [
+            [
+                3
+            ],
+            [
+                "Scarlet Letter of Defiance"
+            ],
+            [
+                0
+            ],
+            [
+                "Starter"
+            ],
+            [
+                "x1.25 mult."
+            ]
+        ],
+        [
+            [
+                4
+            ],
+            [
+                "Insatiable"
+            ],
+            [
+                0
+            ],
+            [
+                "Starter"
+            ],
+            [
+                "Whenever you buy, put a counter on this. +0.1 mult for each counter on this."
+            ]
+        ],
+        [
+            [
+                5
+            ],
+            [
+                "Perfume"
+            ],
+            [
+                0
+            ],
+            [
+                "Starter"
+            ],
+            [
+                "The starting deck contains only Summer and Winter cards."
+            ]
+        ],
+        [
+            [
+                6
+            ],
+            [
+                "Broken Clock"
+            ],
+            [
+                0
+            ],
+            [
+                "Starter"
+            ],
+            [
+                "The first time the board is full each battle, discard the last card played."
+            ]
+        ],
+        [
+            [
+                7
+            ],
+            [
+                "Green Mirror"
+            ],
+            [
+                0
+            ],
+            [
+                "Starter"
+            ],
+            [
+                "Copy the effect of the item to the right."
+            ]
+        ],
+        [
+            [
+                8
+            ],
+            [
+                "YinYang Charm"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Whenever you score an even card, +20 points."
+            ]
+        ],
+        [
+            [
+                9
+            ],
+            [
+                "5Sided Die"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Whenever you score an odd card, +0.1 mult."
+            ]
+        ],
+        [
+            [
+                10
+            ],
+            [
+                "Chibi Figure"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Whenever you score a 6 or lower rank card, +20 points."
+            ]
+        ],
+        [
+            [
+                11
+            ],
+            [
+                "Large Figure"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Whenever you score a 7 or higher rank card, +0.1 mult."
+            ]
+        ],
+        [
+            [
+                12
+            ],
+            [
+                "Flower Bud"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Whenever you score a Spring card, +20 points and +0.1 mult."
+            ]
+        ],
+        [
+            [
+                13
+            ],
+            [
+                "Sunglasses"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Whenever you score a Summer card, +20 points and +0.1 mult."
+            ]
+        ],
+        [
+            [
+                14
+            ],
+            [
+                "Preserved Leaf"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Whenever you score a Fall card, +20 points and +0.1 mult."
+            ]
+        ],
+        [
+            [
+                15
+            ],
+            [
+                "Snowman"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Whenever you score a Winter card, +20 points and +0.1 mult."
+            ]
+        ],
+        [
+            [
+                16
+            ],
+            [
+                "Extra Credit"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "+0.2 mult."
+            ]
+        ],
+        [
+            [
+                17
+            ],
+            [
+                "Check Fraud"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Whenever you score a Welfare card, +mult equal to your money divided by 10."
+            ]
+        ],
+        [
+            [
+                18
+            ],
+            [
+                "Stacking Coupon"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Whenever you score a Bonus card, +0.25 mult."
+            ]
+        ],
+        [
+            [
+                19
+            ],
+            [
+                "Lucky Cat"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Whenever you trigger a Lottery card's random effect, put a counter on this. +0.5 mult for each counter on this."
+            ]
+        ],
+        [
+            [
+                20
+            ],
+            [
+                "Postcard Envelope"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "+40 points for each Post Card on the field."
+            ]
+        ],
+        [
+            [
+                21
+            ],
+            [
+                "Pyramid Scheme"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Whenever you score a Membership card, gain $1."
+            ]
+        ],
+        [
+            [
+                22
+            ],
+            [
+                "Rare Hunter"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Whenever you score a Foil card, gain $2."
+            ]
+        ],
+        [
+            [
+                23
+            ],
+            [
+                "Stamp Collection"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Whenever you score a Sticker card, gain $1, +20 points, and +0.2 mult."
+            ]
+        ],
+        [
+            [
+                24
+            ],
+            [
+                "League Card"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Whenever you win a battle, gain $6."
+            ]
+        ],
+        [
+            [
+                25
+            ],
+            [
+                "Loyalty Card"
+            ],
+            [
+                8
+            ],
+            [
+                "Rare"
+            ],
+            [
+                "Whenever you level up a combo, put a counter on this. +0.1 mult for each counter on this."
+            ]
+        ],
+        [
+            [
+                26
+            ],
+            [
+                "Parking Ticket Record"
+            ],
+            [
+                8
+            ],
+            [
+                "Rare"
+            ],
+            [
+                "Whenever you discard a card, put a counter on this. +0.1 mult for each counter on this."
+            ]
+        ],
+        [
+            [
+                27
+            ],
+            [
+                "Rule of 2"
+            ],
+            [
+                8
+            ],
+            [
+                "Rare"
+            ],
+            [
+                "Whenever you score exactly 2 cards, put a counter on this. +20 points for each counter on this."
+            ]
+        ],
+        [
+            [
+                28
+            ],
+            [
+                "Punko Flops"
+            ],
+            [
+                8
+            ],
+            [
+                "Rare"
+            ],
+            [
+                "+0.25 mult for each Uncommon item you have."
+            ]
+        ],
+        [
+            [
+                29
+            ],
+            [
+                "Last Testament"
+            ],
+            [
+                8
+            ],
+            [
+                "Rare"
+            ],
+            [
+                "x3 mult when the board is full."
+            ]
+        ],
+        [
+            [
+                30
+            ],
+            [
+                "Cursed Gem"
+            ],
+            [
+                8
+            ],
+            [
+                "Rare"
+            ],
+            [
+                "Whenever you play a card that does not share a suit with other cards in its row and column, x1.5 mult."
+            ]
+        ]
+    ]
+}
