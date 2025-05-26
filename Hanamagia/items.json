@@ -377,7 +377,7 @@
                 "Uncommon"
             ],
             [
-                "Whenever you score a Membership card, gain $1."
+                "Whenever you play a Membership card, adjacent cards become Membership cards."
             ]
         ],
         [
@@ -530,7 +530,7 @@
                 "Rare"
             ],
             [
-                "Whenever you play a card that does not share a suit with other cards in its row and column, x1.5 mult."
+                "Whenever you play a card that does not share a suit with adjacent cards, x2 mult."
             ]
         ]
     ]
