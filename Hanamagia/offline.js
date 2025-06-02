@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1748284164,
+	"version": 1748842483,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -79,6 +79,7 @@
 		"images/comboselecticon-sheet0.png",
 		"images/bosstextbanner-sheet0.png",
 		"images/enemynamebg-sheet0.png",
+		"images/giveup-sheet0.png",
 		"images/packcard-sheet0.png",
 		"images/pack-sheet0.png",
 		"images/pack-sheet1.png",

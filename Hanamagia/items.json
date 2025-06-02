@@ -360,7 +360,7 @@
                 "Uncommon"
             ],
             [
-                "+40 points for each Post Card on the field."
+                "+80 points for each Post Card on the field."
             ]
         ],
         [
@@ -530,7 +530,7 @@
                 "Rare"
             ],
             [
-                "Whenever you play a card that does not share a suit with adjacent cards, x2 mult."
+                "Whenever you play a card that does not share a suit with adjacent cards, x1.5 mult."
             ]
         ]
     ]

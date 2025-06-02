@@ -146,7 +146,7 @@
                 "Chaos Channel"
             ],
             [
-                "For each card with a different suit adjacent to this card, +1 mult."
+                "For each card with a different suit adjacent to this card, +0.5 mult."
             ]
         ]
     ]
