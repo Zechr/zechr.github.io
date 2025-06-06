@@ -156,7 +156,7 @@
                 "Common"
             ],
             [
-                "Whenever you score an even card, +20 points."
+                "Whenever you score an even card, +10 points."
             ]
         ],
         [
@@ -190,7 +190,7 @@
                 "Common"
             ],
             [
-                "Whenever you score a 6 or lower rank card, +20 points."
+                "Whenever you score a 6 or lower rank card, +10 points."
             ]
         ],
         [
@@ -224,7 +224,7 @@
                 "Common"
             ],
             [
-                "Whenever you score a Spring card, +20 points and +0.1 mult."
+                "Whenever you score a Spring card, +10 points and +0.1 mult."
             ]
         ],
         [
@@ -241,7 +241,7 @@
                 "Common"
             ],
             [
-                "Whenever you score a Summer card, +20 points and +0.1 mult."
+                "Whenever you score a Summer card, +10 points and +0.1 mult."
             ]
         ],
         [
@@ -258,7 +258,7 @@
                 "Common"
             ],
             [
-                "Whenever you score a Fall card, +20 points and +0.1 mult."
+                "Whenever you score a Fall card, +10 points and +0.1 mult."
             ]
         ],
         [
@@ -275,7 +275,7 @@
                 "Common"
             ],
             [
-                "Whenever you score a Winter card, +20 points and +0.1 mult."
+                "Whenever you score a Winter card, +10 points and +0.1 mult."
             ]
         ],
         [
@@ -309,7 +309,7 @@
                 "Uncommon"
             ],
             [
-                "Whenever you score a Welfare card, +mult equal to your money divided by 10."
+                "Whenever you play a Welfare card, +mult equal to your money divided by 10."
             ]
         ],
         [
@@ -360,7 +360,7 @@
                 "Uncommon"
             ],
             [
-                "+80 points for each Post Card on the field."
+                "+80 points and +0.4 mult for each Post Card on the field."
             ]
         ],
         [
@@ -377,7 +377,7 @@
                 "Uncommon"
             ],
             [
-                "Whenever you play a Membership card, adjacent cards become Membership cards."
+                "Whenever you play a Membership card, adjacent cards become Membership cards.\\n+15 points for each Membership card on the field."
             ]
         ],
         [
@@ -496,7 +496,7 @@
                 "Rare"
             ],
             [
-                "+0.25 mult for each Uncommon item you have."
+                "x1.25 mult for each Uncommon item you have."
             ]
         ],
         [
