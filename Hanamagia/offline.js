@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1749870292,
+	"version": 1749875048,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -26,7 +26,6 @@
 		"images/nameplate-sheet0.png",
 		"images/difficultypanel-sheet0.png",
 		"images/radialbutton-sheet0.png",
-		"images/radialbutton-sheet1.png",
 		"images/combolevelspanel-sheet0.png",
 		"images/stagesection-sheet0.png",
 		"images/runcomboicon-sheet0.png",
