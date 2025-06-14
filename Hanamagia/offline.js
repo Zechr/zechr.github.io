@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1749665214,
+	"version": 1749870292,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -24,6 +24,9 @@
 		"images/startingcharleftshift-sheet0.png",
 		"images/startingcharrightshift-sheet0.png",
 		"images/nameplate-sheet0.png",
+		"images/difficultypanel-sheet0.png",
+		"images/radialbutton-sheet0.png",
+		"images/radialbutton-sheet1.png",
 		"images/combolevelspanel-sheet0.png",
 		"images/stagesection-sheet0.png",
 		"images/runcomboicon-sheet0.png",
@@ -70,6 +73,8 @@
 		"images/cardsquarehighlight-sheet0.png",
 		"images/battlebg-sheet0.png",
 		"images/battlebg-sheet1.png",
+		"images/battlebg-sheet2.png",
+		"images/battlebg-sheet3.png",
 		"images/portraitenemy-sheet0.png",
 		"images/portraitenemy-sheet1.png",
 		"images/cardartlarge-sheet0.png",
