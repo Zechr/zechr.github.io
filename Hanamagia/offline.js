@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1749875048,
+	"version": 1750051567,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -109,6 +109,7 @@
 		"images/eventsprite-sheet3.png",
 		"images/choice1-sheet0.png",
 		"images/choice2-sheet0.png",
+		"images/textboxinteractionindicator-sheet0.png",
 		"images/darkenoverlay-sheet0.png",
 		"media/card.m4a",
 		"media/card.ogg",
