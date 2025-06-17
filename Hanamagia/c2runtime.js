@@ -15308,6 +15308,22 @@ cr.shaders["grayscale"] = {src: ["varying mediump vec2 vTex;",
 	preservesOpaqueness: true,
 	animated: false,
 	parameters: [["intensity", 0, 1]] }
+cr.shaders["inverse"] = {src: ["varying mediump vec2 vTex;",
+"uniform lowp sampler2D samplerFront;",
+"uniform lowp float intensity;",
+"void main(void)",
+"{",
+"lowp vec4 front = texture2D(samplerFront, vTex);",
+"lowp vec3 inverse = vec3(front.a - front.rgb);",
+"gl_FragColor = vec4(mix(front.rgb, inverse, intensity), front.a);",
+"}"
+].join("\n"),
+	extendBoxHorizontal: 0,
+	extendBoxVertical: 0,
+	crossSampling: false,
+	preservesOpaqueness: true,
+	animated: false,
+	parameters: [["intensity", 0, 1]] }
 ;
 ;
 cr.plugins_.AJAX = function(runtime)
@@ -25548,6 +25564,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.AJAX.prototype.acts.RequestFile,
 	cr.system_object.prototype.acts.SetVar,
 	cr.plugins_.LocalStorage.prototype.acts.CheckItemExists,
+	cr.plugins_.LocalStorage.prototype.acts.GetItem,
 	cr.plugins_.Audio.prototype.acts.Play,
 	cr.behaviors.Fade.prototype.acts.StartFade,
 	cr.behaviors.Fade.prototype.acts.SetFadeOutTime,
@@ -25568,7 +25585,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.LocalStorage.prototype.cnds.OnItemExists,
 	cr.plugins_.Sprite.prototype.acts.SetEffectEnabled,
 	cr.plugins_.LocalStorage.prototype.cnds.OnItemMissing,
-	cr.plugins_.LocalStorage.prototype.acts.GetItem,
 	cr.plugins_.LocalStorage.prototype.cnds.OnItemGet,
 	cr.plugins_.LocalStorage.prototype.exps.ItemValue,
 	cr.system_object.prototype.exps["int"],
@@ -25608,8 +25624,8 @@ cr.getObjectRefTable = function () { return [
 	cr.system_object.prototype.acts.GoToLayoutByName,
 	cr.plugins_.Sprite.prototype.acts.SetVisible,
 	cr.plugins_.Dictionary.prototype.acts.Clear,
-	cr.plugins_.Text.prototype.acts.Destroy,
 	cr.plugins_.Sprite.prototype.acts.Destroy,
+	cr.plugins_.Text.prototype.acts.Destroy,
 	cr.plugins_.Audio.prototype.acts.SetPlaybackRate,
 	cr.plugins_.Text.prototype.acts.SetFontSize,
 	cr.plugins_.Arr.prototype.acts.SetXYZ,

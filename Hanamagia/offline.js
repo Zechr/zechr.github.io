@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1750051567,
+	"version": 1750123950,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -63,6 +63,11 @@
 		"images/stampicon-sheet2.png",
 		"images/suiticon-sheet0.png",
 		"images/cardtypeframe-sheet0.png",
+		"images/tutorialcover-sheet0.png",
+		"images/tutorialcover-sheet1.png",
+		"images/tutorialcover-sheet2.png",
+		"images/tutorialcover-sheet3.png",
+		"images/tutorialcover-sheet4.png",
 		"images/cardfield-sheet0.png",
 		"images/fieldrestriction-sheet0.png",
 		"images/cancelcardselectbutton-sheet0.png",
