@@ -25541,16 +25541,16 @@ cr.behaviors.custom = function(runtime)
 	behaviorProto.exps = new Exps();
 }());
 cr.getObjectRefTable = function () { return [
-	cr.plugins_.Arr,
 	cr.plugins_.AJAX,
+	cr.plugins_.Arr,
 	cr.plugins_.Audio,
 	cr.plugins_.Dictionary,
 	cr.plugins_.Function,
+	cr.plugins_.LocalStorage,
 	cr.plugins_.hmmg_layoutTransition_v2,
 	cr.plugins_.Keyboard,
-	cr.plugins_.LocalStorage,
-	cr.plugins_.Sprite,
 	cr.plugins_.Touch,
+	cr.plugins_.Sprite,
 	cr.plugins_.Text,
 	cr.behaviors.custom,
 	cr.behaviors.Fade,
