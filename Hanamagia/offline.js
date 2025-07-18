@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1750912567,
+	"version": 1752802161,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -80,6 +80,9 @@
 		"images/battlebg-sheet2.png",
 		"images/battlebg-sheet3.png",
 		"images/battlebg-sheet4.png",
+		"images/battlebg-sheet5.png",
+		"images/battlebg-sheet6.png",
+		"images/battlebg-sheet7.png",
 		"images/portraitenemy-sheet0.png",
 		"images/portraitenemy-sheet1.png",
 		"images/cardartlarge-sheet0.png",
