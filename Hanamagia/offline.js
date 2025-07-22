@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1752802161,
+	"version": 1753159862,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -164,6 +164,8 @@
 		"media/runstagesbgm.ogg",
 		"media/shopbgm.m4a",
 		"media/shopbgm.ogg",
+		"media/final_boss_2_clipped.m4a",
+		"media/final_boss_2_clipped.ogg",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
