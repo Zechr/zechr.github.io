@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1753332164,
+	"version": 1753582433,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -60,9 +60,9 @@
 		"images/sleevetext-sheet1.png",
 		"images/stampicon-sheet0.png",
 		"images/stampicon-sheet1.png",
-		"images/stampicon-sheet2.png",
 		"images/suiticon-sheet0.png",
 		"images/cardtypeframe-sheet0.png",
+		"images/cardtypeframe-sheet1.png",
 		"images/tutorialcover-sheet0.png",
 		"images/tutorialcover-sheet1.png",
 		"images/tutorialcover-sheet2.png",
@@ -96,6 +96,7 @@
 		"images/enemynamebg-sheet0.png",
 		"images/giveup-sheet0.png",
 		"images/packcard-sheet0.png",
+		"images/packcard-sheet1.png",
 		"images/pack-sheet0.png",
 		"images/pack-sheet1.png",
 		"images/pack-sheet2.png",

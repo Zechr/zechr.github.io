@@ -1,7 +1,7 @@
 {
     "c2array": true,
     "size": [
-        13,
+        18,
         5,
         1
     ],
@@ -225,6 +225,91 @@
             ],
             [
                 "+0.25 mult"
+            ]
+        ],
+        [
+            [
+                13
+            ],
+            [
+                "Stamp"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Draw Talisman"
+            ],
+            [
+                "Draw 1 card."
+            ]
+        ],
+        [
+            [
+                14
+            ],
+            [
+                "Stamp"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Prime Talisman"
+            ],
+            [
+                "+0.15 mult for each prime number card on the field."
+            ]
+        ],
+        [
+            [
+                15
+            ],
+            [
+                "Stamp"
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Balanced Talisman"
+            ],
+            [
+                "+0.25 mult and +25 points."
+            ]
+        ],
+        [
+            [
+                16
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Missingno Card"
+            ],
+            [
+                "This card is all ranks."
+            ]
+        ],
+        [
+            [
+                17
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Business Card"
+            ],
+            [
+                "+0.25 mult for each card with the same suit in this card's row and column."
             ]
         ]
     ]
