@@ -1,7 +1,7 @@
 {
     "c2array": true,
     "size": [
-        13,
+        16,
         3,
         1
     ],
@@ -69,7 +69,7 @@
                 "Mirror of Fate"
             ],
             [
-                "(1/Turn) Choose up to 1 card on the field. Retrigger its effects, and use it for scoring."
+                "(1/Turn) Choose up to 1 card on the field. Retrigger it."
             ]
         ],
         [
@@ -80,7 +80,7 @@
                 "Lucky Star"
             ],
             [
-                "For each combo this card is involved in, 1/4 chance to level it up."
+                "For each combo this card is involved in, 1/2 chance to level it up."
             ]
         ],
         [
@@ -102,7 +102,7 @@
                 "Sleight of Hand"
             ],
             [
-                "(1/Turn) Swap this card with 1 card in your discard pile (it must be able to occupy this square)."
+                "(1/Turn) Swap this card with 1 card in your discard pile."
             ]
         ],
         [
@@ -124,7 +124,7 @@
                 "Wanderer"
             ],
             [
-                "When this card changes positions or zones by effect, +2 mult."
+                "When this card changes zones by effect, +2 mult."
             ]
         ],
         [
@@ -147,6 +147,39 @@
             ],
             [
                 "For each card with a different suit adjacent to this card, +0.5 mult."
+            ]
+        ],
+        [
+            [
+                13
+            ],
+            [
+                "Ad Insert"
+            ],
+            [
+                "When this card is discarded, put it onto the field."
+            ]
+        ],
+        [
+            [
+                14
+            ],
+            [
+                "Pinball"
+            ],
+            [
+                "When this card is moved on, to, or from the field by effect, x2.5 mult."
+            ]
+        ],
+        [
+            [
+                15
+            ],
+            [
+                "Ace Up Sleeve"
+            ],
+            [
+                "Put up to 1 card from your hand onto the field."
             ]
         ]
     ]
