@@ -127,7 +127,7 @@
                 0
             ],
             [
-                "Gain 2 random booster packs.",
+                "Gain 1 random booster pack.",
                 0,
                 0
             ],
@@ -439,7 +439,7 @@
                 0
             ],
             [
-                "You may lose 1 non-starter item to get a rare item.",
+                "You may lose 1 item to get a rare item.",
                 0,
                 0
             ],
@@ -450,7 +450,7 @@
             ],
             [
                 "set_text_manual",
-                "You find a mad scientist's laboratory for alchemy. You may convert 1 non-starter item into a rare item.",
+                "You find a mad scientist's laboratory for alchemy. You may convert 1 item into a rare item.",
                 ""
             ],
             [
@@ -469,8 +469,8 @@
                 ""
             ],
             [
-                "",
-                "",
+                "set_text_terminal",
+                "You decide to leave without risking it.",
                 ""
             ]
         ],

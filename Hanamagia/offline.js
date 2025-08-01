@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1753940505,
+	"version": 1754007568,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -121,6 +121,7 @@
 		"images/choice2-sheet0.png",
 		"images/textboxinteractionindicator-sheet0.png",
 		"images/darkenoverlay-sheet0.png",
+		"images/skipbutton-sheet0.png",
 		"media/card.m4a",
 		"media/card.ogg",
 		"media/effect-ding.m4a",
@@ -169,6 +170,8 @@
 		"media/final_boss_2_clipped.ogg",
 		"media/event_bgm.m4a",
 		"media/event_bgm.ogg",
+		"media/booster_pack_opening_bgm.m4a",
+		"media/booster_pack_opening_bgm.ogg",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
