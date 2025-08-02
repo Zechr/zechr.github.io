@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1754007568,
+	"version": 1754158575,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -95,6 +95,8 @@
 		"images/bosstextbanner-sheet0.png",
 		"images/enemynamebg-sheet0.png",
 		"images/giveup-sheet0.png",
+		"images/bgparticle-sheet0.png",
+		"images/bgparticle-sheet1.png",
 		"images/packcard-sheet0.png",
 		"images/packcard-sheet1.png",
 		"images/pack-sheet0.png",
@@ -120,8 +122,8 @@
 		"images/choice1-sheet0.png",
 		"images/choice2-sheet0.png",
 		"images/textboxinteractionindicator-sheet0.png",
-		"images/darkenoverlay-sheet0.png",
 		"images/skipbutton-sheet0.png",
+		"images/darkenoverlay-sheet0.png",
 		"media/card.m4a",
 		"media/card.ogg",
 		"media/effect-ding.m4a",
