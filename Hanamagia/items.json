@@ -1,7 +1,7 @@
 {
     "c2array": true,
     "size": [
-        31,
+        50,
         5,
         1
     ],
@@ -292,7 +292,7 @@
                 "Common"
             ],
             [
-                "+0.2 mult."
+                "+0.25 mult."
             ]
         ],
         [
@@ -309,7 +309,7 @@
                 "Uncommon"
             ],
             [
-                "Whenever you play a Welfare card, +mult equal to your money divided by 10."
+                "If you play a Welfare card, +mult equal to your money divided by 10."
             ]
         ],
         [
@@ -377,7 +377,7 @@
                 "Uncommon"
             ],
             [
-                "Whenever you play a Membership card, adjacent cards become Membership cards. +15 points for each Membership card on the field."
+                "If you play a Membership card, adjacent cards become Membership cards.\\n+25 points for each Membership card on the field."
             ]
         ],
         [
@@ -531,6 +531,329 @@
             ],
             [
                 "Whenever you play a card that does not share a suit with adjacent cards, x1.5 mult."
+            ]
+        ],
+        [
+            [
+                31
+            ],
+            [
+                "Gacha Account"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Rerolls in the shop are fixed at $1."
+            ]
+        ],
+        [
+            [
+                32
+            ],
+            [
+                "Math Degree"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Whenever you score a prime number rank card, +10 points and +0.1 mult."
+            ]
+        ],
+        [
+            [
+                33
+            ],
+            [
+                "Social Credit"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "+25 points."
+            ]
+        ],
+        [
+            [
+                34
+            ],
+            [
+                "High Grade"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Increase foil card bonuses by 50%."
+            ]
+        ],
+        [
+            [
+                35
+            ],
+            [
+                "Power of Friendship"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "+0.1 mult for each other item you have."
+            ]
+        ],
+        [
+            [
+                36
+            ],
+            [
+                "Eternal Sale"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "All shop items are discounted by $1."
+            ]
+        ],
+        [
+            [
+                37
+            ],
+            [
+                "Merit Sash"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "+0.1 mult for each unique title on the field."
+            ]
+        ],
+        [
+            [
+                38
+            ],
+            [
+                "Lone Wolf"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "+0.2 mult for each empty item slot, including this."
+            ]
+        ],
+        [
+            [
+                39
+            ],
+            [
+                "Storm"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "x mult equal to the number of cards you've played this turn."
+            ]
+        ],
+        [
+            [
+                40
+            ],
+            [
+                "Herb of Greed"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "+0.15 mult for each card you've drawn this turn."
+            ]
+        ],
+        [
+            [
+                41
+            ],
+            [
+                "Serial Collection"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "+0.2 mult for each card in your discard pile."
+            ]
+        ],
+        [
+            [
+                42
+            ],
+            [
+                "Centrism"
+            ],
+            [
+                4
+            ],
+            [
+                "Common"
+            ],
+            [
+                "+mult, a random number between 0 and 1."
+            ]
+        ],
+        [
+            [
+                43
+            ],
+            [
+                "LinkedOut"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "If you play a Business card, +50 points for each Business card on the field."
+            ]
+        ],
+        [
+            [
+                44
+            ],
+            [
+                "Doping"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "If you level up a combo, level it up twice as much instead."
+            ]
+        ],
+        [
+            [
+                45
+            ],
+            [
+                "Optical Illusion"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "You may form flushes and straights even with just 2 cards."
+            ]
+        ],
+        [
+            [
+                46
+            ],
+            [
+                "AI Assist"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "+0.5 mult."
+            ]
+        ],
+        [
+            [
+                47
+            ],
+            [
+                "Reward Points"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "+50 points."
+            ]
+        ],
+        [
+            [
+                48
+            ],
+            [
+                "Pride App"
+            ],
+            [
+                6
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "If there are 3 unique suits in the row or col, +100 points and +1 mult."
+            ]
+        ],
+        [
+            [
+                49
+            ],
+            [
+                "Magic Square"
+            ],
+            [
+                8
+            ],
+            [
+                "Rare"
+            ],
+            [
+                "If the sum of the ranks of the row and col are equal, x2 mult."
             ]
         ]
     ]

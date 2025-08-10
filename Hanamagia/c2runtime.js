@@ -25949,6 +25949,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Arr.prototype.acts.SetX,
 	cr.behaviors.Fade.prototype.acts.SetWaitTime,
 	cr.system_object.prototype.exps.max,
+	cr.plugins_.Dictionary.prototype.acts.SetKey,
 	cr.plugins_.Sprite.prototype.acts.RotateClockwise,
 	cr.plugins_.Sprite.prototype.acts.RotateCounterclockwise,
 	cr.plugins_.Sprite.prototype.acts.MoveToLayer,
