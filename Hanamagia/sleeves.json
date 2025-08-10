@@ -58,7 +58,7 @@
                 "Millstone"
             ],
             [
-                "Discard up to 1 card on the field and the top card of your deck."
+                "Discard up to other 1 card on the field and the top card of your deck."
             ]
         ],
         [
@@ -102,7 +102,7 @@
                 "Sleight of Hand"
             ],
             [
-                "(1/Turn) Swap this card with 1 card in your discard pile."
+                "(1/Turn) Swap 1 other card with 1 card in your discard pile."
             ]
         ],
         [
@@ -179,7 +179,7 @@
                 "Ace Up Sleeve"
             ],
             [
-                "Put up to 1 card from your hand onto the field."
+                "(1/Turn) Put up to 1 card from your hand onto the field."
             ]
         ]
     ]
