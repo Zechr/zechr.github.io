@@ -1,0 +1,570 @@
+{
+    "c2array": true,
+    "size": [
+        40,
+        4,
+        1
+    ],
+    "data": [
+        [
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ],
+            [
+                0
+            ]
+        ],
+        [
+            [
+                1
+            ],
+            [
+                "Basic Karen"
+            ],
+            [
+                "Win a run with Karen on Base difficulty."
+            ],
+            [
+                -1
+            ]
+        ],
+        [
+            [
+                2
+            ],
+            [
+                "Poor Karen"
+            ],
+            [
+                "Win a run with Karen on Poverty difficulty."
+            ],
+            [
+                1
+            ]
+        ],
+        [
+            [
+                3
+            ],
+            [
+                "Oppressed Karen"
+            ],
+            [
+                "Win a run with Karen on Oppression difficulty."
+            ],
+            [
+                2
+            ]
+        ],
+        [
+            [
+                4
+            ],
+            [
+                "Sick Karen"
+            ],
+            [
+                "Win a run with Karen on Illness difficulty."
+            ],
+            [
+                3
+            ]
+        ],
+        [
+            [
+                5
+            ],
+            [
+                "Death Karen"
+            ],
+            [
+                "Win a run with Karen on Death difficulty."
+            ],
+            [
+                4
+            ]
+        ],
+        [
+            [
+                6
+            ],
+            [
+                "Basic Luna"
+            ],
+            [
+                "Win a run with Luna on Base difficulty."
+            ],
+            [
+                -1
+            ]
+        ],
+        [
+            [
+                7
+            ],
+            [
+                "Poor Luna"
+            ],
+            [
+                "Win a run with Luna on Poverty difficulty."
+            ],
+            [
+                6
+            ]
+        ],
+        [
+            [
+                8
+            ],
+            [
+                "Oppressed Luna"
+            ],
+            [
+                "Win a run with Luna on Oppression difficulty."
+            ],
+            [
+                7
+            ]
+        ],
+        [
+            [
+                9
+            ],
+            [
+                "Sick Luna"
+            ],
+            [
+                "Win a run with Luna on Illness difficulty."
+            ],
+            [
+                8
+            ]
+        ],
+        [
+            [
+                10
+            ],
+            [
+                "Death Luna"
+            ],
+            [
+                "Win a run with Luna on Death difficulty."
+            ],
+            [
+                9
+            ]
+        ],
+        [
+            [
+                11
+            ],
+            [
+                "Basic Alice"
+            ],
+            [
+                "Win a run with Alice on Base difficulty."
+            ],
+            [
+                -1
+            ]
+        ],
+        [
+            [
+                12
+            ],
+            [
+                "Poor Alice"
+            ],
+            [
+                "Win a run with Alice on Poverty difficulty."
+            ],
+            [
+                11
+            ]
+        ],
+        [
+            [
+                13
+            ],
+            [
+                "Oppressed Alice"
+            ],
+            [
+                "Win a run with Alice on Oppression difficulty."
+            ],
+            [
+                12
+            ]
+        ],
+        [
+            [
+                14
+            ],
+            [
+                "Sick Alice"
+            ],
+            [
+                "Win a run with Alice on Illness difficulty."
+            ],
+            [
+                13
+            ]
+        ],
+        [
+            [
+                15
+            ],
+            [
+                "Death Alice"
+            ],
+            [
+                "Win a run with Alice on Death difficulty."
+            ],
+            [
+                14
+            ]
+        ],
+        [
+            [
+                16
+            ],
+            [
+                "Basic Ravi"
+            ],
+            [
+                "Win a run with Ravi on Base difficulty."
+            ],
+            [
+                -1
+            ]
+        ],
+        [
+            [
+                17
+            ],
+            [
+                "Poor Ravi"
+            ],
+            [
+                "Win a run with Ravi on Poverty difficulty."
+            ],
+            [
+                16
+            ]
+        ],
+        [
+            [
+                18
+            ],
+            [
+                "Oppressed Ravi"
+            ],
+            [
+                "Win a run with Ravi on Oppression difficulty."
+            ],
+            [
+                17
+            ]
+        ],
+        [
+            [
+                19
+            ],
+            [
+                "Sick Ravi"
+            ],
+            [
+                "Win a run with Ravi on Illness difficulty."
+            ],
+            [
+                18
+            ]
+        ],
+        [
+            [
+                20
+            ],
+            [
+                "Death Ravi"
+            ],
+            [
+                "Win a run with Ravi on Death difficulty."
+            ],
+            [
+                19
+            ]
+        ],
+        [
+            [
+                21
+            ],
+            [
+                "Basic Tiffany"
+            ],
+            [
+                "Win a run with Tiffany on Base difficulty."
+            ],
+            [
+                -1
+            ]
+        ],
+        [
+            [
+                22
+            ],
+            [
+                "Poor Tiffany"
+            ],
+            [
+                "Win a run with Tiffany on Poverty difficulty."
+            ],
+            [
+                21
+            ]
+        ],
+        [
+            [
+                23
+            ],
+            [
+                "Oppressed Tiffany"
+            ],
+            [
+                "Win a run with Tiffany on Oppression difficulty."
+            ],
+            [
+                22
+            ]
+        ],
+        [
+            [
+                24
+            ],
+            [
+                "Sick Tiffany"
+            ],
+            [
+                "Win a run with Tiffany on Illness difficulty."
+            ],
+            [
+                23
+            ]
+        ],
+        [
+            [
+                25
+            ],
+            [
+                "Death Tiffany"
+            ],
+            [
+                "Win a run with Tiffany on Death difficulty."
+            ],
+            [
+                24
+            ]
+        ],
+        [
+            [
+                26
+            ],
+            [
+                "Basic Mona"
+            ],
+            [
+                "Win a run with Mona on Base difficulty."
+            ],
+            [
+                -1
+            ]
+        ],
+        [
+            [
+                27
+            ],
+            [
+                "Poor Mona"
+            ],
+            [
+                "Win a run with Mona on Poverty difficulty."
+            ],
+            [
+                26
+            ]
+        ],
+        [
+            [
+                28
+            ],
+            [
+                "Oppressed Mona"
+            ],
+            [
+                "Win a run with Mona on Oppression difficulty."
+            ],
+            [
+                27
+            ]
+        ],
+        [
+            [
+                29
+            ],
+            [
+                "Sick Mona"
+            ],
+            [
+                "Win a run with Mona on Illness difficulty."
+            ],
+            [
+                28
+            ]
+        ],
+        [
+            [
+                30
+            ],
+            [
+                "Death Mona"
+            ],
+            [
+                "Win a run with Mona on Death difficulty."
+            ],
+            [
+                29
+            ]
+        ],
+        [
+            [
+                31
+            ],
+            [
+                "Basic Wendy"
+            ],
+            [
+                "Win a run with Wendy on Base difficulty."
+            ],
+            [
+                -1
+            ]
+        ],
+        [
+            [
+                32
+            ],
+            [
+                "Poor Wendy"
+            ],
+            [
+                "Win a run with Wendy on Poverty difficulty."
+            ],
+            [
+                26
+            ]
+        ],
+        [
+            [
+                33
+            ],
+            [
+                "Oppressed Wendy"
+            ],
+            [
+                "Win a run with Wendy on Oppression difficulty."
+            ],
+            [
+                27
+            ]
+        ],
+        [
+            [
+                34
+            ],
+            [
+                "Sick Wendy"
+            ],
+            [
+                "Win a run with Wendy on Illness difficulty."
+            ],
+            [
+                28
+            ]
+        ],
+        [
+            [
+                35
+            ],
+            [
+                "Death Wendy"
+            ],
+            [
+                "Win a run with Wendy on Death difficulty."
+            ],
+            [
+                29
+            ]
+        ],
+        [
+            [
+                36
+            ],
+            [
+                "Over 2000"
+            ],
+            [
+                "Score 2000 points in 1 turn."
+            ],
+            [
+                -1
+            ]
+        ],
+        [
+            [
+                37
+            ],
+            [
+                "Over 5000"
+            ],
+            [
+                "Score 5000 points in 1 turn."
+            ],
+            [
+                -1
+            ]
+        ],
+        [
+            [
+                38
+            ],
+            [
+                "Over 9000 (+1000)"
+            ],
+            [
+                "Score 10000 points in 1 turn."
+            ],
+            [
+                -1
+            ]
+        ],
+        [
+            [
+                39
+            ],
+            [
+                "Over 20000"
+            ],
+            [
+                "Score 20000 points in 1 turn."
+            ],
+            [
+                -1
+            ]
+        ]
+    ]
+}
