@@ -124,7 +124,7 @@
                 "Wanderer"
             ],
             [
-                "When this card changes zones by effect, +2 mult."
+                "When this card enters or leaves your hand by effect, +2 mult."
             ]
         ],
         [
@@ -135,7 +135,7 @@
                 "Balance"
             ],
             [
-                "When this card is discarded, +100 points and +1 mult."
+                "When this card is discarded or leaves the discard pile, +100 points and +1 mult."
             ]
         ],
         [
