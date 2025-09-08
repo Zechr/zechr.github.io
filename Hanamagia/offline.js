@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1757198953,
+	"version": 1757292639,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -193,8 +193,6 @@
 		"media/runstagesbgm.ogg",
 		"media/shopbgm.m4a",
 		"media/shopbgm.ogg",
-		"media/final_boss_2_clipped.m4a",
-		"media/final_boss_2_clipped.ogg",
 		"media/event_bgm.m4a",
 		"media/event_bgm.ogg",
 		"media/achievements_bgm.m4a",
@@ -205,6 +203,8 @@
 		"media/run_select.ogg",
 		"media/booster_pack_opening_bgm_koyuchi.m4a",
 		"media/booster_pack_opening_bgm_koyuchi.ogg",
+		"media/final_boss_3.m4a",
+		"media/final_boss_3.ogg",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
