@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1757292639,
+	"version": 1757460885,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -149,6 +149,8 @@
 		"images/tabitembutton-sheet0.png",
 		"images/tabtitlesbutton-sheet0.png",
 		"images/darkenoverlay-sheet0.png",
+		"images/tabmusic-sheet0.png",
+		"images/tabsoundfx-sheet0.png",
 		"media/card.m4a",
 		"media/card.ogg",
 		"media/effect-ding.m4a",
