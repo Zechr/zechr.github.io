@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1758085729,
+	"version": 1758259823,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -111,6 +111,9 @@
 		"images/bgenvoverlay-sheet0.png",
 		"images/bgenvoverlay-sheet1.png",
 		"images/bgenvoverlay-sheet2.png",
+		"images/bgstaticelement-sheet0.png",
+		"images/bgstaticelement-sheet1.png",
+		"images/bgstaticelement-sheet2.png",
 		"images/packcard-sheet0.png",
 		"images/packcard-sheet1.png",
 		"images/pack-sheet0.png",
@@ -152,9 +155,6 @@
 		"images/tabmusic-sheet0.png",
 		"images/tabsoundfx-sheet0.png",
 		"images/darkenoverlay-sheet0.png",
-		"images/bgstaticelement-sheet0.png",
-		"images/bgstaticelement-sheet1.png",
-		"images/bgstaticelement-sheet2.png",
 		"media/card.m4a",
 		"media/card.ogg",
 		"media/effect-ding.m4a",
