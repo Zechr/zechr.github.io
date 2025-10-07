@@ -1,7 +1,7 @@
 {
     "c2array": true,
     "size": [
-        16,
+        31,
         3,
         1
     ],
@@ -180,6 +180,171 @@
             ],
             [
                 "(1/Turn) Put up to 1 card from your hand onto the field."
+            ]
+        ],
+        [
+            [
+                16
+            ],
+            [
+                "Unburial"
+            ],
+            [
+                "(1/Turn) Put up to 1 card from the discard pile onto the field."
+            ]
+        ],
+        [
+            [
+                17
+            ],
+            [
+                "Retrieval"
+            ],
+            [
+                "Put up to 1 other card on the field into your hand."
+            ]
+        ],
+        [
+            [
+                17
+            ],
+            [
+                "Persistence"
+            ],
+            [
+                "When this card leaves the field, put it onto the field."
+            ]
+        ],
+        [
+            [
+                19
+            ],
+            [
+                "Brute Force"
+            ],
+            [
+                "+1 mult."
+            ]
+        ],
+        [
+            [
+                20
+            ],
+            [
+                "Perfect Ratio"
+            ],
+            [
+                "+0.4 mult for each Fibonacci card in this card's row or column (1, 2, 3, 5, 8)."
+            ]
+        ],
+        [
+            [
+                21
+            ],
+            [
+                "Edge of Death"
+            ],
+            [
+                "When this card moves on or between the field and discard pile, +300 points."
+            ]
+        ],
+        [
+            [
+                22
+            ],
+            [
+                "Ambivalence"
+            ],
+            [
+                "When this card moves between the field and hand by effect, +2.5 mult."
+            ]
+        ],
+        [
+            [
+                23
+            ],
+            [
+                "Despair"
+            ],
+            [
+                "When this card moves between the hand and discard pile, +150 points and +1.5 mult."
+            ]
+        ],
+        [
+            [
+                24
+            ],
+            [
+                "Clearance"
+            ],
+            [
+                "Discard any number of cards, up to 1 less than your cards in hand. +1 mult for each card discarded."
+            ]
+        ],
+        [
+            [
+                25
+            ],
+            [
+                "Merchant"
+            ],
+            [
+                "+mult equal to the sell value of your items divided by 5."
+            ]
+        ],
+        [
+            [
+                26
+            ],
+            [
+                "Ancestral Blessing"
+            ],
+            [
+                "If this card is in the discard pile, +0.75 mult."
+            ]
+        ],
+        [
+            [
+                27
+            ],
+            [
+                "Puppet Master"
+            ],
+            [
+                "If this card is in your hand, x1.25 mult."
+            ]
+        ],
+        [
+            [
+                28
+            ],
+            [
+                "General"
+            ],
+            [
+                "If this card is on the field, +0.75 mult."
+            ]
+        ],
+        [
+            [
+                29
+            ],
+            [
+                "Emptiness"
+            ],
+            [
+                "+0.5 mult for each empty square in this card's row or column."
+            ]
+        ],
+        [
+            [
+                30
+            ],
+            [
+                "Atom Bomb"
+            ],
+            [
+                "Discard all other cards on the field. Their squares become void."
             ]
         ]
     ]
