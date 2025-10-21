@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1760224734,
+	"version": 1761016220,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -13,6 +13,7 @@
 		"images/achievementsbutton-sheet0.png",
 		"images/collectionbutton-sheet0.png",
 		"images/creditsbutton-sheet0.png",
+		"images/settingsbutton-sheet0.png",
 		"images/startingcharacterchooser-sheet0.png",
 		"images/startingcharacterchooser-sheet1.png",
 		"images/startingcharacterchooser-sheet2.png",
@@ -155,6 +156,7 @@
 		"images/tabtitlesbutton-sheet0.png",
 		"images/tabmusic-sheet0.png",
 		"images/tabsoundfx-sheet0.png",
+		"images/tabart-sheet0.png",
 		"images/darkenoverlay-sheet0.png",
 		"media/card.m4a",
 		"media/card.ogg",
