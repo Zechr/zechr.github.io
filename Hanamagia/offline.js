@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1761871774,
+	"version": 1764275524,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -157,6 +157,7 @@
 		"images/tabmusic-sheet0.png",
 		"images/tabsoundfx-sheet0.png",
 		"images/tabart-sheet0.png",
+		"images/tabbackgrounds-sheet0.png",
 		"images/darkenoverlay-sheet0.png",
 		"media/card.m4a",
 		"media/card.ogg",
