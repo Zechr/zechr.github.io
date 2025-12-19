@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1765786164,
+	"version": 1766124105,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -54,6 +54,7 @@
 		"images/stagesbg-sheet6.png",
 		"images/stagesbg-sheet7.png",
 		"images/stagesbg-sheet8.png",
+		"images/stageindictator-sheet0.png",
 		"images/cardframe-sheet0.png",
 		"images/cardimage-sheet0.png",
 		"images/cardimage-sheet1.png",
