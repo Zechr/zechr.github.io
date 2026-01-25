@@ -1,7 +1,7 @@
 {
     "c2array": true,
     "size": [
-        18,
+        22,
         5,
         1
     ],
@@ -122,7 +122,7 @@
                 "Memory Talisman"
             ],
             [
-                "Retrigger all non-Talisman effects."
+                "Retrigger all non-Stamp effects."
             ]
         ],
         [
@@ -310,6 +310,74 @@
             ],
             [
                 "+0.25 mult for each card with the same suit in this card's row and column."
+            ]
+        ],
+        [
+            [
+                18
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Asymmetry Card"
+            ],
+            [
+                "+0.15 mult for each odd card in this card's row and column."
+            ]
+        ],
+        [
+            [
+                19
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Symmetry Card"
+            ],
+            [
+                "+0.15 mult for each even card in this card's row and column."
+            ]
+        ],
+        [
+            [
+                20
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Cheat Card"
+            ],
+            [
+                "This card ignores all placement restrictions."
+            ]
+        ],
+        [
+            [
+                21
+            ],
+            [
+                "CardType"
+            ],
+            [
+                "Rare"
+            ],
+            [
+                "Virus Card"
+            ],
+            [
+                "Spread this card's non-card-type cosmetics to adjacent cards."
             ]
         ]
     ]
