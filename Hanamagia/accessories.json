@@ -1,7 +1,7 @@
 {
     "c2array": true,
     "size": [
-        22,
+        25,
         5,
         1
     ],
@@ -378,6 +378,57 @@
             ],
             [
                 "Spread this card's non-card-type cosmetics to adjacent cards."
+            ]
+        ],
+        [
+            [
+                22
+            ],
+            [
+                "Foil"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Bronze"
+            ],
+            [
+                "+$1 x mult, rounded up."
+            ]
+        ],
+        [
+            [
+                23
+            ],
+            [
+                "Foil"
+            ],
+            [
+                "Common"
+            ],
+            [
+                "Crystal"
+            ],
+            [
+                "+0.25 mult when a card is played within 1 square."
+            ]
+        ],
+        [
+            [
+                24
+            ],
+            [
+                "Foil"
+            ],
+            [
+                "Uncommon"
+            ],
+            [
+                "Mirror"
+            ],
+            [
+                "(1/Turn) Retrigger the card type effect."
             ]
         ]
     ]

@@ -26261,6 +26261,8 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Arr.prototype.acts.Clear,
 	cr.plugins_.Arr.prototype.acts.SetX,
 	cr.behaviors.Fade.prototype.acts.SetWaitTime,
+	cr.system_object.prototype.exps.ceil,
+	cr.system_object.prototype.exps.abs,
 	cr.system_object.prototype.exps.max,
 	cr.plugins_.Dictionary.prototype.acts.SetKey,
 	cr.plugins_.Sprite.prototype.acts.RotateClockwise,
@@ -26283,7 +26285,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Keyboard.prototype.cnds.OnKey,
 	cr.plugins_.Text.prototype.acts.SetInstanceVar,
 	cr.plugins_.Sprite.prototype.acts.SetMirrored,
-	cr.system_object.prototype.exps.abs,
 	cr.behaviors.DragnDrop.prototype.acts.SetEnabled,
 	cr.behaviors.DragnDrop.prototype.cnds.OnDrop,
 	cr.plugins_.Text.prototype.acts.SetVisible,
@@ -26298,7 +26299,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Arr.prototype.exps.AsJSON,
 	cr.plugins_.Audio.prototype.acts.PlayByName,
 	cr.plugins_.Sprite.prototype.exps.AnimationName,
-	cr.system_object.prototype.exps.ceil,
 	cr.plugins_.Sprite.prototype.cnds.IsOnScreen,
 	cr.plugins_.Dictionary.prototype.exps.AsJSON
 ];};
