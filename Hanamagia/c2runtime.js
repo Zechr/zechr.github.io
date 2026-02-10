@@ -26126,6 +26126,10 @@ cr.behaviors.destroy = function(runtime)
 	};
 }());
 cr.getObjectRefTable = function () { return [
+	cr.plugins_.AJAX,
+	cr.plugins_.Arr,
+	cr.plugins_.Audio,
+	cr.plugins_.Dictionary,
 	cr.plugins_.Function,
 	cr.plugins_.hmmg_layoutTransition_v2,
 	cr.plugins_.Keyboard,
@@ -26133,10 +26137,6 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Sprite,
 	cr.plugins_.Text,
 	cr.plugins_.Touch,
-	cr.plugins_.AJAX,
-	cr.plugins_.Arr,
-	cr.plugins_.Audio,
-	cr.plugins_.Dictionary,
 	cr.behaviors.custom,
 	cr.behaviors.Fade,
 	cr.behaviors.EightDir,
