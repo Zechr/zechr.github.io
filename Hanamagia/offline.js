@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1770700454,
+	"version": 1773636886,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -226,6 +226,8 @@
 		"media/21 terms of electrons.ogg",
 		"media/bossbattle-moderntheme.m4a",
 		"media/bossbattle-moderntheme.ogg",
+		"media/stages_chiptune.m4a",
+		"media/stages_chiptune.ogg",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
