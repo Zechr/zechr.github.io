@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1773640202,
+	"version": 1773792953,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -228,6 +228,10 @@
 		"media/bossbattle-moderntheme.ogg",
 		"media/stages_chiptune.m4a",
 		"media/stages_chiptune.ogg",
+		"media/booster_pack_chiptune.m4a",
+		"media/booster_pack_chiptune.ogg",
+		"media/shop_chiptune.m4a",
+		"media/shop_chiptune.ogg",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
