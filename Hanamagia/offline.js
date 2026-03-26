@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1773980651,
+	"version": 1774491642,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -9,6 +9,7 @@
 		"images/newrunbutton-sheet0.png",
 		"images/mainscreenbg-sheet0.png",
 		"images/mainscreenbg-sheet1.png",
+		"images/mainscreenbg-sheet2.png",
 		"images/title-sheet0.png",
 		"images/cardbacktwisted-sheet0.png",
 		"images/achievementsbutton-sheet0.png",
@@ -135,6 +136,7 @@
 		"images/eventbackground-sheet5.png",
 		"images/eventbackground-sheet6.png",
 		"images/eventbackground-sheet7.png",
+		"images/eventbackground-sheet8.png",
 		"images/maintextbox-sheet0.png",
 		"images/eventsprite-sheet0.png",
 		"images/eventsprite-sheet1.png",
