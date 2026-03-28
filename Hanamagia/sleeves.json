@@ -1,7 +1,7 @@
 {
     "c2array": true,
     "size": [
-        31,
+        37,
         3,
         1
     ],
@@ -245,7 +245,7 @@
                 "Edge of Death"
             ],
             [
-                "When this card moves on or between the field and discard pile, +300 points."
+                "When this card moves on or between the field and discard pile by effect, +300 points."
             ]
         ],
         [
@@ -344,7 +344,73 @@
                 "Atom Bomb"
             ],
             [
-                "Discard all other cards on the field. Their squares become void."
+                "Discard all other cards on the field. Their squares become void. +1 mult for each card discarded."
+            ]
+        ],
+        [
+            [
+                31
+            ],
+            [
+                "Tag In"
+            ],
+            [
+                "(1/Turn) Swap 1 other card on the field with 1 card in your hand."
+            ]
+        ],
+        [
+            [
+                32
+            ],
+            [
+                "Rug Pull"
+            ],
+            [
+                "Discard 1 card from your hand, then put it back into your hand."
+            ]
+        ],
+        [
+            [
+                33
+            ],
+            [
+                "Thrifter"
+            ],
+            [
+                "+0.5 mult for each starter / common item you have."
+            ]
+        ],
+        [
+            [
+                34
+            ],
+            [
+                "Golden Parachute"
+            ],
+            [
+                "When this card leaves the field, x3 mult."
+            ]
+        ],
+        [
+            [
+                35
+            ],
+            [
+                "Hikkikomori"
+            ],
+            [
+                "+1 mult for each square in this card's row or column this card can't move to."
+            ]
+        ],
+        [
+            [
+                36
+            ],
+            [
+                "Overclock"
+            ],
+            [
+                "(1/Turn) Trigger your items again."
             ]
         ]
     ]

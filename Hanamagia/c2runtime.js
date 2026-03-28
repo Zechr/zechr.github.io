@@ -26134,9 +26134,9 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.hmmg_layoutTransition_v2,
 	cr.plugins_.Keyboard,
 	cr.plugins_.LocalStorage,
-	cr.plugins_.Sprite,
 	cr.plugins_.Touch,
 	cr.plugins_.Text,
+	cr.plugins_.Sprite,
 	cr.behaviors.custom,
 	cr.behaviors.Fade,
 	cr.behaviors.EightDir,
@@ -26300,6 +26300,7 @@ cr.getObjectRefTable = function () { return [
 	cr.plugins_.Audio.prototype.acts.PlayByName,
 	cr.plugins_.Sprite.prototype.exps.AnimationName,
 	cr.plugins_.Sprite.prototype.cnds.IsOnScreen,
+	cr.plugins_.Text.prototype.acts.SetSize,
 	cr.plugins_.Text.prototype.cnds.IsBoolInstanceVarSet,
 	cr.plugins_.Text.prototype.acts.SetBoolInstanceVar,
 	cr.plugins_.Dictionary.prototype.exps.AsJSON

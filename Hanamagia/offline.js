@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1774498249,
+	"version": 1774737198,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -64,8 +64,6 @@
 		"images/cardfoil-sheet0.png",
 		"images/rankicon-sheet0.png",
 		"images/sleevetext-sheet0.png",
-		"images/sleevetext-sheet1.png",
-		"images/sleevetext-sheet2.png",
 		"images/stampicon-sheet0.png",
 		"images/stampicon-sheet1.png",
 		"images/suiticon-sheet0.png",
