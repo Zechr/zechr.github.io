@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1774932375,
+	"version": 1775707026,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -232,6 +232,12 @@
 		"media/booster_pack_chiptune.ogg",
 		"media/shop_chiptune.m4a",
 		"media/shop_chiptune.ogg",
+		"media/card-type-sound.m4a",
+		"media/card-type-sound.ogg",
+		"media/foil.m4a",
+		"media/foil.ogg",
+		"media/stamp-click.m4a",
+		"media/stamp-click.ogg",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
