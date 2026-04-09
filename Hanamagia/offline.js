@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1775707026,
+	"version": 1775711661,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -238,6 +238,8 @@
 		"media/foil.ogg",
 		"media/stamp-click.m4a",
 		"media/stamp-click.ogg",
+		"media/stamp-click2.m4a",
+		"media/stamp-click2.ogg",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
