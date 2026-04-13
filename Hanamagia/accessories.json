@@ -85,7 +85,7 @@
                 "Common"
             ],
             [
-                "Growth Talisman"
+                "Growth Stamp"
             ],
             [
                 "Level up 1 random combo."
@@ -102,7 +102,7 @@
                 "Uncommon"
             ],
             [
-                "Wealth Talisman"
+                "Wealth Stamp"
             ],
             [
                 "+0.05 mult for each $1 you have."
@@ -119,7 +119,7 @@
                 "Rare"
             ],
             [
-                "Memory Talisman"
+                "Memory Stamp"
             ],
             [
                 "Retrigger all non-Stamp effects."
@@ -238,7 +238,7 @@
                 "Common"
             ],
             [
-                "Draw Talisman"
+                "Draw Stamp"
             ],
             [
                 "Draw 1 card."
@@ -255,7 +255,7 @@
                 "Common"
             ],
             [
-                "Prime Talisman"
+                "Prime Stamp"
             ],
             [
                 "+0.15 mult for each prime number card on the field."
@@ -272,7 +272,7 @@
                 "Uncommon"
             ],
             [
-                "Balanced Talisman"
+                "Balanced Stamp"
             ],
             [
                 "+0.25 mult and +25 points."
@@ -377,7 +377,7 @@
                 "Virus Card"
             ],
             [
-                "Spread this card's non-card-type cosmetics to adjacent cards."
+                "+0.4 mult. Spread this card's non-card-type upgrades to adjacent cards."
             ]
         ],
         [
