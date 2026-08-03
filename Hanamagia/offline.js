@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1780988924,
+	"version": 1785732986,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -75,6 +75,14 @@
 		"images/tutorialcover-sheet2.png",
 		"images/tutorialcover-sheet3.png",
 		"images/tutorialcover-sheet4.png",
+		"images/battlebgtiledalice.png",
+		"images/battlebgtiledkaren.png",
+		"images/battlebgtiledluna.png",
+		"images/battlebgtiledravi.png",
+		"images/battlebgtiledtiffany.png",
+		"images/battlebgtiledmona.png",
+		"images/battlebgtiledwendy.png",
+		"images/battlebgtiledthefirstwitch.png",
 		"images/cardfield-sheet0.png",
 		"images/fieldrestriction-sheet0.png",
 		"images/cancelcardselectbutton-sheet0.png",
