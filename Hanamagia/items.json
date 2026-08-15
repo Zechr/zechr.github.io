@@ -2,11 +2,14 @@
     "c2array": true,
     "size": [
         50,
-        5,
+        6,
         1
     ],
     "data": [
         [
+            [
+                0
+            ],
             [
                 0
             ],
@@ -38,6 +41,9 @@
             ],
             [
                 "Starting hand size +1."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -55,6 +61,9 @@
             ],
             [
                 "Start with $10."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -72,6 +81,9 @@
             ],
             [
                 "x1.25 mult."
+            ],
+            [
+                "multiplier_chime"
             ]
         ],
         [
@@ -89,6 +101,9 @@
             ],
             [
                 "Whenever you buy, put a counter on this. +0.1 mult for each counter on this."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -106,6 +121,9 @@
             ],
             [
                 "The starting deck contains only Summer and Winter cards."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -123,6 +141,9 @@
             ],
             [
                 "The first time the board is full each battle, discard the last card played."
+            ],
+            [
+                "multiplier_chime"
             ]
         ],
         [
@@ -140,6 +161,9 @@
             ],
             [
                 "Copy the effect of the item to the right."
+            ],
+            [
+                "multiplier_chime"
             ]
         ],
         [
@@ -157,6 +181,9 @@
             ],
             [
                 "Whenever you score an even card, +10 points."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -174,6 +201,9 @@
             ],
             [
                 "Whenever you score an odd card, +0.1 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -191,6 +221,9 @@
             ],
             [
                 "Whenever you score a 6 or lower rank card, +10 points."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -208,6 +241,9 @@
             ],
             [
                 "Whenever you score a 7 or higher rank card, +0.1 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -225,6 +261,9 @@
             ],
             [
                 "Whenever you score a Spring card, +10 points and +0.1 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -242,6 +281,9 @@
             ],
             [
                 "Whenever you score a Summer card, +10 points and +0.1 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -259,6 +301,9 @@
             ],
             [
                 "Whenever you score a Fall card, +10 points and +0.1 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -276,6 +321,9 @@
             ],
             [
                 "Whenever you score a Winter card, +10 points and +0.1 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -293,6 +341,9 @@
             ],
             [
                 "+0.25 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -310,6 +361,9 @@
             ],
             [
                 "If you play a Welfare card, +mult equal to your money divided by 10."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -327,6 +381,9 @@
             ],
             [
                 "Whenever you score a Bonus card, +0.25 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -344,6 +401,9 @@
             ],
             [
                 "Whenever you trigger a Lottery card's random effect, put a counter on this. +0.5 mult for each counter on this."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -361,6 +421,9 @@
             ],
             [
                 "+80 points and +0.4 mult for each Post Card on the field."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -378,6 +441,9 @@
             ],
             [
                 "If you play a Membership card, adjacent cards become Membership cards.\\n+25 points for each Membership card on the field."
+            ],
+            [
+                "multiplier_chime"
             ]
         ],
         [
@@ -395,6 +461,9 @@
             ],
             [
                 "Whenever you score a Foil card, gain $2."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -412,6 +481,9 @@
             ],
             [
                 "Whenever you score a Stamp card, gain $1, +15 points, and +0.15 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -429,6 +501,9 @@
             ],
             [
                 "Whenever you win a battle, gain $6."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -446,6 +521,9 @@
             ],
             [
                 "Whenever you level up a combo, put a counter on this. +0.1 mult for each counter on this."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -463,6 +541,9 @@
             ],
             [
                 "Whenever you discard a card, put a counter on this. +0.1 mult for each counter on this."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -480,6 +561,9 @@
             ],
             [
                 "Whenever you score exactly 2 cards, put a counter on this. +5 points for each counter on this."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -497,6 +581,9 @@
             ],
             [
                 "x1.25 mult for each Uncommon item you have."
+            ],
+            [
+                "multiplier_chime"
             ]
         ],
         [
@@ -514,6 +601,9 @@
             ],
             [
                 "x3 mult when the board is full."
+            ],
+            [
+                "multiplier_chime"
             ]
         ],
         [
@@ -531,6 +621,9 @@
             ],
             [
                 "Whenever you play a card that does not share a suit with adjacent cards, x1.5 mult."
+            ],
+            [
+                "multiplier_chime"
             ]
         ],
         [
@@ -548,6 +641,9 @@
             ],
             [
                 "Rerolls in the shop are fixed at $1."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -565,6 +661,9 @@
             ],
             [
                 "Whenever you score a prime number rank card, +10 points and +0.1 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -582,6 +681,9 @@
             ],
             [
                 "+25 points."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -599,6 +701,9 @@
             ],
             [
                 "Increase foil card bonuses by 50%."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -616,6 +721,9 @@
             ],
             [
                 "+0.1 mult for each other item you have."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -633,6 +741,9 @@
             ],
             [
                 "All shop items are discounted by $1."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -650,6 +761,9 @@
             ],
             [
                 "+0.1 mult for each unique title on the field."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -667,6 +781,9 @@
             ],
             [
                 "+0.2 mult for each empty item slot, including this."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -684,6 +801,9 @@
             ],
             [
                 "x mult equal to the number of cards you've played this turn."
+            ],
+            [
+                "multiplier_chime"
             ]
         ],
         [
@@ -700,7 +820,10 @@
                 "Common"
             ],
             [
-                "+0.15 mult for each card you've drawn this turn."
+                "+0.2 mult for each card you've drawn this turn."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -717,7 +840,10 @@
                 "Common"
             ],
             [
-                "+0.2 mult for each card in your discard pile."
+                "+0.4 mult for each card in your discard pile."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -735,6 +861,9 @@
             ],
             [
                 "+mult, a random number between 0 and 1."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -752,6 +881,9 @@
             ],
             [
                 "If you play a Business card, +50 points for each Business card on the field."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -769,6 +901,9 @@
             ],
             [
                 "If you level up a combo, level it up twice as much instead."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -786,6 +921,9 @@
             ],
             [
                 "You may form flushes and straights even with just 2 cards."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -803,6 +941,9 @@
             ],
             [
                 "+0.5 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -820,6 +961,9 @@
             ],
             [
                 "+50 points."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -837,6 +981,9 @@
             ],
             [
                 "If there are 3 unique suits in the row or col, +100 points and +1 mult."
+            ],
+            [
+                "effect-ding"
             ]
         ],
         [
@@ -854,6 +1001,9 @@
             ],
             [
                 "If the sum of the ranks of the row and col are equal, x2 mult."
+            ],
+            [
+                "multiplier_chime"
             ]
         ]
     ]
