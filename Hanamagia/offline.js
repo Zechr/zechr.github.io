@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1786770866,
+	"version": 1786923799,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -152,6 +152,7 @@
 		"images/choice2-sheet0.png",
 		"images/textboxinteractionindicator-sheet0.png",
 		"images/skipbutton-sheet0.png",
+		"images/eventchoicebox-sheet0.png",
 		"images/achievementbar-sheet0.png",
 		"images/achievementstatus-sheet0.png",
 		"images/achievementstatus-sheet1.png",

@@ -1,7 +1,7 @@
 {
     "c2array": true,
     "size": [
-        11,
+        21,
         10,
         3
     ],
@@ -75,7 +75,7 @@
                 0
             ],
             [
-                "Gain $20.",
+                "Gain $15.",
                 0,
                 0
             ],
@@ -117,7 +117,7 @@
                 0
             ],
             [
-                "Free pack day",
+                "Free Pack Day",
                 0,
                 0
             ],
@@ -127,18 +127,13 @@
                 0
             ],
             [
-                "Gain 1 random booster pack.",
+                "Gain 1 booster pack.",
                 0,
                 0
             ],
             [
                 "set_bg",
                 "teahouse",
-                ""
-            ],
-            [
-                "create_char",
-                "tea_waitress",
                 ""
             ],
             [
@@ -160,6 +155,11 @@
                 "set_text_terminal",
                 "Come again anytime!",
                 ""
+            ],
+            [
+                "",
+                "",
+                ""
             ]
         ],
         [
@@ -169,7 +169,7 @@
                 0
             ],
             [
-                "Toy maker",
+                "Toy Maker",
                 0,
                 0
             ],
@@ -185,12 +185,7 @@
             ],
             [
                 "set_bg",
-                "shop",
-                ""
-            ],
-            [
-                "create_char",
-                "toy_maker",
+                "laboratory",
                 ""
             ],
             [
@@ -212,6 +207,11 @@
                 "set_text_terminal",
                 "Let me know how you like it!",
                 ""
+            ],
+            [
+                "",
+                "",
+                ""
             ]
         ],
         [
@@ -221,7 +221,7 @@
                 0
             ],
             [
-                "Last minute cramming",
+                "Cram Session",
                 0,
                 0
             ],
@@ -273,7 +273,7 @@
                 0
             ],
             [
-                "Treasure chest.",
+                "Treasure Chest",
                 0,
                 0
             ],
@@ -290,11 +290,6 @@
             [
                 "set_bg",
                 "treasure_cave",
-                ""
-            ],
-            [
-                "create_char",
-                "treasure_chest",
                 ""
             ],
             [
@@ -316,6 +311,11 @@
                 "set_text_terminal",
                 "You got an item! You leave the item chest behind.",
                 ""
+            ],
+            [
+                "",
+                "",
+                ""
             ]
         ],
         [
@@ -325,7 +325,7 @@
                 0
             ],
             [
-                "Combo master",
+                "Workout",
                 0,
                 0
             ],
@@ -335,7 +335,7 @@
                 0
             ],
             [
-                "Upgrade a combo of your choice 3 levels.",
+                "Upgrade a combo of your choice 2 levels.",
                 0,
                 0
             ],
@@ -501,11 +501,6 @@
                 ""
             ],
             [
-                "create_char",
-                "shrine_maiden",
-                ""
-            ],
-            [
                 "set_text_manual",
                 "Shrine Maiden: The spirits crave change. Would you like to experience it? (Convert the first card chosen into the second card)",
                 ""
@@ -518,6 +513,11 @@
             [
                 "set_text_terminal",
                 "Shrine Maiden: Fufufu. I hope you like it.",
+                ""
+            ],
+            [
+                "",
+                "",
                 ""
             ],
             [
@@ -570,6 +570,526 @@
             [
                 "",
                 "",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ]
+        ],
+        [
+            [
+                11,
+                0,
+                0
+            ],
+            [
+                "Viral Trend",
+                0,
+                0
+            ],
+            [
+                "Common",
+                0,
+                0
+            ],
+            [
+                "Copy each cosmetic on 1 card to up to 3 random cards.",
+                0,
+                0
+            ],
+            [
+                "set_bg",
+                "tiffany_pattern",
+                ""
+            ],
+            [
+                "set_text_manual",
+                "Your photo went viral on social media. Choose 1 card. Its cosmetics spread to up to 3 random cards.",
+                ""
+            ],
+            [
+                "special",
+                "",
+                ""
+            ],
+            [
+                "set_text_terminal",
+                "You got lots of likes!",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ]
+        ],
+        [
+            [
+                12,
+                0,
+                0
+            ],
+            [
+                "Grading",
+                0,
+                0
+            ],
+            [
+                "Common",
+                0,
+                0
+            ],
+            [
+                "Apply a random foil to 1 card.",
+                0,
+                0
+            ],
+            [
+                "set_bg",
+                "shopping_district",
+                ""
+            ],
+            [
+                "set_text_manual",
+                "You go to get your card graded at a shop. Choose 1 card. It gets a random foil.",
+                ""
+            ],
+            [
+                "special",
+                "",
+                ""
+            ],
+            [
+                "set_text_terminal",
+                "Shiny.",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ]
+        ],
+        [
+            [
+                13,
+                0,
+                0
+            ],
+            [
+                "Welfare App",
+                0,
+                0
+            ],
+            [
+                "Common",
+                0,
+                0
+            ],
+            [
+                "2 cards become Welfare cards.",
+                0,
+                0
+            ],
+            [
+                "set_bg",
+                "shopping_district",
+                ""
+            ],
+            [
+                "set_text_manual",
+                "You apply for welfare. Choose 2 cards. They become welfare cards.",
+                ""
+            ],
+            [
+                "special",
+                "",
+                ""
+            ],
+            [
+                "set_text_terminal",
+                "Your application was approved. Next!",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ]
+        ],
+        [
+            [
+                14,
+                0,
+                0
+            ],
+            [
+                "Subscription",
+                0,
+                0
+            ],
+            [
+                "Common",
+                0,
+                0
+            ],
+            [
+                "2 cards become Membership cards.",
+                0,
+                0
+            ],
+            [
+                "set_bg",
+                "shopping_district",
+                ""
+            ],
+            [
+                "set_text_manual",
+                "You sign up for a subscription to a club. Choose 2 cards. They become Membership cards.",
+                ""
+            ],
+            [
+                "special",
+                "",
+                ""
+            ],
+            [
+                "set_text_terminal",
+                "Welcome to the club!",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ]
+        ],
+        [
+            [
+                15,
+                0,
+                0
+            ],
+            [
+                "Mail-In Coupons",
+                0,
+                0
+            ],
+            [
+                "Common",
+                0,
+                0
+            ],
+            [
+                "2 cards become Bonus cards.",
+                0,
+                0
+            ],
+            [
+                "set_bg",
+                "shopping_district",
+                ""
+            ],
+            [
+                "set_text_manual",
+                "You've eaten enough cereal to mail in some coupons for a bonus. Choose 2 cards. They become Bonus cards.",
+                ""
+            ],
+            [
+                "special",
+                "",
+                ""
+            ],
+            [
+                "set_text_terminal",
+                "Got your bonus in the mail.",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ]
+        ],
+        [
+            [
+                16,
+                0,
+                0
+            ],
+            [
+                "Gas Station Prayers",
+                0,
+                0
+            ],
+            [
+                "Common",
+                0,
+                0
+            ],
+            [
+                "2 cards become Lottery cards.",
+                0,
+                0
+            ],
+            [
+                "set_bg",
+                "shopping_district",
+                ""
+            ],
+            [
+                "set_text_manual",
+                "You pray for good luck at the gas station convenience store. Choose 2 cards. They become Lottery cards.",
+                ""
+            ],
+            [
+                "special",
+                "",
+                ""
+            ],
+            [
+                "set_text_terminal",
+                "Hopefully you win.",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ]
+        ],
+        [
+            [
+                17,
+                0,
+                0
+            ],
+            [
+                "Gachapon",
+                0,
+                0
+            ],
+            [
+                "Uncommon",
+                0,
+                0
+            ],
+            [
+                "Choose 1 of 3 random items.",
+                0,
+                0
+            ],
+            [
+                "set_bg",
+                "shopping_district",
+                ""
+            ],
+            [
+                "set_text_manual",
+                "You spin the gachapon at the arcade. Choose 1 of 3 random items.",
+                ""
+            ],
+            [
+                "special",
+                "",
+                ""
+            ],
+            [
+                "play_sound",
+                "item_obtained",
+                ""
+            ],
+            [
+                "set_text_terminal",
+                "Got an item!",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ]
+        ],
+        [
+            [
+                18,
+                0,
+                0
+            ],
+            [
+                "Souvenir Shop",
+                0,
+                0
+            ],
+            [
+                "Uncommon",
+                0,
+                0
+            ],
+            [
+                "2 cards become Post cards.",
+                0,
+                0
+            ],
+            [
+                "set_bg",
+                "shopping_district",
+                ""
+            ],
+            [
+                "set_text_manual",
+                "You want to share your vacation memories and visit a souvenir shop. Choose 2 cards. They become Post cards.",
+                ""
+            ],
+            [
+                "special",
+                "",
+                ""
+            ],
+            [
+                "set_text_terminal",
+                "Your relatives will be delighted.",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ]
+        ],
+        [
+            [
+                19,
+                0,
+                0
+            ],
+            [
+                "Photo Booth",
+                0,
+                0
+            ],
+            [
+                "Uncommon",
+                0,
+                0
+            ],
+            [
+                "Add a Memory Talisman to 1 card.",
+                0,
+                0
+            ],
+            [
+                "set_bg",
+                "shopping_district",
+                ""
+            ],
+            [
+                "set_text_manual",
+                "You spot a photo booth. Time to make memories with that special someone. Choose 1 card. Add a Memory Talisman to it.",
+                ""
+            ],
+            [
+                "special",
+                "",
+                ""
+            ],
+            [
+                "set_text_terminal",
+                "You'll treasure this memory.",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ],
+            [
+                "",
+                "",
+                ""
+            ]
+        ],
+        [
+            [
+                20,
+                0,
+                0
+            ],
+            [
+                "Key Mold",
+                0,
+                0
+            ],
+            [
+                "Rare",
+                0,
+                0
+            ],
+            [
+                "Duplicate 1 item.",
+                0,
+                0
+            ],
+            [
+                "set_bg",
+                "laboratory",
+                ""
+            ],
+            [
+                "set_text_manual",
+                "You take your mold of a key to a sketchy shop. Duplicate 1 item.",
+                ""
+            ],
+            [
+                "special",
+                "",
+                ""
+            ],
+            [
+                "play_sound",
+                "item_obtained",
+                ""
+            ],
+            [
+                "set_text_terminal",
+                "You walk away into the alley satisfied.",
                 ""
             ],
             [
